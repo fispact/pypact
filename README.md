@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/fispact/pypact.svg?branch=master)](https://travis-ci.org/fispact/pypact)
+[![Code Coverage](https://codecov.io/gh/fispact/pypact/branch/master/graph/badge.svg)](https://codecov.io/gh/fispact/pypact)
+
 [![PyPI](https://img.shields.io/pypi/v/pypact.svg)](https://pypi.python.org/pypi/pypact)
 [![PyPI](https://img.shields.io/pypi/wheel/pypact.svg)](https://pypi.python.org/pypi/pypact)
 [![PyPI](https://img.shields.io/pypi/format/pypact.svg)](https://pypi.python.org/pypi/pypact)

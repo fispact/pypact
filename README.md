@@ -1,3 +1,4 @@
+[![Build status](https://travis-ci.org/fispact/pypact.svg?branch=master)](https://github.com/fispact/pypact/commits/master)
 
 # Pypact
 ### Making FISPACT-II output easier to parse, with Python 3

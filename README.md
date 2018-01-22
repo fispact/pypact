@@ -1,4 +1,8 @@
-[![Build status](https://travis-ci.org/fispact/pypact.svg?branch=master)](https://github.com/fispact/pypact/commits/master)
+[![Build Status](https://travis-ci.org/fispact/pypact.svg?branch=master)](https://travis-ci.org/fispact/pypact)
+[![PyPI](https://img.shields.io/pypi/v/pypact.svg)](https://pypi.python.org/pypi/pypact)
+[![PyPI](https://img.shields.io/pypi/wheel/pypact.svg)](https://pypi.python.org/pypi/pypact)
+[![PyPI](https://img.shields.io/pypi/format/pypact.svg)](https://pypi.python.org/pypi/pypact)
+[![License](https://img.shields.io/pypi/l/pypact.svg)](https://github.com/fispact/pypact/blob/master/LICENSE)
 
 # Pypact
 ### Making FISPACT-II output easier to parse, with Python 3

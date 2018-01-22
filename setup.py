@@ -6,7 +6,7 @@ setup(name='pypact',
       url='https://github.com/fispact/pypact',
       author='UKAEA',
       author_email='thomas.stainer@ukaea.uk',
-      license='MIT',
+      license='Apache License 2.0',
       packages=[
             'pypact.analysis',
             'pypact.tools',

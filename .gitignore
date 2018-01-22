@@ -1,0 +1,10 @@
+.pyc
+.idea
+.cache
+.DS_Store
+
+__pycache__
+pypact.egg-info
+
+build
+dist

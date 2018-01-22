@@ -3,6 +3,8 @@
 .cache
 .DS_Store
 
+.coverage
+
 __pycache__
 pypact.egg-info
 

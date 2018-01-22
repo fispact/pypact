@@ -11,4 +11,9 @@ from pypact.tests.output.nuclidestest import NuclidesUnitTest
 from pypact.tests.output.timesteptest import TimeStepUnitTest
 from pypact.tests.output.outputtest import OutputUnitTest
 
-unittest.TextTestRunner(verbosity=3).run(unittest.TestSuite())
+def main():
+    unittest.TextTestRunner(verbosity=3).run(unittest.TestSuite())
+
+
+if __name__ == '__main__':
+    unittest.main()

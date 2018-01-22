@@ -1,0 +1,20 @@
+language: python
+python:
+  - "3.4"
+  - "3.5"
+  - "3.6"
+  # PyPy versions
+  - "pypy"   # PyPy2 5.8.0
+# command to install dependencies
+install:
+  - pip install pytest-cov pylint
+# command to run tests
+before_script:
+  - export PYPACT=$PWD
+  - export PYTHONPATH=$PYTHONPATH:$PYPACT/pypact
+script:
+  - pip3 install -e $PYPACT
+  - python3 $PYPACT/setup.py test
+  - pytest --cov-report html:coverage --cov=pypact $PYPACT/pypact/tests/testsuite.py
+  - pylint -j4 $PYPACT/pypact --rcfile=$PYPACT/.pylintrc || true
+  - fispactconverter.py -h

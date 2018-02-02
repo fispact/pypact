@@ -1,0 +1,147 @@
+{
+  "type": "object",
+  "properties": {
+    "run_data": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "unit": ""
+        },
+        "run_name": {
+          "type": "string",
+          "unit": ""
+        },
+        "flux_name": {
+          "type": "string",
+          "unit": ""
+        }
+      }
+    },
+    "inventory_data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "irradiation_time": {
+            "type": "number",
+            "unit": "s"
+          },
+          "cooling_time": {
+            "type": "number",
+            "unit": "s"
+          },
+          "flux": {
+            "type": "number",
+            "unit": "cm-2 s-1"
+          },
+          "total_heat": {
+            "type": "number",
+            "unit": "kW"
+          },
+          "alpha_heat": {
+            "type": "number",
+            "unit": "kW"
+          },
+          "beta_heat": {
+            "type": "number",
+            "unit": "kW"
+          },
+          "gamma_heat": {
+            "type": "number",
+            "unit": "kW"
+          },
+          "ingestion_dose": {
+            "type": "number",
+            "unit": "Sv kg-1"
+          },
+          "inhalation_dose": {
+            "type": "number",
+            "unit": "Sv kg-1"
+          },
+          "dose_rate": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "unit": ""
+              },
+              "distance": {
+                "type": "string",
+                "unit": "m"
+              },
+              "mass": {
+                "type": "string",
+                "unit": "kg"
+              },
+              "dose": {
+                "type": "string",
+                "unit": "Sv hr-1"
+              }
+            }
+          },
+          "nuclides": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "element": {
+                  "type": "string",
+                  "unit": ""
+                },
+                "isotope": {
+                  "type": "number",
+                  "unit": ""
+                },
+                "state": {
+                  "type": "string",
+                  "unit": ""
+                },
+                "half_life": {
+                  "type": "number",
+                  "unit": "s"
+                },
+                "grams": {
+                  "type": "number",
+                  "unit": "g"
+                },
+                "activity": {
+                  "type": "number",
+                  "unit": "Bq"
+                },
+                "heat": {
+                  "type": "number",
+                  "unit": "kW"
+                },
+                "alpha_heat": {
+                  "type": "number",
+                  "unit": "kW"
+                },
+                "beta_heat": {
+                  "type": "number",
+                  "unit": "kW"
+                },
+                "gamma_heat": {
+                  "type": "number",
+                  "unit": "kW"
+                },
+                "dose": {
+                  "type": "number",
+                  "unit": "Sv hr-1"
+                },
+                "ingestion": {
+                  "type": "number",
+                  "unit": "Sv"
+                },
+                "inhalation": {
+                  "type": "number",
+                  "unit": "Sv"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

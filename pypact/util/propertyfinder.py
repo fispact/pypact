@@ -76,7 +76,7 @@ def first(datadump, headertag, starttag, endtag='', ignores=[], asstring=True):
 
 def last(datadump, headertag, starttag, endtag='', ignores=[], asstring=True):
     """
-    Get the first occurrence of the linetag within the last headertag.
+    Get the last occurrence of the linetag within the last headertag.
 
     Parameters
     ----------

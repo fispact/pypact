@@ -1,12 +1,12 @@
 import os
-from pypact.tests.testerbase import Tester
+from pypact.tests.testerbase import Tester, REFERENCE_DIR
 import pypact.util.propertyfinder as pf
 from pypact.util.file import content_as_str
 
 
 class PropertyFinderUnitTest(Tester):
     def setUp(self):
-        self.base_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../reference')
+        self.base_dir = os.path.join(REFERENCE_DIR)
         self.filename_test91out = os.path.join(self.base_dir, "test91.out")
         self.file_as_string = content_as_str(self.filename_test91out)
 

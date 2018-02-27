@@ -1,11 +1,12 @@
 import unittest
 import os
+from pypact.tests.testerbase import REFERENCE_DIR
 from pypact.util.file import *
 
 
 class FileUnitTest(unittest.TestCase):
     def setUp(self):
-        self.base_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../reference')
+        self.base_dir = os.path.join(REFERENCE_DIR)
         self.filename_test91out = os.path.join(self.base_dir, "test91.out")
         self.filename_test91json = os.path.join(self.base_dir, "test91.json")
         self.filename_nofile = os.path.join(self.base_dir, "thisfilecannotpossiblyexist.out")

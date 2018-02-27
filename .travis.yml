@@ -14,6 +14,7 @@ script:
   - python $PYPACT/setup.py test
   - coverage run $PYPACT/pypact/tests/testsuite.py
   - pylint -j4 $PYPACT/pypact --rcfile=$PYPACT/.pylintrc || true
-  - fispactconverter.py -h
+  - fispactconverter.py $PYPACT/reference/test31.out test31.json
+#  - diff test31.json $PYPACT/reference/test31.json
 after_success:
   - codecov

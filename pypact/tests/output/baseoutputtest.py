@@ -1,5 +1,5 @@
 import os
-from pypact.reader.filerecord import FileRecord
+from pypact.filerecord import FileRecord
 from pypact.tests.testerbase import Tester, REFERENCE_DIR
 
 

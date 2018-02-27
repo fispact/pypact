@@ -105,13 +105,11 @@ A much better way to use the package is to import the modules directly into your
 
 A simple example of how to read the output into memory is given below.
 ```python
-from pypact.reader.reader import Reader
-from pypact.output.output import Output
+from pypact.reader import Reader
 
 filename = "fispact_ii_run_output_file.out"
 
-reader = Reader()
-output = reader(filename)
+output = Reader()(filename)
 
 # do your analysis here
 ...
@@ -121,13 +119,11 @@ Some basic examples are given on how to intergoate the output.
 
 ##### <a name="print-run-name"></a>Print the run name
 ```python
-from pypact.reader.reader import Reader
-from pypact.output.output import Output
+from pypact.reader import Reader
 
 filename = "fispact_ii_run_output_file.out"
 
-reader = Reader()
-output = reader(filename)
+output = Reader()(filename)
 
 rd = output.run_data
 
@@ -136,13 +132,11 @@ print(rd.run_name)
 
 ##### <a name="loop-time-steps"></a>Loop over time steps
 ```python
-from pypact.reader.reader import Reader
-from pypact.output.output import Output
+from pypact.reader import Reader
 
 filename = "fispact_ii_run_output_file.out"
 
-reader = Reader()
-output = reader(filename)
+output = Reader()(filename)
 
 timesteps = output.inventory_data
 
@@ -155,13 +149,11 @@ for t in timesteps:
 
 ##### <a name="nuclide-number"></a>Number of nuclides
 ```python
-from pypact.reader.reader import Reader
-from pypact.output.output import Output
+from pypact.reader import Reader
 
 filename = "fispact_ii_run_output_file.out"
 
-reader = Reader()
-output = reader(filename)
+output = Reader()(filename)
 
 timesteps = output.inventory_data
 
@@ -172,18 +164,14 @@ for t in timesteps:
 ##### <a name="json-serialize"></a>JSON serialize
 The package is written such that every data object can be JSON serialized and deserialized, as well as FISPACT-II deserialized. Whether it be the whole **Output** object or just a dose at a given timestep, it can be parsed and written to JSON. An example showing this for the Run Data is given below.
 ```python
-from pypact.reader.filerecord import FileRecord
-from pypact.output.rundata import RunData
+from pypact.reader import Reader
 
 filename = "fispact_ii_run_output_file.out"
 
-fr = FileRecord(filename)
-
-rd = RunData()
-rd.fispact_deserialize(fr)
+output = Reader()(filename)
 
 # print JSON format to standard output
-print(rd.json_serialize())
+print(output.run_data.json_serialize())
 ```
 
 The output would then look like
@@ -197,7 +185,7 @@ The output would then look like
 
 Similarly this can be done for data in the inventory data, if the timestamp is known. For example, given timestamp 2 exists in the FISPACT-II output file, we can do the following.
 ```python
-from pypact.reader.filerecord import FileRecord
+from pypact.filerecord import FileRecord
 from pypact.output.doserate import DoseRate
 
 filename = "fispact_ii_run_output_file.out"
@@ -208,6 +196,17 @@ dr = DoseRate()
 dr.fispact_deserialize(fr, interval=2)
 
 # print JSON format to standard output
+print(dr.json_serialize())
+```
+
+Or it can be done even simpler, by:
+```python
+from pypact.filerecord import FileRecord
+
+filename = "fispact_ii_run_output_file.out"
+
+dr = Reader()(filename)[2].dose_rate
+
 print(dr.json_serialize())
 ```
 
@@ -223,21 +222,21 @@ The output would then look like
 
 ##### <a name="plotting"></a>Plotting
 An example script and some helper functions are included to show how some plots can be constructed using pypact.
-A nuclide library (in JSON format) exists containing the list of all isotopes, that is containing 118 elements from H to Og, and totalling to 3352 isotopes. These can be used in their entirety as a complete list using 'getallisotopes()' or can be filtered as the example below shows. Some plotting functions are added in the 'analysis.plotter' module and are also used in the script below.
+A nuclide library (in JSON format) exists containing the list of all isotopes, that is containing 118 elements from H to Og, and totaling to 3352 isotopes. These can be used in their entirety as a complete list using 'getallisotopes()' or can be filtered as the example below shows. Some plotting functions are added in the 'analysis.plotter' module and are also used in the script below.
 
-This example script is included in the package at 'pypact/analysis/examples/run_example_1.py'. Note that this is an example only and is to show how pypact can be used to help perform certain analyses.
+This example script is based on that in the package at 'pypact/examples/plotnuclideheat.py'. Note that this is an example only and is to show how pypact can be used to help perform certain analyses.
 ```python
 import re
-from pypact.reader.filerecord import FileRecord
-from pypact.output.output import Output
+import os
+
+from pypact.reader import Reader
 from pypact.analysis.plotter import Entry, plotproperty, showplots
 from pypact.analysis.timezone import TimeZone
 from pypact.library.nuclidelib import getallisotopes
 
 # script starts here
-filename = 'pypact/reference/test127.out'
-o = Output()
-o.fispact_deserialize(FileRecord(filename))
+filename = os.path.join('reference', 'test127.out')
+o = Reader()(filename)
 
 isotopes_with_low_A = [Entry(i) for i in getallisotopes() if i[1] <= 20]
 all_isotopes = [Entry(i) for i in getallisotopes()]
@@ -254,11 +253,11 @@ showplots()
 ```
 The results of this script are shown below.
 
-![Figure of fractional grams](https://github.com/fispact/pypact/blob/master/pypact/analysis/examples/example_1_figures/fractional_grams.png?raw=true)
+![Figure of fractional grams](https://github.com/fispact/pypact/blob/master/examples/figures/fractional_grams.png?raw=true)
 
-![Figure of fractional heat](https://github.com/fispact/pypact/blob/master/pypact/analysis/examples/example_1_figures/fractional_heat.png?raw=true)
+![Figure of fractional heat](https://github.com/fispact/pypact/blob/master/examples/figures/fractional_heat.png?raw=true)
 
-![Figure of fractional ingestion](https://github.com/fispact/pypact/blob/master/pypact/analysis/examples/example_1_figures/fractional_ingestion.png?raw=true)
+![Figure of fractional ingestion](https://github.com/fispact/pypact/blob/master/examples/figures/fractional_ingestion.png?raw=true)
 
 #### <a name="executing-unit-tests"></a>Executing tests
 In order to run the unit tests to check if the package is correctly downloaded, it is required to install pytest from pip.

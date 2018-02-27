@@ -6,8 +6,7 @@ class Entry:
         self.e = nuclide[0]
         self.i = nuclide[1]
 
-        self.times = []
-        self.values = []
+        self.reset()
 
     def reset(self):
         self.times = []

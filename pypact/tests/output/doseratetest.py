@@ -1,6 +1,6 @@
 import math
 from pypact.util.numerical import nan
-from pypact.reader.filerecord import FileRecord
+from pypact.filerecord import FileRecord
 from pypact.tests.output.baseoutputtest import BaseOutputUnitTest
 from pypact.output.doserate import DoseRate
 

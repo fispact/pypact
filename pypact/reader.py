@@ -1,4 +1,4 @@
-from pypact.reader.filerecord import FileRecord
+from pypact.filerecord import FileRecord
 from pypact.util.file import content_as_str
 from pypact.output.output import Output
 

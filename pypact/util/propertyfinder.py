@@ -24,26 +24,19 @@ def get(datadump, headertag, starttag, endtag='', findfirst=True, ignores=[], as
             float or int from that line after the tag (optional)
     """
     # find the first or last occurrence of the header tag in the output dump
-    if findfirst:
-        i, line = first_occurrence(datadump, headertag)
-    else:
-        i, line = last_occurrence(datadump, headertag)
+    i, line = (first_occurrence(datadump, headertag) if findfirst
+               else last_occurrence(datadump, headertag))
 
     # if it cannot find anything then return an empty string
     if i == -1:
-        if asstring:
-            return ''
-        else:
-            return 0.0
+        return ('' if asstring else 0.0)
 
     # get the first line occurrence after the header
     i, line = first_occurrence(datadump[i:], starttag)
 
-    if asstring:
-        return join_strings_from_line(line, starttag, ignores, endtag)
-    else:
-        return first_value_from_line(line, starttag, ignores)
-
+    return (join_strings_from_line(line, starttag, ignores, endtag) if asstring
+            else first_value_from_line(line, starttag, ignores))
+    
 
 def first(datadump, headertag, starttag, endtag='', ignores=[], asstring=True):
     """
@@ -76,7 +69,7 @@ def first(datadump, headertag, starttag, endtag='', ignores=[], asstring=True):
 
 def last(datadump, headertag, starttag, endtag='', ignores=[], asstring=True):
     """
-    Get the first occurrence of the linetag within the last headertag.
+    Get the last occurrence of the linetag within the last headertag.
 
     Parameters
     ----------

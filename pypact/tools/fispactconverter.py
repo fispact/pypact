@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import sys
 import argparse
-from pypact.reader.reader import Reader
+
+from pypact.reader import Reader
 
 
 def main():

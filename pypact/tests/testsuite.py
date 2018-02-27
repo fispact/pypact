@@ -1,6 +1,5 @@
 import unittest
-from pypact.tests.material.isotopetest import IsotopeUnitTest
-from pypact.tests.material.elementtest import ElementUnitTest
+
 from pypact.tests.util.filetest import FileUnitTest
 from pypact.tests.util.linestest import LinesUnitTest
 from pypact.tests.util.numericaltest import NumericalUnitTest

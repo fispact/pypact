@@ -13,9 +13,7 @@ class FileRecord:
         :param filename:
         """
 
-        self.cachedlines = asstring
-        if not asstring:
-            self.cachedlines = content_as_str(filename)
+        self.cachedlines = (asstring if asstring else content_as_str(filename))
         self.lineindices = line_indices(self.cachedlines, TIME_STEP_HEADER)
         self.timesteps = []
         self.irradiation_times = []
@@ -23,14 +21,10 @@ class FileRecord:
 
         self._processtimesteps()
 
-    def nroftimesteps(self):
-        """
-
-        :return:
-        """
+    def __len__(self):
         return len(self.lineindices)
 
-    def timestep(self, interval):
+    def __getitem__(self, interval):
         """
         Get the timestep lines for a given interval
 
@@ -68,7 +62,7 @@ class FileRecord:
 
     def _processtimesteps(self):
 
-        for i in range(0, len(self.lineindices)):
+        for i in range(0, len(self)):
             t = self.lineindices[i]
             nt = -1
             if i < len(self.lineindices) - 1:

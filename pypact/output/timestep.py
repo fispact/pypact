@@ -21,6 +21,8 @@ class TimeStep(Serializable):
         self.gamma_heat = 0.0
         self.ingestion_dose = 0.0
         self.inhalation_dose = 0.0
+        self.total_activity = 0.0
+        self.total_activity_exclude_trit = 0.0
         self.dose_rate = DoseRate()
         self.nuclides = Nuclides()
 
@@ -32,7 +34,7 @@ class TimeStep(Serializable):
         self.irradiation_time = filerecord.cumulirradiationtime(interval)
         self.cooling_time = filerecord.cumulcoolingtime(interval)
 
-        substring = filerecord.timestep(interval)
+        substring = filerecord[interval]
 
         def get_value(starttag, endtag):
             return pf.first(datadump=substring,
@@ -52,6 +54,8 @@ class TimeStep(Serializable):
         self.ingestion_dose = get_value(starttag='INGESTION  HAZARD FOR ALL MATERIALS', endtag='Sv/kg')
         self.inhalation_dose = get_value(starttag='INHALATION HAZARD FOR ALL MATERIALS', endtag='Sv/kg')
 
+        self.total_activity = get_value(starttag='TOTAL ACTIVITY FOR ALL MATERIALS', endtag='Bq')
+        self.total_activity_exclude_trit = get_value(starttag='TOTAL ACTIVITY EXCLUDING TRITIUM', endtag='Bq')
+
         self.dose_rate.fispact_deserialize(filerecord, interval)
         self.nuclides.fispact_deserialize(filerecord, interval)
-

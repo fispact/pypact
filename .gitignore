@@ -2,11 +2,13 @@
 .idea
 .cache
 .DS_Store
+.eggs
 
 .coverage
 
 __pycache__
 pypact.egg-info
+.pytest_cache
 
 build
 dist

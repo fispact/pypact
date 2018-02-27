@@ -8,6 +8,7 @@
 
 __pycache__
 pypact.egg-info
+.pytest_cache
 
 build
 dist

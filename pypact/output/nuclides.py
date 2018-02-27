@@ -22,7 +22,7 @@ class Nuclides(Serializable):
 
         self.__init__()
 
-        substring = filerecord.timestep(interval)
+        substring = filerecord[interval]
 
         header_index, header_line = first_occurrence(lines=substring, tag=NUCLIDES_HEADER)
 

@@ -21,7 +21,7 @@ class DoseRate(Serializable):
 
         self.__init__()
 
-        substring = filerecord.timestep(interval)
+        substring = filerecord[interval]
 
         dose_string = pf.first(datadump=substring,
                                headertag=DOSE_RATE_HEADER,

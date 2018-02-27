@@ -34,7 +34,7 @@ class TimeStep(Serializable):
         self.irradiation_time = filerecord.cumulirradiationtime(interval)
         self.cooling_time = filerecord.cumulcoolingtime(interval)
 
-        substring = filerecord.timestep(interval)
+        substring = filerecord[interval]
 
         def get_value(starttag, endtag):
             return pf.first(datadump=substring,

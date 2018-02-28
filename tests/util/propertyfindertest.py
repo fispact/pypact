@@ -1,5 +1,7 @@
 import os
-from pypact.tests.testerbase import Tester, REFERENCE_DIR
+
+from tests.testerbase import Tester, REFERENCE_DIR
+
 import pypact.util.propertyfinder as pf
 from pypact.util.file import content_as_str
 

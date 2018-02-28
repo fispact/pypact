@@ -1,6 +1,6 @@
 import os
 from pypact.filerecord import FileRecord
-from pypact.tests.testerbase import Tester, REFERENCE_DIR
+from tests.testerbase import Tester, REFERENCE_DIR
 
 
 class BaseOutputUnitTest(Tester):

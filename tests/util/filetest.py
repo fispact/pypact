@@ -1,6 +1,8 @@
 import unittest
 import os
-from pypact.tests.testerbase import REFERENCE_DIR
+
+from tests.testerbase import REFERENCE_DIR
+
 from pypact.util.file import *
 
 

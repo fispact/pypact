@@ -12,7 +12,7 @@ before_script:
 script:
   - pip3 install -e $PYPACT
   - python $PYPACT/setup.py test
-  - coverage run $PYPACT/pypact/tests/testsuite.py
+  - coverage run $PYPACT/tests/testsuite.py
   - pylint -j4 $PYPACT/pypact --rcfile=$PYPACT/.pylintrc || true
   - fispactconverter.py $PYPACT/reference/test31.out test31.json
 #  - diff test31.json $PYPACT/reference/test31.json

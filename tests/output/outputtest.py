@@ -1,6 +1,7 @@
-from pypact.tests.output.baseoutputtest import BaseOutputUnitTest
-from pypact.tests.output.rundatatest import RunDataAssertor
-from pypact.tests.output.timesteptest import TimeStepAssertor
+from tests.output.baseoutputtest import BaseOutputUnitTest
+from tests.output.rundatatest import RunDataAssertor
+from tests.output.timesteptest import TimeStepAssertor
+
 from pypact.output.output import Output
 
 

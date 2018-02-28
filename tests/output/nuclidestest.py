@@ -1,4 +1,5 @@
-from pypact.tests.output.baseoutputtest import BaseOutputUnitTest
+from tests.output.baseoutputtest import BaseOutputUnitTest
+
 from pypact.output.nuclides import Nuclides
 from pypact.output.nuclide import Nuclide
 

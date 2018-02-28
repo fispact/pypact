@@ -1,4 +1,5 @@
-from pypact.tests.output.baseoutputtest import BaseOutputUnitTest
+from tests.output.baseoutputtest import BaseOutputUnitTest
+
 from pypact.output.rundata import RunData
 
 

@@ -1,6 +1,7 @@
-from pypact.tests.output.baseoutputtest import BaseOutputUnitTest
-from pypact.tests.output.doseratetest import DoseRateAssertor
-from pypact.tests.output.nuclidestest import NuclidesAssertor
+from tests.output.baseoutputtest import BaseOutputUnitTest
+from tests.output.doseratetest import DoseRateAssertor
+from tests.output.nuclidestest import NuclidesAssertor
+
 from pypact.output.timestep import TimeStep
 
 

@@ -2,20 +2,31 @@
 
 import os
 
-from pypact.reader import Reader
-from pypact.analysis.plotter import Entry, plotproperty, showplots
+from pypact.analysis.propertyplotter import plotproperty
+from pypact.analysis.propertyplotter import NuclideDataEntry
+from pypact.analysis.matplotlibengine import MatplotLibPlotEngine
 from pypact.analysis.timezone import TimeZone
 from pypact.library.nuclidelib import getallisotopes
+from pypact.library.nuclidelib import findZ
+from pypact.reader import Reader
 
 filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                              '..', 'reference', 'test127.out')
 
-o = Reader()(filename)
+fispact_output = Reader()(filename)
 
-# plot for cooling time only
-timeperiod=TimeZone.COOL
-isotopes_with_low_A = [Entry(i) for i in getallisotopes() if i[1] <= 40]
-plotproperty(output=o, isotopes=isotopes_with_low_A, prop='heat', fractional=True, timeperiod=timeperiod)
+plt = MatplotLibPlotEngine()
+tz = TimeZone.COOL
 
-# show the plots
-showplots()
+isotopes = [ NuclideDataEntry(i) for i in getallisotopes() if findZ(i[0]) <= 10]
+
+properties = ['heat', 'grams', 'ingestion']
+for p in properties:
+    plotproperty(output=fispact_output,
+                 property=p,
+                 isotopes=isotopes,
+                 engine=plt,
+                 fractional=True,
+                 timeperiod=tz)
+
+plt.show()

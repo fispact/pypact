@@ -7,16 +7,15 @@ from pypact.output.nuclide import Nuclide
 class NuclidesAssertor(BaseOutputUnitTest):
 
     def assert_defaults(self, nuclides):
-        self.assertEqual(len(nuclides.nuclides), 0)
+        self.assertEqual(len(nuclides), 0)
 
     def assert_nuclides(self, nuclides, list):
-        self.assertEqual(len(nuclides.nuclides), len(list))
+        self.assertEqual(len(nuclides), len(list))
 
         for i in range(0, len(list)):
-            self.assert_nuclide(nuclides.nuclides[i], list[i])
+            self.assert_nuclide(nuclides[i], list[i])
 
     def assert_nuclide(self, nuclide, comparenuclide):
-
         self.assertValueAndType(nuclide, Nuclide, 'element', str, comparenuclide.element)
         self.assertValueAndType(nuclide, Nuclide, 'isotope', int, comparenuclide.isotope)
         self.assertValueAndType(nuclide, Nuclide, 'state', str, comparenuclide.state)
@@ -54,13 +53,13 @@ class NuclidesAssertor31(NuclidesAssertor):
         :return:
         """
 
-        self.assert_nuclide(nuclides.nuclides[2],  list[0])
-        self.assert_nuclide(nuclides.nuclides[32], list[1])
-        self.assert_nuclide(nuclides.nuclides[33], list[2])
+        self.assert_nuclide(nuclides[2],  list[0])
+        self.assert_nuclide(nuclides[32], list[1])
+        self.assert_nuclide(nuclides[33], list[2])
 
     def assert_timestep(self, nuclides, timestep):
         if timestep == 1:
-            self.assertEqual(len(nuclides.nuclides), 5)
+            self.assertEqual(len(nuclides), 5)
         elif timestep == 2:
             self.assert_nuclides(nuclides, timestep_2_nuclides31())
         elif 8 > timestep > 2:

@@ -9,10 +9,11 @@ from tests.output.rundatatest import RunDataUnitTest
 from tests.output.nuclidestest import NuclidesUnitTest
 from tests.output.timesteptest import TimeStepUnitTest
 from tests.output.outputtest import OutputUnitTest
+from tests.library.nuclidelibtest import NuclideLibUnitTest
+
 
 def main():
     unittest.TextTestRunner(verbosity=3).run(unittest.TestSuite())
-
 
 if __name__ == '__main__':
     unittest.main()

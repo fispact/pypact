@@ -14,6 +14,12 @@ class Nuclides(Serializable):
     def __init__(self):
         self.nuclides = []
 
+    def __len__(self):
+        return len(self.nuclides)
+
+    def __getitem__(self, index):
+        return self.nuclides[index]
+
     def json_deserialize(self, j):
         super(Nuclides, self).json_deserialize(j)
         self.json_deserialize_list(j, 'nuclides', Nuclide)

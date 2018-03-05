@@ -109,9 +109,8 @@ from pypact.reader import Reader
 
 filename = "fispact_ii_run_output_file.out"
 
-output = Reader()(filename)
-
-# do your analysis here
+with Reader(filename) as output:
+    # do your analysis here
 ...
 ```
 #### <a name="examples"></a>Examples
@@ -123,11 +122,9 @@ from pypact.reader import Reader
 
 filename = "fispact_ii_run_output_file.out"
 
-output = Reader()(filename)
-
-rd = output.run_data
-
-print(rd.run_name)
+with Reader(filename) as output:
+    rd = output.run_data
+    print(rd.run_name)
 ```
 
 ##### <a name="loop-time-steps"></a>Loop over time steps
@@ -136,15 +133,15 @@ from pypact.reader import Reader
 
 filename = "fispact_ii_run_output_file.out"
 
-output = Reader()(filename)
 
-timesteps = output.inventory_data
+with Reader(filename) as output:
+    timesteps = output.inventory_data
 
-for t in timesteps:
-    print(t.irradiation_time)
-    print(t.flux)
-    print(t.ingestion_dose)
-    ....
+    for t in timesteps:
+        print(t.irradiation_time)
+        print(t.flux)
+        print(t.ingestion_dose)
+        ....
 ```
 
 ##### <a name="nuclide-number"></a>Number of nuclides
@@ -153,12 +150,11 @@ from pypact.reader import Reader
 
 filename = "fispact_ii_run_output_file.out"
 
-output = Reader()(filename)
+with Reader(filename) as output:
+    timesteps = output.inventory_data
 
-timesteps = output.inventory_data
-
-for t in timesteps:
-    print(len(t.nuclides.nuclides))
+    for t in timesteps:
+        print(len(t.nuclides.nuclides))
 ```
 
 ##### <a name="json-serialize"></a>JSON serialize
@@ -205,9 +201,9 @@ from pypact.filerecord import FileRecord
 
 filename = "fispact_ii_run_output_file.out"
 
-dr = Reader()(filename)[2].dose_rate
-
-print(dr.json_serialize())
+with Reader(filename) as output:
+    dr = output[2].dose_rate
+    print(dr.json_serialize())
 ```
 
 The output would then look like
@@ -222,34 +218,40 @@ The output would then look like
 
 ##### <a name="plotting"></a>Plotting
 An example script and some helper functions are included to show how some plots can be constructed using pypact.
-A nuclide library (in JSON format) exists containing the list of all isotopes, that is containing 118 elements from H to Og, and totaling to 3352 isotopes. These can be used in their entirety as a complete list using 'getallisotopes()' or can be filtered as the example below shows. Some plotting functions are added in the 'analysis.plotter' module and are also used in the script below.
+A nuclide library (in JSON format) exists containing the list of all isotopes, that is containing 118 elements from H to Og, and totaling to 3352 isotopes. These can be used in their entirety as a complete list using 'getallisotopes()' or can be filtered as the example below shows. Some plotting functions are added in the 'pypact.analysis' module and are also used in the script below.
 
 This example script is based on that in the package at 'pypact/examples/plotnuclideheat.py'. Note that this is an example only and is to show how pypact can be used to help perform certain analyses.
 ```python
 import re
 import os
 
-from pypact.reader import Reader
-from pypact.analysis.plotter import Entry, plotproperty, showplots
+from pypact.analysis.propertyplotter import plotproperty
+from pypact.analysis.propertyplotter import NuclideDataEntry
+from pypact.analysis.plotadapter import LinePlotAdapter
 from pypact.analysis.timezone import TimeZone
 from pypact.library.nuclidelib import getallisotopes
+from pypact.library.nuclidelib import findZ
+from pypact.reader import Reader
 
-# script starts here
-filename = os.path.join('reference', 'test127.out')
-o = Reader()(filename)
+filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                             '..', 'reference', 'test127.out')
 
-isotopes_with_low_A = [Entry(i) for i in getallisotopes() if i[1] <= 20]
-all_isotopes = [Entry(i) for i in getallisotopes()]
-only_isotopes_with_C_in_name = [Entry(i) for i in getallisotopes() if re.search("C", i[0], re.IGNORECASE) ]
+tz = TimeZone.COOL
+properties = ['heat', 'grams', 'ingestion']
+isotopes = [ NuclideDataEntry(i) for i in getallisotopes() if findZ(i[0]) <= 10]
 
-# plot for cooling time only
-timeperiod=TimeZone.COOL
-plotproperty(output=o, isotopes=isotopes_with_low_A, prop='grams', fractional=True, timeperiod=timeperiod)
-plotproperty(output=o, isotopes=all_isotopes, prop='heat', fractional=True, timeperiod=timeperiod)
-plotproperty(output=o, isotopes=only_isotopes_with_C_in_name, prop='ingestion', fractional=True, timeperiod=timeperiod)
+plt = LinePlotAdapter()
 
-# show the plots
-showplots()
+with Reader(filename) as output:
+    for p in properties:
+        plotproperty(output=output,
+                     property=p,
+                     isotopes=isotopes,
+                     plotter=plt,
+                     fractional=True,
+                     timeperiod=tz)
+
+plt.show()
 ```
 The results of this script are shown below.
 

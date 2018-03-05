@@ -7,6 +7,6 @@ import pypact.reader as pr
 filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                              '..', 'reference', 'test91.out')
 
-output = pr.Reader()(filename)
-
-print(output.run_data.json_serialize())
+with pr.Reader(filename) as output:
+    rd = output.run_data
+    print(rd.json_serialize())

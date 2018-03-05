@@ -22,11 +22,11 @@ class NuclideDataEntry(object):
 def plotproperty(output,
                  property,
                  isotopes,
-                 engine,
+                 plotter,
                  fractional=False,
                  timeperiod=TimeZone.BOTH):
 
-    engine.newcanvas()
+    plotter.newcanvas()
     [i.reset() for i in isotopes]
 
     # process the data
@@ -58,7 +58,7 @@ def plotproperty(output,
         if fractional:
             yaxislabel = str.format('fractional {0}', property)
 
-        f = engine.lineplot(x=i.times,
+        f = plotter.lineplot(x=i.times,
                             y=i.values,
                             datalabel=str.format('{0}-{1}', i.element, i.isotope),
                             xlabel="time [s]",
@@ -68,8 +68,8 @@ def plotproperty(output,
                             overlay=True)
 
     if timeperiod == TimeZone.BOTH:
-        engine.custom('axvline', x=output[-1].irradiation_time,
+        plotter.custom('axvline', x=output[-1].irradiation_time,
                       color='k', linestyle='--', label='cooling')
-    engine.addlegend(location='lower right')
+    plotter.addlegend(location='lower right')
 
     return f

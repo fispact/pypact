@@ -17,11 +17,9 @@ def main():
     filename = args.outputfile.name
 
     try:
-        reader = Reader()
-        jsonout = reader(filename).json_serialize()
-
-        with open(args.jsonoutputfile.name, 'w') as jsonfile:
-            jsonfile.write(jsonout)
+        with Reader(filename) as output:
+            with open(args.jsonoutputfile.name, 'w') as jsonfile:
+                jsonfile.write(output.json_serialize())
 
     except OSError as err:
         print("OS error: {0}".format(err))

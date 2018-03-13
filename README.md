@@ -10,6 +10,7 @@
 ### Making FISPACT-II output easier to parse, with Python 3
 
 - [Design goals](#design-goals)
+- [Notes on accuracy](#accuracy)
 - [Installation](#installation)
 - [Usage](#usage)
   - [Command line tool](#command-line-tool)
@@ -27,6 +28,13 @@
 
 #### <a name="design-goals"></a>Design Goals
 The aim of Pypact is to make the FISPACT-II output file easy to parse so that more time can be spent on analysis, and much less time on interrogating the output file. No more convoluted scripts, just one simple to use package!
+
+#### <a name="accuracy"></a>Notes on accuracy
+Before we get into how to install and use pypact, a small note on accuracy should be noted.
+
+It is important to realise that the precision of some values in the FISPACT-II output file can be limited and hence parsing with pypact will give the same precision. It cannot give a more accurate result than the output file.
+
+For example nuclide heats are only given to 3/4 significant figures and if using this in your analysis it can accumulate to larger differences for complex simulations. If you require more accuracy in your results then you are advised to use the JSON output format within FISPACT-II itself (since version 4.0), where double precision is used, roughly 16 significant figures.
 
 #### <a name="installation"></a>Installation
 The package is hosted on PyPi and is therefore available with pip3 directly.

@@ -191,6 +191,7 @@ with pp.Reader(filename) as output:
 
 ##### <a name="nuclide-number"></a>Number of nuclides
 ```python
+# Note the different way to import
 from pypact.reader import Reader
 
 filename = "fispact_ii_run_output_file.out"

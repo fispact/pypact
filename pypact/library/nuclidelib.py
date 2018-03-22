@@ -144,7 +144,7 @@ def findelement(Z):
 def findZ(element):
     for i in NUCLIDE_DICTIONARY:
         if ELEMENT_KEY in i and ATOMIC_NUMBER_KEY in i and i[ELEMENT_KEY] == element:
-            return i[ELEMENT_KEY]
+            return i[ATOMIC_NUMBER_KEY]
 
 def getallisotopes():
     all_list = [('',0)]*NUMBER_OF_ISOTOPES

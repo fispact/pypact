@@ -2,11 +2,10 @@
 
 import os
 
-from pypact.reader import Reader
+import pypact as pp
 
 filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                              '..', 'reference', 'test31.out')
 
-output = Reader()(filename)
-
-print(output.json_serialize())
+with pp.Reader(filename) as output:
+    print(output.json_serialize())

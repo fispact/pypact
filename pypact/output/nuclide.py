@@ -73,7 +73,10 @@ class Nuclide(Serializable):
         self.alpha_heat = get_entry('a-Energy')
         self.beta_heat = get_entry('b-Energy')
         self.gamma_heat = get_entry('g-Energy')
-        self.heat = self.alpha_heat + self.beta_heat + self.gamma_heat
+        # since the precision in the output file is to 4 significant figures of beta and gamma heats
+        # we must set the precision to 4 significant figures for the total heat,
+        # otherwise it is misleading to the user if they get 13.45999999999999999e-5 instead of 1.346e-4
+        self.heat = float("{0:.4g}".format(self.alpha_heat + self.beta_heat + self.gamma_heat))
         self.dose = get_entry('DOSE RATE')
         self.ingestion = get_entry('INGESTION')
         self.inhalation = get_entry('INHALATION')

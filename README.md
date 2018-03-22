@@ -152,11 +152,11 @@ A much better way to use the package is to import the modules directly into your
 
 A simple example of how to read the output into memory is given below.
 ```python
-from pypact.reader import Reader
+import pypact as pp
 
 filename = "fispact_ii_run_output_file.out"
 
-with Reader(filename) as output:
+with pp.Reader(filename) as output:
     # do your analysis here
 ...
 ```
@@ -165,26 +165,24 @@ Some basic examples are given on how to intergoate the output.
 
 ##### <a name="print-run-name"></a>Print the run name
 ```python
-from pypact.reader import Reader
+import pypact as pp
 
 filename = "fispact_ii_run_output_file.out"
 
-with Reader(filename) as output:
+with pp.Reader(filename) as output:
     rd = output.run_data
     print(rd.run_name)
 ```
 
 ##### <a name="loop-time-steps"></a>Loop over time steps
 ```python
-from pypact.reader import Reader
+import pypact as pp
 
 filename = "fispact_ii_run_output_file.out"
 
 
-with Reader(filename) as output:
-    timesteps = output.inventory_data
-
-    for t in timesteps:
+with pp.Reader(filename) as output:
+    for t in output.inventory_data:
         print(t.irradiation_time)
         print(t.flux)
         print(t.ingestion_dose)
@@ -198,23 +196,20 @@ from pypact.reader import Reader
 filename = "fispact_ii_run_output_file.out"
 
 with Reader(filename) as output:
-    timesteps = output.inventory_data
-
-    for t in timesteps:
-        print(len(t.nuclides.nuclides))
+    for t in output.inventory_data:
+        print(len(t.nuclides))
 ```
 
 ##### <a name="json-serialize"></a>JSON serialize
 The package is written such that every data object can be JSON serialized and deserialized, as well as FISPACT-II deserialized. Whether it be the whole **Output** object or just a dose at a given timestep, it can be parsed and written to JSON. An example showing this for the Run Data is given below.
 ```python
-from pypact.reader import Reader
+import pypact as pp
 
 filename = "fispact_ii_run_output_file.out"
 
-output = Reader()(filename)
-
-# print JSON format to standard output
-print(output.run_data.json_serialize())
+with pp.Reader(filename) as output:
+    # print JSON format to standard output
+    print(output.run_data.json_serialize())
 ```
 
 The output would then look like
@@ -228,14 +223,13 @@ The output would then look like
 
 Similarly this can be done for data in the inventory data, if the timestamp is known. For example, given timestamp 2 exists in the FISPACT-II output file, we can do the following.
 ```python
-from pypact.filerecord import FileRecord
-from pypact.output.doserate import DoseRate
+import pypact as pp
 
 filename = "fispact_ii_run_output_file.out"
 
-fr = FileRecord(filename)
+fr = pp.FileRecord(filename)
 
-dr = DoseRate()
+dr = pp.DoseRate()
 dr.fispact_deserialize(fr, interval=2)
 
 # print JSON format to standard output
@@ -244,13 +238,12 @@ print(dr.json_serialize())
 
 Or it can be done even simpler, by:
 ```python
-from pypact.filerecord import FileRecord
+import pypact as pp
 
 filename = "fispact_ii_run_output_file.out"
 
-with Reader(filename) as output:
-    dr = output[2].dose_rate
-    print(dr.json_serialize())
+with pp.Reader(filename) as output:
+    print(output[2].dose_rate.json_serialize())
 ```
 
 The output would then look like
@@ -272,31 +265,26 @@ This example script is based on that in the package at 'pypact/examples/plotnucl
 import re
 import os
 
-from pypact.analysis.propertyplotter import plotproperty
-from pypact.analysis.propertyplotter import NuclideDataEntry
-from pypact.analysis.plotadapter import LinePlotAdapter
-from pypact.analysis.timezone import TimeZone
-from pypact.library.nuclidelib import getallisotopes
-from pypact.library.nuclidelib import findZ
-from pypact.reader import Reader
+import pypact as pp
+import pypact.analysis as ppa
 
 filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                              '..', 'reference', 'test127.out')
 
-tz = TimeZone.COOL
+tz = ppa.TimeZone.COOL
 properties = ['heat', 'grams', 'ingestion']
-isotopes = [ NuclideDataEntry(i) for i in getallisotopes() if findZ(i[0]) <= 10]
+isotopes = [ ppa.NuclideDataEntry(i) for i in ppa.getallisotopes() if ppa.findZ(i[0]) <= 10]
 
-plt = LinePlotAdapter()
+plt = ppa.LinePlotAdapter()
 
-with Reader(filename) as output:
+with pp.Reader(filename) as output:
     for p in properties:
-        plotproperty(output=output,
-                     property=p,
-                     isotopes=isotopes,
-                     plotter=plt,
-                     fractional=True,
-                     timeperiod=tz)
+        ppa.plotproperty(output=output,
+                         property=p,
+                         isotopes=isotopes,
+                         plotter=plt,
+                         fractional=True,
+                         timeperiod=tz)
 
 plt.show()
 ```

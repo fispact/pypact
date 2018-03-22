@@ -6,30 +6,29 @@ from operator import attrgetter
 
 import numpy as np
 
-from pypact.reader import Reader
-from pypact.library.nuclidelib import findZ
-from pypact.analysis.plotadapter import AnimatedMatrixPlotAdapter
+import pypact as pp
+import pypact.analysis as ppa
 
 filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                         '..', 'reference', 'test127.out')
 
-plt = AnimatedMatrixPlotAdapter()
+plt = ppa.AnimatedMatrixPlotAdapter()
 
 # Property to animate
 prop = 'grams'
 
 matricies = []
-with Reader(filename) as output:
+with pp.Reader(filename) as output:
     for t in output:
         minN = min(t.nuclides,key=attrgetter('isotope')).isotope
         maxN = max(t.nuclides,key=attrgetter('isotope')).isotope
-        minZ = findZ(min(t.nuclides,key=lambda x: findZ(x.element)).element)
-        maxZ = findZ(max(t.nuclides,key=lambda x: findZ(x.element)).element)
+        minZ = ppa.findZ(min(t.nuclides,key=lambda x: ppa.findZ(x.element)).element)
+        maxZ = ppa.findZ(max(t.nuclides,key=lambda x: ppa.findZ(x.element)).element)
 
         matrix = np.zeros((maxN+1,maxZ+1))
 
         for n in t.nuclides:
-            matrix[n.isotope, findZ(n.element)] = getattr(n, prop)
+            matrix[n.isotope, ppa.findZ(n.element)] = getattr(n, prop)
 
         matricies.append(matrix)
 
@@ -43,6 +42,7 @@ anim = plt.animatedchart(matricies,
                          minY=minZ,
                          maxY=maxZ,
                          timeinterval=1)
+anim.save('./animation.gif', writer='imagemagick', fps=3)
 #plt.matrixplot(matrix)
 
 # show the plots

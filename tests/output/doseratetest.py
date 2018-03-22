@@ -1,10 +1,9 @@
 import math
 
-from tests.output.baseoutputtest import BaseOutputUnitTest
-
+import pypact as pp
 from pypact.util.numerical import nan
-from pypact.filerecord import FileRecord
-from pypact.output.doserate import DoseRate
+
+from tests.output.baseoutputtest import BaseOutputUnitTest
 
 
 class DoseRateAssertor(BaseOutputUnitTest):
@@ -14,11 +13,11 @@ class DoseRateAssertor(BaseOutputUnitTest):
 
     def assert_dose_rate(self, doserate, type, distance, mass, dose):
         if not math.isnan(dose):
-            self.assertValueAndType(doserate, DoseRate, 'dose', float, dose)
+            self.assertValueAndType(doserate, pp.DoseRate, 'dose', float, dose)
 
-        self.assertValueAndType(doserate, DoseRate, 'type', str, type)
-        self.assertValueAndType(doserate, DoseRate, 'distance', float, distance)
-        self.assertValueAndType(doserate, DoseRate, 'mass', float, mass)
+        self.assertValueAndType(doserate, pp.DoseRate, 'type', str, type)
+        self.assertValueAndType(doserate, pp.DoseRate, 'distance', float, distance)
+        self.assertValueAndType(doserate, pp.DoseRate, 'mass', float, mass)
 
     def assert_timestep(self, doserate, timestep):
         if timestep == 2:
@@ -75,7 +74,7 @@ class DoseRateUnitTest(BaseOutputUnitTest):
             j = dr.json_serialize()
 
             # reset object
-            newdr = DoseRate()
+            newdr = pp.DoseRate()
             self.assertor.assert_defaults(newdr)
 
             # deserialize JSON and compare to original
@@ -227,8 +226,8 @@ class DoseRateUnitTest(BaseOutputUnitTest):
             1  Mn 56   2.3139E+05  59.49E+00  Mn 56   9.3847E-11  71.69E+00  Mn 56   4.7043E-08  86.34E+00  Mn 56   5.7848E-05  99.18E+00  Mn 56   2.7767E-05  98.55E+00
         """.splitlines()
 
-        dr = DoseRate()
-        fr = FileRecord(filename=None,asstring=output_string)
+        dr = pp.DoseRate()
+        fr = pp.FileRecord(filename=None,asstring=output_string)
         self.assertor.assert_defaults(dr)
         dr.fispact_deserialize(fr, 1)
         self.assertor.assert_defaults(dr)
@@ -242,7 +241,7 @@ class DoseRateUnitTest(BaseOutputUnitTest):
         self.assertor.assert_defaults(dr)
 
     def _wrapper(self, func):
-        dr = DoseRate()
+        dr = pp.DoseRate()
         self.assertor.assert_defaults(dr)
 
         for i in range(-100, 100):

@@ -2,30 +2,25 @@
 
 import os
 
-from pypact.analysis.propertyplotter import plotproperty
-from pypact.analysis.propertyplotter import NuclideDataEntry
-from pypact.analysis.plotadapter import LinePlotAdapter
-from pypact.analysis.timezone import TimeZone
-from pypact.library.nuclidelib import getallisotopes
-from pypact.library.nuclidelib import findZ
-from pypact.reader import Reader
+import pypact as pp
+import pypact.analysis as ppa
 
 filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                              '..', 'reference', 'test127.out')
 
-tz = TimeZone.COOL
+tz = ppa.TimeZone.COOL
 properties = ['heat', 'grams', 'ingestion']
-isotopes = [ NuclideDataEntry(i) for i in getallisotopes() if findZ(i[0]) <= 10]
+isotopes = [ ppa.NuclideDataEntry(i) for i in ppa.getallisotopes() if ppa.findZ(i[0]) <= 10]
 
-plt = LinePlotAdapter()
+plt = ppa.LinePlotAdapter()
 
-with Reader(filename) as output:
+with pp.Reader(filename) as output:
     for p in properties:
-        plotproperty(output=output,
-                     property=p,
-                     isotopes=isotopes,
-                     plotter=plt,
-                     fractional=True,
-                     timeperiod=tz)
+        ppa.plotproperty(output=output,
+                         property=p,
+                         isotopes=isotopes,
+                         plotter=plt,
+                         fractional=True,
+                         timeperiod=tz)
 
 plt.show()

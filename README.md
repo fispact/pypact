@@ -6,7 +6,7 @@
 [![PyPI](https://img.shields.io/pypi/format/pypact.svg)](https://pypi.python.org/pypi/pypact)
 [![License](https://img.shields.io/pypi/l/pypact.svg)](https://github.com/fispact/pypact/blob/master/LICENSE)
 
-# Pypact
+# Pypact - 1.2.0
 ### Making FISPACT-II output easier to parse, with Python 3
 
 - [Design goals](#design-goals)

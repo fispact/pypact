@@ -12,11 +12,11 @@ from pypact.output.timestep import TimeStep
 
 # input
 from pypact.input.groupstructures import ALL_GROUPS
-from pypact.input.keywords import control_keywords
-from pypact.input.keywords import init_keywords
-from pypact.input.keywords import inventory_keywords
-from pypact.input.keywords import over_subkeywords
-from pypact.input.keywords import depreciated_keywords
+from pypact.input.keywords import CONTROL_KEYWORDS
+from pypact.input.keywords import INIT_KEYWORDS
+from pypact.input.keywords import INVENTORY_KEYWORDS
+from pypact.input.keywords import OVER_SUBKEYWORDS
+from pypact.input.keywords import DEPRECIATED_KEYWORDS
 
 from pypact.util.exceptions import PypactException
 

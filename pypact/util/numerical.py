@@ -1,11 +1,11 @@
 nan = float('NaN')
 
-def arevaluesthesame(value1, value2, relative_tolerance, abs_tol=0.0):
+def arevaluesthesame(value1, value2, rel_tol, abs_tol=0.0):
     # Use math.isclose algorithm, it is better than numpy.isclose method.
     # See https://github.com/numpy/numpy/issues/10161 for more on the discussion
     # Since some python version don't come with math.isclose we implement it here directly
-    
-    return abs(value1 - value2) <= max(relative_tolerance * max(abs(value1), abs(value2)), abs_tol)
+
+    return abs(value1 - value2) <= max(rel_tol * max(abs(value1), abs(value2)), abs_tol)
 
 
 def getfloat(value):
@@ -16,8 +16,8 @@ def getfloat(value):
     """
     if istradiationalfloat(value):
         return float(value)
-    else:
-        return getfortranfloat(value)
+
+    return getfortranfloat(value)
 
 
 def istradiationalfloat(value):
@@ -38,20 +38,20 @@ def isfloat(value):
         Will allow for fortran style floats, i.e -2.34321-308
         If it is neither then it will return False
     """
-    return (istradiationalfloat(value) or isfortranfloat(value))
+    return istradiationalfloat(value) or isfortranfloat(value)
 
 
 def isfortranfloat(value):
     passfunc = lambda sign, esign, parts: True
     failfunc = lambda: False
-    
+
     return _fortranfloat(value, passfunc, failfunc)
 
 
 def getfortranfloat(value):
     passfunc = lambda sign, esign, parts: float(sign + parts[0] + 'E' + esign + parts[1])
     failfunc = lambda: "nan"
-    
+
     return _fortranfloat(value, passfunc, failfunc)
 
 
@@ -65,12 +65,12 @@ def _fortranfloat(value, passfunc, failfunc):
     #          +2.3-10
     #          +2.3+10
     #          -2.3+10
-    
+
     signs = ['-', '+']
-    
+
     valueasstring = str(value)
     sign = ""
-    if len(valueasstring) > 0:
+    if valueasstring:
         # check for sign at the front
         if valueasstring[0] in signs:
             sign = valueasstring[0]

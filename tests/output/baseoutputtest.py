@@ -11,10 +11,15 @@ class BaseOutputUnitTest(Tester):
         self.filename_test91json = os.path.join(self.base_dir, "test91.json")
         self.filerecord91 = pp.FileRecord(self.filename_test91out)
         self.jsonoutput91 = pp.Output()
-        self.jsonoutput91.json_deserialize(open(self.filename_test91json).read())
+        with open(self.filename_test91json) as f:
+            self.jsonoutput91.json_deserialize(f.read())
         
         self.filename_test31out = os.path.join(self.base_dir, "test31.out")
         self.filename_test31json = os.path.join(self.base_dir, "test31.json")
         self.filerecord31 = pp.FileRecord(self.filename_test31out)
         self.jsonoutput31 = pp.Output()
-        self.jsonoutput31.json_deserialize(open(self.filename_test31json).read())
+        with open(self.filename_test31json) as f:
+            self.jsonoutput31.json_deserialize(f.read())
+
+    def tearDown(self):
+        pass

@@ -19,7 +19,7 @@ class Output(Serializable):
     def __getitem__(self, index):
         return self.inventory_data[index]
 
-    def json_deserialize(self, j):
+    def json_deserialize(self, j, objtype=object):
         super(Output, self).json_deserialize(j)
         self.json_deserialize_list(j, 'inventory_data', TimeStep)
 

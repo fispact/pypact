@@ -36,16 +36,17 @@ def get_filename_ext(filename):
     return os.path.basename(os.path.splitext(filename)[-1])
 
 
-def str_in_file(filename, str):
-    if file_exists(filename) and str in open(filename).read():
+def str_in_file(filename, string):
+    if file_exists(filename) and string in open(filename).read():
         return True
-    else:
-        return False
+
+    return False
 
 
-# note that regardless of the flag 'ignore_empty_lines' value, the last line is always ignored
+# note that regardless of the flag 'ignore_empty_lines' value,
+# the last line is always ignored
 def nr_of_lines(filename, ignore_empty_lines=False):
     if ignore_empty_lines:
         return len([i for i in open(filename) if i[:-1]])
-    else:
-        return len([i for i in open(filename)])
+
+    return len([i for i in open(filename)])

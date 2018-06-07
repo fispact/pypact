@@ -43,7 +43,8 @@ class DoseRate(Serializable):
 
             # Distance is always in meters but is written without a space so
             # we must strip it off
-            self.distance = getfloat(strings_from_line(dose_string, 'SOURCE')[-1].replace('m', ''))
+            floatstr = strings_from_line(dose_string, 'SOURCE')[-1].replace('m', '')
+            self.distance = getfloat(floatstr)
 
         self.dose = pf.first(datadump=substring,
                              headertag=DOSE_RATE_HEADER,

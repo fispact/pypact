@@ -20,6 +20,8 @@ class GroupStructuresUnitTest(Tester):
         self.assertAlmostEqual(113960160.65750997, sum(g),
                                places=DECIMAL_PLACE_ACC,
                                msg="Assert the sum of all entries of 66")
+                               
+        self._check_list_is_decreasing(g)
     
     def test_group69(self):
         g = pp.ALL_GROUPS[69]
@@ -33,6 +35,8 @@ class GroupStructuresUnitTest(Tester):
         self.assertAlmostEqual(25417961.86301, sum(g),
                                places=DECIMAL_PLACE_ACC,
                                msg="Assert the sum of all entries of 69")
+                               
+        self._check_list_is_decreasing(g)
 
     def test_group100(self):
         g = pp.ALL_GROUPS[100]
@@ -46,6 +50,8 @@ class GroupStructuresUnitTest(Tester):
         self.assertAlmostEqual(156097943.581636, sum(g),
                                places=DECIMAL_PLACE_ACC,
                                msg="Assert the sum of all entries of 100")
+                               
+        self._check_list_is_decreasing(g)
 
     def test_group162(self):
         g = pp.ALL_GROUPS[162]
@@ -59,6 +65,8 @@ class GroupStructuresUnitTest(Tester):
         self.assertAlmostEqual(14460200000.0, sum(g),
                                places=DECIMAL_PLACE_ACC,
                                msg="Assert the sum of all entries of 162")
+                               
+        self._check_list_is_decreasing(g)
 
     def test_group172(self):
         g = pp.ALL_GROUPS[172]
@@ -72,6 +80,8 @@ class GroupStructuresUnitTest(Tester):
         self.assertAlmostEqual(143972448.3481201, sum(g),
                                places=DECIMAL_PLACE_ACC,
                                msg="Assert the sum of all entries of 172")
+                               
+        self._check_list_is_decreasing(g)
 
     def test_group211(self):
         g = pp.ALL_GROUPS[211]
@@ -85,6 +95,8 @@ class GroupStructuresUnitTest(Tester):
         self.assertAlmostEqual(1781739677.1088598, sum(g),
                                places=DECIMAL_PLACE_ACC,
                                msg="Assert the sum of all entries of 211")
+                               
+        self._check_list_is_decreasing(g)
 
     def test_group351(self):
         g = pp.ALL_GROUPS[351]
@@ -98,6 +110,8 @@ class GroupStructuresUnitTest(Tester):
         self.assertAlmostEqual(1769655563.5445998, sum(g),
                                places=DECIMAL_PLACE_ACC,
                                msg="Assert the sum of all entries of 351")
+                               
+        self._check_list_is_decreasing(g)
 
     def test_group586(self):
         g = pp.ALL_GROUPS[586]
@@ -111,6 +125,8 @@ class GroupStructuresUnitTest(Tester):
         self.assertAlmostEqual(432119907.0250101, sum(g),
                                places=DECIMAL_PLACE_ACC,
                                msg="Assert the sum of all entries of 586")
+                               
+        self._check_list_is_decreasing(g)
     
     def test_group616(self):
         g = pp.ALL_GROUPS[616]
@@ -124,6 +140,8 @@ class GroupStructuresUnitTest(Tester):
         self.assertAlmostEqual(463318411.1208999, sum(g),
                                places=DECIMAL_PLACE_ACC,
                                msg="Assert the sum of all entries of 616")
+                               
+        self._check_list_is_decreasing(g)
     
     def test_group709(self):
         g = pp.ALL_GROUPS[709]
@@ -137,6 +155,8 @@ class GroupStructuresUnitTest(Tester):
         self.assertAlmostEqual(15992185618.888683, sum(g),
                                places=DECIMAL_PLACE_ACC,
                                msg="Assert the sum of all entries of 709")
+                               
+        self._check_list_is_decreasing(g)
     
     def test_group1102(self):
         g = pp.ALL_GROUPS[1102]
@@ -150,3 +170,9 @@ class GroupStructuresUnitTest(Tester):
         self.assertAlmostEqual(23889164999.810318, sum(g),
                                places=DECIMAL_PLACE_ACC,
                                msg="Assert the sum of all entries of 1102")
+
+        self._check_list_is_decreasing(g)
+
+    def _check_list_is_decreasing(self, l):
+        self.assertTrue(all(earlier >= later for earlier, later in zip(l, l[1:])),
+                        "Assert list is in descending order")

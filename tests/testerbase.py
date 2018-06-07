@@ -2,6 +2,8 @@ import unittest
 import math
 import os
 
+from pypact.util.numerical import arevaluesthesame
+
 REFERENCE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                              '..', 'reference')
 
@@ -16,20 +18,7 @@ class Tester(unittest.TestCase):
         self.assertEqual(True, isinstance(getattr(obj, parameter), parametertype))
 
     def assertIsClose(self, a, b, rel_tol):
-        if math.isnan(a):
-            self.assertEquals(b, 0.0)
-            return
-        if math.isnan(b):
-            self.assertEquals(a, 0.0)
-            return
-
-        # for when it is not close failure message is not useful
-        # hence why we do the actual assert equals if not within tolerance
-        # this shows the two values
-        if math.isclose(a, b, rel_tol=rel_tol, abs_tol=0.0):
-            self.assertTrue(math.isclose(a, b, rel_tol=rel_tol, abs_tol=0.0))
-        else:
-            self.assertEquals(a, b)
+        self.assertTrue(arevaluesthesame(a, b, rel_tol=rel_tol, abs_tol=0.0))
 
     @staticmethod
     def _isnotfound(value):

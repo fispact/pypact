@@ -5,7 +5,11 @@ class Serializable(object):
 
     def json_serialize(self):
         def obj_dict(obj):
-            return obj.__dict__
+            new_dict = {}
+            for k, v in obj.__dict__.items():
+                if '__' not in k:
+                    new_dict[k] = v
+            return new_dict
 
         return json.dumps(self, default=obj_dict, indent=4, sort_keys=False)
 

@@ -22,6 +22,16 @@ def file_exists(filename):
     return os.path.isfile(filename)
 
 
+# checks if directory exists
+def dir_exists(filename):
+    return os.path.isdir(filename)
+
+
+def file_remove(filename):
+    if file_exists(filename):
+        os.remove(filename)
+
+
 def get_filename_ext(filename):
     return os.path.basename(os.path.splitext(filename)[-1])
 

@@ -21,5 +21,5 @@ setup(name='pypact',
       scripts=['pypact/tools/fispactconverter.py'],
       setup_requires=['pytest-runner'],
       test_suite='tests.testsuite',
-      tests_require=['pytest'],
+      tests_require=['pytest', 'mock'],
       zip_safe=False)

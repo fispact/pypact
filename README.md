@@ -21,6 +21,7 @@
   - [Number of nuclides](#nuclide-number)
   - [JSON serialize](#json-serialize)
   - [Plotting](#plotting)
+  - [Compare outputs](#compare)
 - [Supported outputs](#supported-outputs)
 - [Executing unit tests](#executing-unit-tests)
 - [Contact](#contact)
@@ -296,6 +297,11 @@ The results of this script are shown below.
 ![Figure of fractional heat](https://github.com/fispact/pypact/blob/master/examples/figures/fractional_heat.png?raw=true)
 
 ![Figure of fractional ingestion](https://github.com/fispact/pypact/blob/master/examples/figures/fractional_ingestion.png?raw=true)
+
+##### <a name="compare"></a>Compare .out to .json outputs
+Pypact can handle the parsing of both the .out fispact file and the .json fispact file, which was added in FISPACT-II 4.0. To compare that both output parsers handle the data correctly, an example has been added to use both file formats to plot the total heat after irradiation. The example produces two identical plots to prove the parser correctness. The example, compareplots.py, can be found at 'pypact/examples/compareplots.py' and uses the reference output files test31.out and test31.json to produce the following plot.
+
+![Figure of total heat after irradiation](https://github.com/fispact/pypact/blob/master/examples/figures/heat_output_irradiation.png?raw=true)
 
 #### <a name="executing-unit-tests"></a>Executing tests
 In order to run the unit tests to check if the package is correctly downloaded, it is required to install pytest from pip.

@@ -25,6 +25,8 @@ class TimeStep(Serializable):
         self.inhalation_dose = 0.0
         self.total_activity = 0.0
         self.total_activity_exclude_trit = 0.0
+        self.initial_mass = 0.0
+        self.total_mass = 0.0
         self.dose_rate = DoseRate()
         self.nuclides = Nuclides()
 
@@ -53,6 +55,9 @@ class TimeStep(Serializable):
         self.gamma_heat = get_value(starttag='TOTAL GAMMA HEAT PRODUCTION', endtag='kW')
         self.total_heat = self.alpha_heat + self.beta_heat + self.gamma_heat
 
+        self.initial_mass = get_value(starttag='INITIAL TOTAL MASS OF MATERIAL', endtag='kg')
+        self.total_mass = get_value(starttag='TOTAL MASS OF MATERIAL', endtag='kg')
+        
         self.ingestion_dose = get_value(starttag='INGESTION  HAZARD FOR ALL MATERIALS', endtag='Sv/kg')
         self.inhalation_dose = get_value(starttag='INHALATION HAZARD FOR ALL MATERIALS', endtag='Sv/kg')
 

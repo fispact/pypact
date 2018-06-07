@@ -20,6 +20,8 @@ class TimeStepAssertor(BaseOutputUnitTest):
         ts.gamma_heat = 0.0
         ts.ingestion_dose = 0.0
         ts.inhalation_dose = 0.0
+        ts.initial_mass = 0.0
+        ts.total_mass = 0.0
         ts.total_activity = 0.0
         ts.total_activity_exclude_trit = 0.0
         self.assert_inventory(timestep, ts)
@@ -35,7 +37,9 @@ class TimeStepAssertor(BaseOutputUnitTest):
         self.assertValueAndType(inv, TimeStep, 'alpha_heat', float, compareinv.alpha_heat)
         self.assertValueAndType(inv, TimeStep, 'beta_heat', float, compareinv.beta_heat)
         self.assertValueAndType(inv, TimeStep, 'gamma_heat', float, compareinv.gamma_heat)
+        self.assertValueAndType(inv, TimeStep, 'initial_mass', float, compareinv.initial_mass)
         self.assertValueAndType(inv, TimeStep, 'ingestion_dose', float, compareinv.ingestion_dose)
+        self.assertValueAndType(inv, TimeStep, 'total_mass', float, compareinv.total_mass)
         self.assertValueAndType(inv, TimeStep, 'inhalation_dose', float, compareinv.inhalation_dose)
         self.assertValueAndType(inv, TimeStep, 'total_activity', float, compareinv.total_activity)
         self.assertValueAndType(inv, TimeStep, 'total_activity_exclude_trit', float, compareinv.total_activity_exclude_trit)
@@ -69,6 +73,8 @@ def timestep_1_inv():
     inv.total_heat = inv.alpha_heat + inv.beta_heat + inv.gamma_heat
     inv.ingestion_dose = 6.59242E-01
     inv.inhalation_dose = 1.17557E+02
+    inv.initial_mass = 1.00067E+00
+    inv.total_mass = 1.00067E+00
     inv.total_activity = 1.45396E+07
     inv.total_activity_exclude_trit = 1.45396E+07
     return inv
@@ -85,6 +91,8 @@ def timestep_2_inv():
     inv.total_heat = inv.alpha_heat + inv.beta_heat + inv.gamma_heat
     inv.ingestion_dose = 6.84076E-01
     inv.inhalation_dose = 1.17614E+02
+    inv.initial_mass = 1.00067E+00
+    inv.total_mass = 1.00067E+00
     inv.total_activity = 3.11345E+07
     inv.total_activity_exclude_trit = 3.11345E+07
     return inv
@@ -103,6 +111,8 @@ def timestep_14_inv():
     inv.total_heat = inv.alpha_heat + inv.beta_heat + inv.gamma_heat
     inv.ingestion_dose = 7.01423E-01
     inv.inhalation_dose = 1.17728E+02
+    inv.initial_mass = 1.00067E+00
+    inv.total_mass = 1.00067E+00
     inv.total_activity = 4.11571E+07
     inv.total_activity_exclude_trit = 4.11571E+07
     return inv

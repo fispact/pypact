@@ -8,10 +8,10 @@ class RunDataAssertor(BaseOutputUnitTest):
     def assert_defaults(self, rundata):
         self.assert_run_data(rundata, run_data_default())
 
-    def assert_run_data(self, rundata, comparerd):
-        self.assertValueAndType(rundata, RunData, 'timestamp', str, comparerd.timestamp)
-        self.assertValueAndType(rundata, RunData, 'run_name', str, comparerd.run_name)
-        self.assertValueAndType(rundata, RunData, 'flux_name', str, comparerd.flux_name)
+    def assert_run_data(self, rundata, compared):
+        self.assertValueAndType(rundata, RunData, 'timestamp', str, compared.timestamp)
+        self.assertValueAndType(rundata, RunData, 'run_name', str, compared.run_name)
+        self.assertValueAndType(rundata, RunData, 'flux_name', str, compared.flux_name)
 
     def assert_run(self, rundata):
         self.assert_run_data(rundata, run_data_output())

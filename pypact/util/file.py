@@ -37,8 +37,9 @@ def get_filename_ext(filename):
 
 
 def str_in_file(filename, string):
-    if file_exists(filename) and string in open(filename).read():
-        return True
+    if file_exists(filename):
+        with open(filename) as file:
+            return string in file.read()
 
     return False
 
@@ -46,7 +47,8 @@ def str_in_file(filename, string):
 # note that regardless of the flag 'ignore_empty_lines' value,
 # the last line is always ignored
 def nr_of_lines(filename, ignore_empty_lines=False):
-    if ignore_empty_lines:
-        return len([i for i in open(filename) if i[:-1]])
+    with open(filename) as file:
+        if ignore_empty_lines:
+            return len([i for i in file if i[:-1]])
 
-    return len([i for i in open(filename)])
+        return len([i for i in file])

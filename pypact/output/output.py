@@ -1,8 +1,10 @@
+from pypact.util.decorators import freeze_it
 from pypact.output.serializable import Serializable
 from pypact.output.rundata import RunData
 from pypact.output.timestep import TimeStep
 
 
+@freeze_it
 class Output(Serializable):
     """
         An object to represent the output

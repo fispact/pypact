@@ -1,5 +1,6 @@
 import unittest
 import os
+import mock
 
 from tests.testerbase import REFERENCE_DIR
 
@@ -13,6 +14,39 @@ class FileUnitTest(unittest.TestCase):
         self.filename_test91json = os.path.join(self.base_dir, "test91.json")
         self.filename_nofile = os.path.join(self.base_dir, "thisfilecannotpossiblyexist.out")
 
+    @mock.patch('pypact.util.file.os.path')
+    def test_file_exists_mock(self, mock_path):
+        # file does not exist
+        mock_path.isfile.return_value = False
+        self.assertFalse(file_exists("any path"), "File is not present.")
+
+        # make the file 'exist'
+        mock_path.isfile.return_value = True
+        self.assertTrue(file_exists("any path"), "File is present.")
+
+    @mock.patch('pypact.util.file.os.path')
+    def test_dir_exists_mock(self, mock_path):
+        # dir does not exist
+        mock_path.isdir.return_value = False
+        self.assertFalse(dir_exists("any path"), "Directory is not present.")
+
+        # make the file 'exist'
+        mock_path.isdir.return_value = True
+        self.assertTrue(dir_exists("any path"), "Directory is present.")
+    
+    @mock.patch('pypact.util.file.os')
+    def test_file_remove_mock(self, mock_os):
+        # file does not exist
+        mock_os.path.isfile.return_value = False
+        file_remove("any path")
+        self.assertFalse(mock_os.remove.called, "Failed to not remove the file if not present.")
+
+        # make the file 'exist'
+        mock_os.path.isfile.return_value = True
+        file_remove("any path")
+        self.assertTrue(mock_os.remove.called, "Failed to remove the file when present.")
+        mock_os.remove.assert_called_with("any path")
+    
     def test_file_exists(self):
         self.assertEqual(file_exists(self.filename_test91out), True)
         self.assertEqual(file_exists(self.filename_test91json), True)

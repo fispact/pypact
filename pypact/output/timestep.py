@@ -1,3 +1,4 @@
+from pypact.util.decorators import freeze_it
 from pypact.output.serializable import Serializable
 from pypact.output.doserate import DoseRate
 from pypact.output.nuclides import Nuclides
@@ -7,6 +8,7 @@ import pypact.util.propertyfinder as pf
 TIME_STEP_IGNORES = []
 
 
+@freeze_it
 class TimeStep(Serializable):
     """
         An object to represent a time step in the output

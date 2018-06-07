@@ -3,6 +3,7 @@ import sys
 import argparse
 
 from pypact.reader import Reader
+from pypact.util.exceptions import PypactException
 
 
 def main():
@@ -21,6 +22,8 @@ def main():
             with open(args.jsonoutputfile.name, 'w') as jsonfile:
                 jsonfile.write(output.json_serialize())
 
+    except PypactException as err:
+        print("Pypact error: {0}".format(err))
     except OSError as err:
         print("OS error: {0}".format(err))
     except ValueError as err:

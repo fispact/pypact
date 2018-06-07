@@ -1,9 +1,11 @@
+from pypact.util.decorators import freeze_it
 from pypact.output.serializable import Serializable
 import pypact.util.propertyfinder as pf
 
 RUN_DATA_IGNORES = ['\n', '|']
 
 
+@freeze_it
 class RunData(Serializable):
     """
         The run data type from the output

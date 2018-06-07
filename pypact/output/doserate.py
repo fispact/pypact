@@ -1,3 +1,4 @@
+from pypact.util.decorators import freeze_it
 from pypact.util.numerical import getfloat
 from pypact.util.lines import first_value_from_line, strings_from_line
 from pypact.output.serializable import Serializable
@@ -7,6 +8,7 @@ import pypact.util.propertyfinder as pf
 DOSE_RATE_IGNORES = ['\n', '|']
 
 
+@freeze_it
 class DoseRate(Serializable):
     """
         The dose rate type from the output

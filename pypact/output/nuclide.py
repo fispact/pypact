@@ -1,9 +1,11 @@
+from pypact.util.decorators import freeze_it
 from pypact.util.numerical import isfloat
 from pypact.output.serializable import Serializable
 
 NUCLIDE_IGNORES = ['\n', '|', '>', '&', '?', '#']
 
 
+@freeze_it
 class Nuclide(Serializable):
     """
         The nuclide type from the output

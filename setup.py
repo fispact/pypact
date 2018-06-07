@@ -2,7 +2,7 @@ from setuptools import setup
 
 
 setup(name='pypact',
-      version='1.2.0',
+      version='1.2.1',
       description='The package for reading and manipulating the fispact output text file.',
       url='https://github.com/fispact/pypact',
       author='UKAEA',
@@ -21,5 +21,5 @@ setup(name='pypact',
       scripts=['pypact/tools/fispactconverter.py'],
       setup_requires=['pytest-runner'],
       test_suite='tests.testsuite',
-      tests_require=['pytest'],
+      tests_require=['pytest', 'mock'],
       zip_safe=False)

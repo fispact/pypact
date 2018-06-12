@@ -2,7 +2,7 @@ from tests.output.baseoutputtest import BaseOutputUnitTest
 from tests.output.rundatatest import RunDataAssertor
 from tests.output.timesteptest import TimeStepAssertor
 
-from pypact.output.output import Output
+import pypact as pp
 
 
 class OutputAssertor(BaseOutputUnitTest):
@@ -61,7 +61,7 @@ class OutputUnitTest(BaseOutputUnitTest):
             j = output.json_serialize()
 
             # reset object
-            newout = Output()
+            newout = pp.Output()
             self.assertor.assert_defaults(newout)
 
             # deserialize JSON and compare to original
@@ -71,7 +71,7 @@ class OutputUnitTest(BaseOutputUnitTest):
         self._wrapper(func)
 
     def _wrapper(self, func):
-        output = Output()
+        output = pp.Output()
         self.assertor.assert_defaults(output)
 
         func(output)

@@ -46,7 +46,7 @@ class FilesFile(object):
     def __init__(self, base_dir=os.sep):
         self.nullify()
         
-        self.base_dir = base_dir
+        self.__base_dir = base_dir
         
         # defaults
         self.ind_nuc    = os.path.join(base_dir, "TENDL2015data", "tendl15_decay12_index")
@@ -89,26 +89,32 @@ class FilesFile(object):
             raise PypactException(
                     "Cannot set cross section library to type {0}, does not exist.".format(type))
         
-        self.ind_nuc = os.path.join(self.base_dir, XS_LIBS[type]['ind_nuc'])
-        self.xs_endf = os.path.join(self.base_dir, XS_LIBS[type]['xs_endf'])
-        self.prob_tab = os.path.join(self.base_dir, XS_LIBS[type]['prob_tab'])
+        self.ind_nuc = os.path.join(self.__base_dir, XS_LIBS[type]['ind_nuc'])
+        self.xs_endf = os.path.join(self.__base_dir, XS_LIBS[type]['xs_endf'])
+        self.prob_tab = os.path.join(self.__base_dir, XS_LIBS[type]['prob_tab'])
 
     def setFission(self, type):
         if type not in FISSION_LIBS:
             raise PypactException(
                     "Cannot set fission library to type {0}, does not exist.".format(type))
         
-        self.fy_endf = os.path.join(self.base_dir, FISSION_LIBS[type]['fy_endf'])
-        self.sf_endf = os.path.join(self.base_dir, FISSION_LIBS[type]['sf_endf'])
+        self.fy_endf = os.path.join(self.__base_dir, FISSION_LIBS[type]['fy_endf'])
+        self.sf_endf = os.path.join(self.__base_dir, FISSION_LIBS[type]['sf_endf'])
 
     def validate(self):
         """
             Validate if paths in files file exist
             Return a list of tuples (key, value) that do not exist
         """
+        ignore = ['collapxi',
+                  'collapxo',
+                  'arrayx',
+                  'fluxes',
+                  'ggbins',
+                  'xs_extra']
         invalid = []
         for k, v in self.__dict__.items():
-            if k in ['collapxi', 'collapxo', 'arrayx', 'fluxes'] or '__' in k:
+            if k in ignore or '__' in k:
                 continue
             
             if not v or (not file_exists(v) and not dir_exists(v)):

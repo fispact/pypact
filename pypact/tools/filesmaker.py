@@ -27,7 +27,6 @@ def main():
 
         # set paths here, example only now
         ff.setXS('TENDL2015')
-        ff.ggbins = "ggbin_dir"
         #....
         
         invalids = ff.validate()

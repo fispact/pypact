@@ -1,6 +1,6 @@
 from tests.output.baseoutputtest import BaseOutputUnitTest
 
-from pypact.output.rundata import RunData
+import pypact as pp
 
 
 class RunDataAssertor(BaseOutputUnitTest):
@@ -9,16 +9,16 @@ class RunDataAssertor(BaseOutputUnitTest):
         self.assert_run_data(rundata, run_data_default())
 
     def assert_run_data(self, rundata, compared):
-        self.assertValueAndType(rundata, RunData, 'timestamp', str, compared.timestamp)
-        self.assertValueAndType(rundata, RunData, 'run_name', str, compared.run_name)
-        self.assertValueAndType(rundata, RunData, 'flux_name', str, compared.flux_name)
+        self.assertValueAndType(rundata, pp.RunData, 'timestamp', str, compared.timestamp)
+        self.assertValueAndType(rundata, pp.RunData, 'run_name', str, compared.run_name)
+        self.assertValueAndType(rundata, pp.RunData, 'flux_name', str, compared.flux_name)
 
     def assert_run(self, rundata):
         self.assert_run_data(rundata, run_data_output())
 
 
 def run_data_default():
-    rd = RunData()
+    rd = pp.RunData()
     rd.timestamp = ""
     rd.run_name = ""
     rd.flux_name = ""
@@ -26,7 +26,7 @@ def run_data_default():
 
 
 def run_data_output():
-    rd = RunData()
+    rd = pp.RunData()
     rd.timestamp = "12:35:22 13 January 2018"
     rd.run_name = "*PWR FUEL 3.1% U235 FBR-Na End of Cycle"
     rd.flux_name = "FBR-Na End of Cycle heavy fuel s"
@@ -55,7 +55,7 @@ class RunDataUnitTest(BaseOutputUnitTest):
             j = rd.json_serialize()
 
             # reset object
-            newrd = RunData()
+            newrd = pp.RunData()
             self.assertor.assert_defaults(newrd)
 
             # deserialize JSON and compare to original
@@ -66,7 +66,7 @@ class RunDataUnitTest(BaseOutputUnitTest):
 
     def _wrapper(self, func):
 
-        rd = RunData()
+        rd = pp.RunData()
         self.assertor.assert_defaults(rd)
 
         func(rd)

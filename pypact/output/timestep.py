@@ -27,6 +27,8 @@ class TimeStep(Serializable):
         self.total_activity_exclude_trit = 0.0
         self.initial_mass = 0.0
         self.total_mass = 0.0
+        self.number_of_fissions = 0.0
+        self.burnup = 0.0
         self.dose_rate = DoseRate()
         self.nuclides = Nuclides()
 
@@ -58,6 +60,9 @@ class TimeStep(Serializable):
         self.initial_mass = get_value(starttag='INITIAL TOTAL MASS OF MATERIAL', endtag='kg')
         self.total_mass = get_value(starttag='TOTAL MASS OF MATERIAL', endtag='kg')
         
+        self.number_of_fissions = get_value(starttag='NUMBER OF FISSIONS', endtag='BURN-UP')
+        self.burnup = get_value(starttag='BURN-UP OF ACTINIDES', endtag='%')
+
         self.ingestion_dose = get_value(starttag='INGESTION  HAZARD FOR ALL MATERIALS', endtag='Sv/kg')
         self.inhalation_dose = get_value(starttag='INHALATION HAZARD FOR ALL MATERIALS', endtag='Sv/kg')
 

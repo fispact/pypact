@@ -49,7 +49,23 @@ class OutputUnitTest(BaseOutputUnitTest):
             self.assertor.assert_length(output, len(self.jsonoutput31))
 
         self._wrapper(func)
-    
+
+    def test_fispact_deserialize_nonuclides(self):
+        output = pp.Output(ignorenuclides=True)
+        self.assertor.assert_defaults(output)
+
+        output.fispact_deserialize(self.filerecord31)
+        for t in output.inventory_data:
+            self.assertEquals(0, len(t.nuclides), "Assert nuclides are not parsed")
+
+    def test_fispact_deserialize_nuclidesexplicit(self):
+        output = pp.Output(ignorenuclides=False)
+        self.assertor.assert_defaults(output)
+
+        output.fispact_deserialize(self.filerecord31)
+        for t in output.inventory_data:
+            self.assertTrue(len(t.nuclides) > 0, "Assert nuclides are parsed")
+
     def test_fispact_readwriteread(self):
 
         def func(output):

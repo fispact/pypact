@@ -154,6 +154,48 @@ class TimeStepUnitTest(BaseOutputUnitTest):
 
         self._wrapper(func)
 
+    def test_fispact_deserialize_isirradiation(self):
+
+        ts = pp.TimeStep()
+        self.assertor.assert_defaults(ts)
+
+        ts.fispact_deserialize(self.filerecord91, 1)
+        self.assertEquals(True, ts.isirradiation(), "Assert timestep 1 is an irradiation step")
+
+        ts.fispact_deserialize(self.filerecord91, 2)
+        self.assertEquals(True, ts.isirradiation(), "Assert timestep 2 is an irradiation step")
+
+        ts.fispact_deserialize(self.filerecord91, 14)
+        self.assertEquals(False, ts.isirradiation(), "Assert timestep 14 is a cooling step")
+
+    def test_fispact_deserialize_currenttime(self):
+
+        ts = pp.TimeStep()
+        self.assertor.assert_defaults(ts)
+
+        ts.fispact_deserialize(self.filerecord91, 1)
+        self.assertEquals(0.0, ts.currenttime, "Assert the irradiation time for timestep 1")
+
+        ts.fispact_deserialize(self.filerecord91, 2)
+        self.assertEquals(2.6298E+06, ts.currenttime, "Assert the irradiation time for timestep 2")
+
+        ts.fispact_deserialize(self.filerecord91, 14)
+        self.assertEquals(ts.cooling_time, ts.currenttime, "Assert the cooling time for timestep 14")
+
+    def test_fispact_deserialize_nonuclides(self):
+
+        ts = pp.TimeStep(ignorenuclides=True)
+        self.assertor.assert_defaults(ts)
+
+        ts.fispact_deserialize(self.filerecord91, 1)
+        self.assertor.nuc_assertor.assert_defaults(ts.nuclides)
+
+        ts.fispact_deserialize(self.filerecord91, 2)
+        self.assertor.nuc_assertor.assert_defaults(ts.nuclides)
+
+        ts.fispact_deserialize(self.filerecord91, 14)
+        self.assertor.nuc_assertor.assert_defaults(ts.nuclides)
+
     def test_fispact_readwriteread(self):
 
         def func(ts, i):

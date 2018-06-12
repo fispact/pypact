@@ -13,7 +13,7 @@ class TimeStep(Serializable):
     """
         An object to represent a time step in the output
     """
-    def __init__(self):
+    def __init__(self, ignorenuclides=False):
         self.irradiation_time = 0.0
         self.cooling_time = 0.0
         self.flux = 0.0
@@ -32,10 +32,21 @@ class TimeStep(Serializable):
         self.dose_rate = DoseRate()
         self.nuclides = Nuclides()
 
+        self.__ignorenuclides = ignorenuclides
+
+    def isirradiation(self):
+        return self.cooling_time == 0.0
+
+    @property
+    def currenttime(self):
+        if self.isirradiation():
+            return self.irradiation_time
+        return self.cooling_time
+
     def fispact_deserialize(self, filerecord, interval):
 
         # reset to defaults before reading
-        self.__init__()
+        self.__init__(ignorenuclides=self.__ignorenuclides)
 
         self.irradiation_time = filerecord.cumulirradiationtime(interval)
         self.cooling_time = filerecord.cumulcoolingtime(interval)
@@ -70,4 +81,9 @@ class TimeStep(Serializable):
         self.total_activity_exclude_trit = get_value(starttag='TOTAL ACTIVITY EXCLUDING TRITIUM', endtag='Bq')
 
         self.dose_rate.fispact_deserialize(filerecord, interval)
-        self.nuclides.fispact_deserialize(filerecord, interval)
+
+        # for fission this can be very large and hence very slow
+        # if you do not care about the nuclides then we can set
+        # it to ignore nuclides
+        if not self.__ignorenuclides:
+            self.nuclides.fispact_deserialize(filerecord, interval)

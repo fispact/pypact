@@ -9,9 +9,11 @@ class Output(Serializable):
     """
         An object to represent the output
     """
-    def __init__(self):
+    def __init__(self, ignorenuclides=False):
         self.run_data = RunData()
         self.inventory_data = []
+
+        self.__ignorenuclides = ignorenuclides
 
     def __len__(self):
         return len(self.inventory_data)
@@ -25,11 +27,11 @@ class Output(Serializable):
 
     def fispact_deserialize(self, filerecord):
 
-        self.__init__()
+        self.__init__(ignorenuclides=self.__ignorenuclides)
 
         self.run_data.fispact_deserialize(filerecord)
 
         for i, s in filerecord.timesteps:
-            t = TimeStep()
+            t = TimeStep(ignorenuclides=self.__ignorenuclides)
             t.fispact_deserialize(filerecord, interval=i)
             self.inventory_data.append(t)

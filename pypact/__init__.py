@@ -16,7 +16,7 @@ from pypact.input.keywords import CONTROL_KEYWORDS
 from pypact.input.keywords import INIT_KEYWORDS
 from pypact.input.keywords import INVENTORY_KEYWORDS
 from pypact.input.keywords import OVER_SUBKEYWORDS
-from pypact.input.keywords import DEPRECIATED_KEYWORDS
+from pypact.input.keywords import DEPRECATED_KEYWORDS
 
 from pypact.util.exceptions import PypactException
 

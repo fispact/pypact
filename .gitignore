@@ -12,3 +12,5 @@ pypact.egg-info
 
 build
 dist
+
+*.xcworkspace

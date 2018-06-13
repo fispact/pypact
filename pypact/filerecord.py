@@ -31,12 +31,11 @@ class FileRecord:
         :param interval:
         :return:
         """
-        s = [s for i, s in self.timesteps if i == interval]
-        if len(s) == 1:
-            return s[0]
+        l = [s for i, s in self.timesteps if i == interval]
+        if len(l) == 1:
+            return l[0]
 
         return ''
-        #raise RuntimeError(str.format("Interval {0} not found when getting timestep", interval))
 
     def cumulirradiationtime(self, interval):
         """
@@ -45,9 +44,7 @@ class FileRecord:
         :param interval:
         :return:
         """
-        return self._getcumultime(interval,
-                                  self.irradiation_times,
-                                  str.format("Interval {0} not found for cumulative irradiation time", interval))
+        return self._getcumultime(interval, self.irradiation_times)
 
     def cumulcoolingtime(self, interval):
         """
@@ -56,9 +53,7 @@ class FileRecord:
         :param interval:
         :return:
         """
-        return self._getcumultime(interval,
-                                  self.cooling_times,
-                                  str.format("Interval {0} not found for cumulative cooling time", interval))
+        return self._getcumultime(interval, self.cooling_times)
 
     def _processtimesteps(self):
 
@@ -97,12 +92,11 @@ class FileRecord:
         self.irradiation_times = list(accumulate(self.irradiation_times))
         self.cooling_times = list(accumulate(self.cooling_times))
 
-        assert(len(self.irradiation_times) == len(self.cooling_times))
+        assert len(self.irradiation_times) == len(self.cooling_times)
 
-    def _getcumultime(self, interval, listoftuples, errormessage):
+    def _getcumultime(self, interval, listoftuples):
         t = [x for x, y in enumerate(self.timesteps) if y[0] == interval]
         if len(t) == 1:
             return listoftuples[t[0]]
 
         return 0.0
-        #raise RuntimeError(errormessage)

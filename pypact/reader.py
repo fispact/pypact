@@ -3,9 +3,9 @@ from pypact.output.output import Output
 
 
 class Reader:
-    def __init__(self, filename):
+    def __init__(self, filename, ignorenuclides=False):
         self.record = FileRecord(filename)
-        self.output = Output()
+        self.output = Output(ignorenuclides=ignorenuclides)
 
     def __enter__(self):
         self.output.fispact_deserialize(self.record)

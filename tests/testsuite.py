@@ -12,6 +12,7 @@ from tests.output.timesteptest import TimeStepUnitTest
 from tests.output.outputtest import OutputUnitTest
 
 from tests.input.keywordstest import KeywordsUnitTest
+from tests.input.groupstructurestest import GroupStructuresUnitTest
 
 from tests.library.nuclidelibtest import NuclideLibUnitTest
 

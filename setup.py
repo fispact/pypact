@@ -12,6 +12,7 @@ setup(name='pypact',
             'pypact',
             'pypact.analysis',
             'pypact.library',
+            'pypact.input',
             'pypact.output',
             'pypact.tools',
             'pypact.util'

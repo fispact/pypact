@@ -22,7 +22,7 @@ class Nuclides(Serializable):
     def __getitem__(self, index):
         return self.nuclides[index]
 
-    def json_deserialize(self, j):
+    def json_deserialize(self, j, objtype=object):
         super(Nuclides, self).json_deserialize(j)
         self.json_deserialize_list(j, 'nuclides', Nuclide)
 
@@ -31,8 +31,6 @@ class Nuclides(Serializable):
         self.__init__()
 
         substring = filerecord[interval]
-
-        header_index, header_line = first_occurrence(lines=substring, tag=NUCLIDES_HEADER)
 
         nuclidetag = 'TOTAL NUMBER OF NUCLIDES PRINTED IN INVENTORY'
 
@@ -63,5 +61,6 @@ class Nuclides(Serializable):
 
         for n in range(i - nr_of_nuclides(), i):
             nuclide = Nuclide()
-            nuclide.fispact_deserialize(substring[n:], column_headers=get_header(i - nr_of_nuclides()-3))
+            nuclide.fispact_deserialize(substring[n:],
+                                        column_headers=get_header(i - nr_of_nuclides()-3))
             self.nuclides.append(nuclide)

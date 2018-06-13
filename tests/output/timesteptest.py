@@ -2,7 +2,7 @@ from tests.output.baseoutputtest import BaseOutputUnitTest
 from tests.output.doseratetest import DoseRateAssertor
 from tests.output.nuclidestest import NuclidesAssertor
 
-from pypact.output.timestep import TimeStep
+import pypact as pp
 
 
 class TimeStepAssertor(BaseOutputUnitTest):
@@ -10,7 +10,7 @@ class TimeStepAssertor(BaseOutputUnitTest):
     nuc_assertor = NuclidesAssertor()
 
     def assert_defaults(self, timestep):
-        ts = TimeStep()
+        ts = pp.TimeStep()
         ts.irradiation_time = 0.0
         ts.cooling_time = 0.0
         ts.flux = 0.0
@@ -20,6 +20,10 @@ class TimeStepAssertor(BaseOutputUnitTest):
         ts.gamma_heat = 0.0
         ts.ingestion_dose = 0.0
         ts.inhalation_dose = 0.0
+        ts.initial_mass = 0.0
+        ts.total_mass = 0.0
+        ts.number_of_fissions = 0.0
+        ts.burnup = 0.0
         ts.total_activity = 0.0
         ts.total_activity_exclude_trit = 0.0
         self.assert_inventory(timestep, ts)
@@ -28,17 +32,21 @@ class TimeStepAssertor(BaseOutputUnitTest):
         self.nuc_assertor.assert_defaults(timestep.nuclides)
 
     def assert_inventory(self, inv, compareinv):
-        self.assertValueAndType(inv, TimeStep, 'irradiation_time', float, compareinv.irradiation_time)
-        self.assertValueAndType(inv, TimeStep, 'cooling_time', float, compareinv.cooling_time)
-        self.assertValueAndType(inv, TimeStep, 'flux', float, compareinv.flux)
-        self.assertValueAndType(inv, TimeStep, 'total_heat', float, compareinv.total_heat)
-        self.assertValueAndType(inv, TimeStep, 'alpha_heat', float, compareinv.alpha_heat)
-        self.assertValueAndType(inv, TimeStep, 'beta_heat', float, compareinv.beta_heat)
-        self.assertValueAndType(inv, TimeStep, 'gamma_heat', float, compareinv.gamma_heat)
-        self.assertValueAndType(inv, TimeStep, 'ingestion_dose', float, compareinv.ingestion_dose)
-        self.assertValueAndType(inv, TimeStep, 'inhalation_dose', float, compareinv.inhalation_dose)
-        self.assertValueAndType(inv, TimeStep, 'total_activity', float, compareinv.total_activity)
-        self.assertValueAndType(inv, TimeStep, 'total_activity_exclude_trit', float, compareinv.total_activity_exclude_trit)
+        self.assertValueAndType(inv, pp.TimeStep, 'irradiation_time', float, compareinv.irradiation_time)
+        self.assertValueAndType(inv, pp.TimeStep, 'cooling_time', float, compareinv.cooling_time)
+        self.assertValueAndType(inv, pp.TimeStep, 'flux', float, compareinv.flux)
+        self.assertValueAndType(inv, pp.TimeStep, 'total_heat', float, compareinv.total_heat)
+        self.assertValueAndType(inv, pp.TimeStep, 'alpha_heat', float, compareinv.alpha_heat)
+        self.assertValueAndType(inv, pp.TimeStep, 'beta_heat', float, compareinv.beta_heat)
+        self.assertValueAndType(inv, pp.TimeStep, 'gamma_heat', float, compareinv.gamma_heat)
+        self.assertValueAndType(inv, pp.TimeStep, 'initial_mass', float, compareinv.initial_mass)
+        self.assertValueAndType(inv, pp.TimeStep, 'ingestion_dose', float, compareinv.ingestion_dose)
+        self.assertValueAndType(inv, pp.TimeStep, 'total_mass', float, compareinv.total_mass)
+        self.assertValueAndType(inv, pp.TimeStep, 'number_of_fissions', float, compareinv.number_of_fissions)
+        self.assertValueAndType(inv, pp.TimeStep, 'burnup', float, compareinv.burnup)
+        self.assertValueAndType(inv, pp.TimeStep, 'inhalation_dose', float, compareinv.inhalation_dose)
+        self.assertValueAndType(inv, pp.TimeStep, 'total_activity', float, compareinv.total_activity)
+        self.assertValueAndType(inv, pp.TimeStep, 'total_activity_exclude_trit', float, compareinv.total_activity_exclude_trit)
 
     def assert_timestep(self, inv, timestep):
         self.ds_assertor.assert_timestep(inv.dose_rate, timestep)
@@ -59,7 +67,7 @@ class TimeStepAssertor(BaseOutputUnitTest):
 
 
 def timestep_1_inv():
-    inv = TimeStep()
+    inv = pp.TimeStep()
     inv.irradiation_time = 0.0
     inv.cooling_time = 0.0
     inv.flux = 3.3400E+10
@@ -69,13 +77,17 @@ def timestep_1_inv():
     inv.total_heat = inv.alpha_heat + inv.beta_heat + inv.gamma_heat
     inv.ingestion_dose = 6.59242E-01
     inv.inhalation_dose = 1.17557E+02
+    inv.initial_mass = 1.00067E+00
+    inv.total_mass = 1.00067E+00
+    inv.number_of_fissions = 0.0E+00
+    inv.burnup = 0.0E+00
     inv.total_activity = 1.45396E+07
     inv.total_activity_exclude_trit = 1.45396E+07
     return inv
 
 
 def timestep_2_inv():
-    inv = TimeStep()
+    inv = pp.TimeStep()
     inv.irradiation_time = 2.6298E+06
     inv.cooling_time = 0.0
     inv.flux = 3.3400E+10
@@ -85,13 +97,17 @@ def timestep_2_inv():
     inv.total_heat = inv.alpha_heat + inv.beta_heat + inv.gamma_heat
     inv.ingestion_dose = 6.84076E-01
     inv.inhalation_dose = 1.17614E+02
+    inv.initial_mass = 1.00067E+00
+    inv.total_mass = 1.00067E+00
+    inv.number_of_fissions = 0.0E+00
+    inv.burnup = 0.0E+00
     inv.total_activity = 3.11345E+07
     inv.total_activity_exclude_trit = 3.11345E+07
     return inv
 
 
 def timestep_14_inv():
-    inv = TimeStep()
+    inv = pp.TimeStep()
     inv.irradiation_time = 2.6298E+06 + 5.2596E+06 + 7.8894E+06 + 1.5779E+07 \
                      + 1.5779E+07 + 1.5779E+07
     inv.cooling_time = 6.0000E+01 + 8.6400E+04 + 2.5434E+06 + 1.3149E+07 \
@@ -103,6 +119,10 @@ def timestep_14_inv():
     inv.total_heat = inv.alpha_heat + inv.beta_heat + inv.gamma_heat
     inv.ingestion_dose = 7.01423E-01
     inv.inhalation_dose = 1.17728E+02
+    inv.initial_mass = 1.00067E+00
+    inv.total_mass = 1.00067E+00
+    inv.number_of_fissions = 0.0E+00
+    inv.burnup = 0.0E+00
     inv.total_activity = 4.11571E+07
     inv.total_activity_exclude_trit = 4.11571E+07
     return inv
@@ -112,6 +132,20 @@ class TimeStepUnitTest(BaseOutputUnitTest):
 
     assertor = TimeStepAssertor()
 
+    def test_fission_example(self):
+
+        ts = pp.TimeStep()
+
+        ts.fispact_deserialize(self.filerecord_fission, 1)
+        self.assertEquals(ts.alpha_heat, 7.22533E-10, "Assert alpha heat")
+        self.assertEquals(ts.number_of_fissions, 0.0, "Assert number of fissions is zero")
+        self.assertEquals(ts.burnup, 0.0, "Assert burnup is zero")
+
+        ts.fispact_deserialize(self.filerecord_fission, 2)
+        self.assertEquals(ts.alpha_heat, 7.38131E-10, "Assert alpha heat")
+        self.assertEquals(ts.number_of_fissions, 6.73186E+09, "Assert number of fissions is non zero")
+        self.assertEquals(ts.burnup, 2.93608E-11, "Assert burnup is non zero")
+
     def test_fispact_deserialize(self):
 
         def func(ts, i):
@@ -119,6 +153,48 @@ class TimeStepUnitTest(BaseOutputUnitTest):
             self.assertor.assert_timestep(ts, i)
 
         self._wrapper(func)
+
+    def test_fispact_deserialize_isirradiation(self):
+
+        ts = pp.TimeStep()
+        self.assertor.assert_defaults(ts)
+
+        ts.fispact_deserialize(self.filerecord91, 1)
+        self.assertEquals(True, ts.isirradiation(), "Assert timestep 1 is an irradiation step")
+
+        ts.fispact_deserialize(self.filerecord91, 2)
+        self.assertEquals(True, ts.isirradiation(), "Assert timestep 2 is an irradiation step")
+
+        ts.fispact_deserialize(self.filerecord91, 14)
+        self.assertEquals(False, ts.isirradiation(), "Assert timestep 14 is a cooling step")
+
+    def test_fispact_deserialize_currenttime(self):
+
+        ts = pp.TimeStep()
+        self.assertor.assert_defaults(ts)
+
+        ts.fispact_deserialize(self.filerecord91, 1)
+        self.assertEquals(0.0, ts.currenttime, "Assert the irradiation time for timestep 1")
+
+        ts.fispact_deserialize(self.filerecord91, 2)
+        self.assertEquals(2.6298E+06, ts.currenttime, "Assert the irradiation time for timestep 2")
+
+        ts.fispact_deserialize(self.filerecord91, 14)
+        self.assertEquals(ts.cooling_time, ts.currenttime, "Assert the cooling time for timestep 14")
+
+    def test_fispact_deserialize_nonuclides(self):
+
+        ts = pp.TimeStep(ignorenuclides=True)
+        self.assertor.assert_defaults(ts)
+
+        ts.fispact_deserialize(self.filerecord91, 1)
+        self.assertor.nuc_assertor.assert_defaults(ts.nuclides)
+
+        ts.fispact_deserialize(self.filerecord91, 2)
+        self.assertor.nuc_assertor.assert_defaults(ts.nuclides)
+
+        ts.fispact_deserialize(self.filerecord91, 14)
+        self.assertor.nuc_assertor.assert_defaults(ts.nuclides)
 
     def test_fispact_readwriteread(self):
 
@@ -131,7 +207,7 @@ class TimeStepUnitTest(BaseOutputUnitTest):
             j = ts.json_serialize()
 
             # reset object
-            newts = TimeStep()
+            newts = pp.TimeStep()
             self.assertor.assert_defaults(newts)
 
             # deserialize JSON and compare to original
@@ -142,7 +218,7 @@ class TimeStepUnitTest(BaseOutputUnitTest):
 
     def _wrapper(self, func):
 
-        ts = TimeStep()
+        ts = pp.TimeStep()
         self.assertor.assert_defaults(ts)
 
         for i in range(-100, 100):

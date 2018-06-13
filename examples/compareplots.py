@@ -2,10 +2,11 @@ import os
 import pypact as pp
 import matplotlib.pyplot as plt
 
+
 filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                              '..', 'reference', 'test31')
+
 SECS_TO_YEAR = 1.0/(60.*60.*24.*365.)
-GRAM_TO_KG = 1.0e-3
 
 class PlotData(object):
     """
@@ -56,6 +57,8 @@ class PlotData(object):
 def process_output(output):
     """
         Process the output to get what we need
+        JSON doesn't contain the mass (yet)
+        if it is not read use 1 gram
     """
     pd = PlotData()
 
@@ -68,15 +71,17 @@ def process_output(output):
         pd.title = output.run_data.run_name 
         
         for d in data:
+            # JSON file doesn't yet contain mass, assume 1g for this case
+            mass = d.total_mass if d.total_mass > 0.0 else 1e-3
             if d.cooling_time == 0.0:
                 for n in d.nuclides:
                     i = "{}{}{}".format(n.element, n.isotope, n.state)
                     if n.half_life >= min_cooling_time and n.heat > 1e-13:
-                        pd.isotope_values[i] = n.half_life*SECS_TO_YEAR, n.heat/GRAM_TO_KG
+                        pd.isotope_values[i] = n.half_life*SECS_TO_YEAR, n.heat/mass
 
             if d.cooling_time > 0.0:
                 pd.time.append(d.cooling_time*SECS_TO_YEAR)
-                pd.heat.append(d.total_heat/GRAM_TO_KG)
+                pd.heat.append(d.total_heat/mass)
 
     return pd
 

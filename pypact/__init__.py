@@ -11,6 +11,8 @@ from pypact.output.output import Output
 from pypact.output.timestep import TimeStep
 
 # input
+from pypact.input.filesfile import FilesFile
+from pypact.input.serialization import serialize, deserialize
 from pypact.input.groupstructures import ALL_GROUPS
 from pypact.input.keywords import CONTROL_KEYWORDS
 from pypact.input.keywords import INIT_KEYWORDS

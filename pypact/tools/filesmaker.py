@@ -26,21 +26,25 @@ def main():
         ff = FilesFile(base_dir=args.basedir)
 
         # set paths here, example only now
-        ff.setXS('TENDL2015')
-        #....
+        ff.setXS('TENDL2017')
+        ff.setFissionYield('GEFY52')
+        ff.setProbTab('TENDL2015')
+        ff.setDecay('JEFF33')
+        ff.setRegulatory('DECAY')
+        ff.setGammaAbsorb('DECAY')
         
         invalids = ff.validate()
         if invalids:
             print("Warning: Invalid paths in files file!")
             for i in invalids:
-                print(" *** Missing {0}: {1}".format(i[0], i[1]))
+                print(" *** Missing {}: {}".format(i[0], i[1]))
 
         # write to file
         serialize(ff, filename)
     except PypactException as err:
-        print("Pypact error: {0}".format(err))
+        print("Pypact error: {}".format(err))
     except OSError as err:
-        print("OS error: {0}".format(err))
+        print("OS error: {}".format(err))
     except ValueError as err:
         print(err)
     except:

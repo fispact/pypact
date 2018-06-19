@@ -56,7 +56,7 @@ class OutputUnitTest(BaseOutputUnitTest):
 
         output.fispact_deserialize(self.filerecord31)
         for t in output.inventory_data:
-            self.assertEquals(0, len(t.nuclides), "Assert nuclides are not parsed")
+            self.assertEqual(0, len(t.nuclides), "Assert nuclides are not parsed")
 
     def test_fispact_deserialize_nuclidesexplicit(self):
         output = pp.Output(ignorenuclides=False)

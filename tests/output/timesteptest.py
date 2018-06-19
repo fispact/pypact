@@ -137,14 +137,14 @@ class TimeStepUnitTest(BaseOutputUnitTest):
         ts = pp.TimeStep()
 
         ts.fispact_deserialize(self.filerecord_fission, 1)
-        self.assertEquals(ts.alpha_heat, 7.22533E-10, "Assert alpha heat")
-        self.assertEquals(ts.number_of_fissions, 0.0, "Assert number of fissions is zero")
-        self.assertEquals(ts.burnup, 0.0, "Assert burnup is zero")
+        self.assertEqual(ts.alpha_heat, 7.22533E-10, "Assert alpha heat")
+        self.assertEqual(ts.number_of_fissions, 0.0, "Assert number of fissions is zero")
+        self.assertEqual(ts.burnup, 0.0, "Assert burnup is zero")
 
         ts.fispact_deserialize(self.filerecord_fission, 2)
-        self.assertEquals(ts.alpha_heat, 7.38131E-10, "Assert alpha heat")
-        self.assertEquals(ts.number_of_fissions, 6.73186E+09, "Assert number of fissions is non zero")
-        self.assertEquals(ts.burnup, 2.93608E-11, "Assert burnup is non zero")
+        self.assertEqual(ts.alpha_heat, 7.38131E-10, "Assert alpha heat")
+        self.assertEqual(ts.number_of_fissions, 6.73186E+09, "Assert number of fissions is non zero")
+        self.assertEqual(ts.burnup, 2.93608E-11, "Assert burnup is non zero")
 
     def test_fispact_deserialize(self):
 
@@ -160,13 +160,13 @@ class TimeStepUnitTest(BaseOutputUnitTest):
         self.assertor.assert_defaults(ts)
 
         ts.fispact_deserialize(self.filerecord91, 1)
-        self.assertEquals(True, ts.isirradiation(), "Assert timestep 1 is an irradiation step")
+        self.assertEqual(True, ts.isirradiation(), "Assert timestep 1 is an irradiation step")
 
         ts.fispact_deserialize(self.filerecord91, 2)
-        self.assertEquals(True, ts.isirradiation(), "Assert timestep 2 is an irradiation step")
+        self.assertEqual(True, ts.isirradiation(), "Assert timestep 2 is an irradiation step")
 
         ts.fispact_deserialize(self.filerecord91, 14)
-        self.assertEquals(False, ts.isirradiation(), "Assert timestep 14 is a cooling step")
+        self.assertEqual(False, ts.isirradiation(), "Assert timestep 14 is a cooling step")
 
     def test_fispact_deserialize_currenttime(self):
 
@@ -174,13 +174,13 @@ class TimeStepUnitTest(BaseOutputUnitTest):
         self.assertor.assert_defaults(ts)
 
         ts.fispact_deserialize(self.filerecord91, 1)
-        self.assertEquals(0.0, ts.currenttime, "Assert the irradiation time for timestep 1")
+        self.assertEqual(0.0, ts.currenttime, "Assert the irradiation time for timestep 1")
 
         ts.fispact_deserialize(self.filerecord91, 2)
-        self.assertEquals(2.6298E+06, ts.currenttime, "Assert the irradiation time for timestep 2")
+        self.assertEqual(2.6298E+06, ts.currenttime, "Assert the irradiation time for timestep 2")
 
         ts.fispact_deserialize(self.filerecord91, 14)
-        self.assertEquals(ts.cooling_time, ts.currenttime, "Assert the cooling time for timestep 14")
+        self.assertEqual(ts.cooling_time, ts.currenttime, "Assert the cooling time for timestep 14")
 
     def test_fispact_deserialize_nonuclides(self):
 

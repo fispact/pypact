@@ -41,38 +41,38 @@ An example is shown for a Si 31 nuclide entry, using both JSON approaches.
 ##### Using pypact to parse the FISPACT-II standard output.
 ```JSON
 {
-"element": "Si",
-"isotope": 31,
-"state": "",
-"half_life": 9432.0,
-"grams": 3.699e-16,
-"activity": 528.5,
-"heat": 5.046e-14,
-"alpha_heat": 0.0,
-"beta_heat": 5.028e-14,
-"gamma_heat": 1.84e-16,
-"dose": 1.399e-10,
-"ingestion": 8.456e-08,
-"inhalation": 4.175e-08
+    "element": "Si",
+    "isotope": 31,
+    "state": "",
+    "half_life": 9432.0,
+    "grams": 3.699e-16,
+    "activity": 528.5,
+    "heat": 5.046e-14,
+    "alpha_heat": 0.0,
+    "beta_heat": 5.028e-14,
+    "gamma_heat": 1.84e-16,
+    "dose": 1.399e-10,
+    "ingestion": 8.456e-08,
+    "inhalation": 4.175e-08
 }
 ```
 
 ##### Using FISPACT-II JSON output directly.
 ```JSON
 {
-"element": "Si",
-"isotope": 31,
-"state": "",
-"half_life": 0.9432E+4,
-"grams": 0.36990418187287751E-15,
-"activity": 0.52850009418322043E+3,
-"heat": 0.50459332881338111E-13,
-"alpha_heat": 0.0E+0,
-"beta_heat": 0.50275382281787085E-13,
-"gamma_heat": 0.18395059955102398E-15,
-"dose": 0.1398653735340394E-9,
-"ingestion": 0.84560014731430124E-7,
-"inhalation": 0.41751507961244766E-7
+    "element": "Si",
+    "isotope": 31,
+    "state": "",
+    "half_life": 0.9432E+4,
+    "grams": 0.36990418187287751E-15,
+    "activity": 0.52850009418322043E+3,
+    "heat": 0.50459332881338111E-13,
+    "alpha_heat": 0.0E+0,
+    "beta_heat": 0.50275382281787085E-13,
+    "gamma_heat": 0.18395059955102398E-15,
+    "dose": 0.1398653735340394E-9,
+    "ingestion": 0.84560014731430124E-7,
+    "inhalation": 0.41751507961244766E-7
 }
 ```
 

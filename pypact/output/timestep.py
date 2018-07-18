@@ -2,6 +2,7 @@ from pypact.util.decorators import freeze_it
 from pypact.output.serializable import Serializable
 from pypact.output.doserate import DoseRate
 from pypact.output.nuclides import Nuclides
+from pypact.output.gammaspectrum import GammaSpectrum
 from pypact.output.tags import TIME_STEP_HEADER
 import pypact.util.propertyfinder as pf
 
@@ -29,6 +30,7 @@ class TimeStep(Serializable):
         self.total_mass = 0.0
         self.number_of_fissions = 0.0
         self.burnup = 0.0
+        self.gamma_spectrum = GammaSpectrum()
         self.dose_rate = DoseRate()
         self.nuclides = Nuclides()
 
@@ -81,6 +83,7 @@ class TimeStep(Serializable):
         self.total_activity_exclude_trit = get_value(starttag='TOTAL ACTIVITY EXCLUDING TRITIUM', endtag='Bq')
 
         self.dose_rate.fispact_deserialize(filerecord, interval)
+        self.gamma_spectrum.fispact_deserialize(filerecord, interval)
 
         # for fission this can be very large and hence very slow
         # if you do not care about the nuclides then we can set

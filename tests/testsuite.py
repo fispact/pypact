@@ -6,6 +6,7 @@ from tests.util.numericaltest import NumericalUnitTest
 from tests.util.propertyfindertest import PropertyFinderUnitTest
 
 from tests.output.doseratetest import DoseRateUnitTest
+from tests.output.gammaspectrumtest import GammaSpectrumUnitTest
 from tests.output.rundatatest import RunDataUnitTest
 from tests.output.nuclidestest import NuclidesUnitTest
 from tests.output.timesteptest import TimeStepUnitTest

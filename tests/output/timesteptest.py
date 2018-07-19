@@ -160,13 +160,13 @@ class TimeStepUnitTest(BaseOutputUnitTest):
         self.assertor.assert_defaults(ts)
 
         ts.fispact_deserialize(self.filerecord91, 1)
-        self.assertEqual(True, ts.isirradiation(), "Assert timestep 1 is an irradiation step")
+        self.assertEqual(True, ts.isirradiation, "Assert timestep 1 is an irradiation step")
 
         ts.fispact_deserialize(self.filerecord91, 2)
-        self.assertEqual(True, ts.isirradiation(), "Assert timestep 2 is an irradiation step")
+        self.assertEqual(True, ts.isirradiation, "Assert timestep 2 is an irradiation step")
 
         ts.fispact_deserialize(self.filerecord91, 14)
-        self.assertEqual(False, ts.isirradiation(), "Assert timestep 14 is a cooling step")
+        self.assertEqual(False, ts.isirradiation, "Assert timestep 14 is a cooling step")
 
     def test_fispact_deserialize_currenttime(self):
 

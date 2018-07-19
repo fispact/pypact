@@ -47,6 +47,12 @@ class Serializable(object):
         d = json.loads(j)
 
         def do_append(a):
+            # for the standard case of a list of str, int or floats
+            if isinstance(a, (int, float, str)):
+                self.__dict__[key].append(a)
+                return
+
+            # for the unique case of a list of Serializable objects
             t = objtype()
             if isinstance(t, Serializable):
                 t.json_deserialize(json.dumps(a))

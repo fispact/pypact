@@ -36,12 +36,13 @@ class TimeStep(Serializable):
 
         self.__ignorenuclides = ignorenuclides
 
+    @property
     def isirradiation(self):
         return self.cooling_time == 0.0
 
     @property
     def currenttime(self):
-        if self.isirradiation():
+        if self.isirradiation:
             return self.irradiation_time
         return self.cooling_time
 

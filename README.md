@@ -316,6 +316,8 @@ python3 setup.py test
 #### <a name="supported-outputs"></a>Supported outputs
 At time of writing, not all of the FISPACT-II output can be parsed and therefore some data is missing from Pypact. It is our intention to cover the whole file (or the important bits) in the future, until then the list of supported outputs is listed below.
 
+Now contains gamma spectrum, which has the bin values of size n, and bin boundaries of size n+1. See the examples for gammaspectrum and the animation option.
+
 * Output (returned from reader() operation)
 	+ Run Data (output.run_data)
   		- run name (output.run_data.run_name)
@@ -332,6 +334,9 @@ At time of writing, not all of the FISPACT-II output can be parsed and therefore
   			- gamma heat (output.inventory_data[entry].gamma_heat)
   			- ingestion dose (output.inventory_data[entry].ingestion_dose)
   			- inhalation dose (output.inventory_data[entry].inhalation_dose)
+                      - gamma_spectrum (output.inventory_data[entry].gamma_spectrum)
+                             - boundaries  (output.inventory_data[entry].gamma_spectrum.boundaries)
+                             - values  (output.inventory_data[entry].values)
   			- dose rate (output.inventory_data[entry].dose_rate)
   				- type (output.inventory_data[entry].dose_rate.type)
   				- distance (output.inventory_data[entry].dose_rate.distance)

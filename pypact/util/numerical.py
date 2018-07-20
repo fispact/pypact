@@ -38,8 +38,9 @@ def isfloat(value):
         Will allow for fortran style floats, i.e -2.34321-308
         If it is neither then it will return False
     """
-    return istradiationalfloat(value) or isfortranfloat(value)
-
+    if isinstance(value, (int, float, str)):
+        return istradiationalfloat(value) or isfortranfloat(value)
+    return False
 
 def isfortranfloat(value):
     passfunc = lambda sign, esign, parts: True

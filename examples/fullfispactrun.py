@@ -7,8 +7,9 @@ import matplotlib.pyplot as plt
 files_filename = "files"
 input_filename = "run.i"
 fluxes_filename = "fluxes"
+show_plot = False
 group = 709
-inventory = [('Fe', 0.89), ('Se', 0.11)]
+inventory = [('Fe', 1.0)]
 fispact_exe = os.getenv('FISPACT', os.path.join(os.sep, 'opt', 'fispact', 'bin', 'fispact'))
 nuclear_data_base = os.getenv('NUCLEAR_DATA', os.path.join(os.sep, 'opt', 'fispact', 'nuclear_data'))
 
@@ -29,8 +30,8 @@ id = pp.InputData(name=input_filename.strip('.i'))
 id.overwriteExisting()
 id.enableJSON()
 id.approxGammaSpectrum()
-#id.collapse(group)
-#id.condense()
+id.collapse(group)
+id.condense()
 id.outputHalflife()
 id.outputHazards()
 id.useNeutron()
@@ -42,7 +43,7 @@ id.setDensity(7.875)
 id.setMass(1.0e-3)
 for e, r in inventory:
     id.addElement(e, percentage=r*100.0)
-id.addIrradiation(300.0, 1.1e12)
+id.addIrradiation(300.0, 1.1e15)
 id.addCooling(10.0)
 id.addCooling(100.0)
 id.addCooling(1000.0)
@@ -77,7 +78,10 @@ elements = {}
 outfile = "{}.json".format(input_filename.strip('.i'))
 with pp.Reader(outfile) as output:
     ignore_elements = list(map(list, zip(*inventory)))[0]
-    print(ignore_elements)
+    if len(output) == 0:
+        print("No valid inventory output, exiting")
+        exit
+
     for n in output[-1].nuclides:
         if n.element not in ignore_elements:
             if n.element in elements:
@@ -88,7 +92,10 @@ with pp.Reader(outfile) as output:
     total_grams = sum([g for e, g in elements.items()])
     for e, g in elements.items():
         print("{} {:.2f}%".format(e, g*100.0/total_grams))
+        # we must rescale the values
+        elements[e] = g/total_grams
 
     labels, values = list(zip(*(list(elements.items()))))
-    plt.pie(list(values), labels=list(labels), autopct='%2.2f%%', shadow=False)
-    plt.show()
+    if show_plot:
+        plt.pie(list(values), labels=list(labels), autopct='%2.2f%%', shadow=False)
+        plt.show()

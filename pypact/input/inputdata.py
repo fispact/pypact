@@ -242,7 +242,7 @@ class InputData(object):
             addcomment("use EAF nuclear data libraries")
             addkeyword('LIBVERSION', args=[0])
         
-        if self._useEAF:
+        if self._useCumFY:
             addcomment("use cumulative fission yield data mt=459 instead of mt=454")
             addkeyword('CUMFYLD')
             

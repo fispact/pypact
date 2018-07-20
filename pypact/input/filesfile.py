@@ -182,7 +182,7 @@ class FilesFile(object):
 
         self.__setattr__(key, os.path.join(self.__base_dir, NUCLEAR_LIBS[type][key]))
 
-    def validate(self):
+    def invalidpaths(self):
         """
             Validate if paths in files file exist
             Return a list of tuples (key, value) that do not exist

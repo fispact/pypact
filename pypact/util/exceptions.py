@@ -1,6 +1,9 @@
 class PypactException(Exception):
     pass
 
+class PypactOutOfRangeException(PypactException):
+    pass
+
 class PypactSerializeException(PypactException):
     pass
 

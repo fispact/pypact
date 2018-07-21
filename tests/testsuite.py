@@ -13,6 +13,7 @@ from tests.output.timesteptest import TimeStepUnitTest
 from tests.output.outputtest import OutputUnitTest
 from tests.output.readertest import ReaderUnitTest
 
+from tests.input.fluxesfiletest import FluxesFileUnitTest
 from tests.input.keywordstest import KeywordsUnitTest
 from tests.input.groupstructurestest import GroupStructuresUnitTest
 

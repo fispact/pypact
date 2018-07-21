@@ -5,7 +5,7 @@ from pypact.input.groupstructures import ALL_GROUPS
 from pypact.util.decorators import freeze_it
 from pypact.util.jsonserializable import JSONSerializable
 from pypact.util.numerical import getfloat, isfloat
-from pypact.util.exceptions import PypactOutOfRangeException, PypactDeserializeException
+from pypact.util.exceptions import PypactException, PypactOutOfRangeException, PypactDeserializeException
 
 
 @freeze_it
@@ -33,8 +33,20 @@ class FluxesFile(JSONSerializable):
         """
             Requires setGroup is set before
         """
+        if not self.boundaries:
+            raise PypactException("No group set, cannot set value.")
+        
+        if value < 0.0:
+            raise PypactOutOfRangeException("Flux value cannot be negative.")
+        
+        if energy < self.boundaries[0]:
+            raise PypactOutOfRangeException("Energy value below minimum for group, group min is {}.".format(self.boundaries[0]))
+        
+        if energy >= self.boundaries[-1]:
+            raise PypactOutOfRangeException("Energy value exceeds maximum for group, group max is {}.".format(self.boundaries[-1]))
+        
         for i in range(0, len(self.boundaries)-1):
-            if self.boundaries[i] > energy:
+            if self.boundaries[i+1] > energy:
                 self.values[i] = value
                 return
 

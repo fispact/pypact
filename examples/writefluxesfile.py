@@ -1,28 +1,21 @@
+#!/usr/bin/env python3
+
 import pypact as pp
 
-filename = "fluxes"
+
+# fluxes file
 # set monoenergetic flux at 14 MeV for group 709
-desired_energy = 14.0e6
-group = 709
+flux = pp.FluxesFile(name="14 MeV (almost) monoenergetic", norm=1.0)
+flux.setGroup(709)
 
-# group structures are in reverse order
-g = list(reversed(pp.ALL_GROUPS[group]))
+# set values at energies 12, 13 and 14 MeV
+flux.setValue(12.0e6, 0.1)
+flux.setValue(13.0e6, 0.4)
+flux.setValue(14.0e6, 1.0)
 
-# set your flux spectrum
-energies = [(g[i] + g[i+1])/2.0 for i in range(0, group)]
-flux     = [0.0]*group
-for i in range(0, group):
-    if g[i] > desired_energy:
-        flux[i] = 1.0
-        break
+# validate the data
+flux.validate()
 
-# write it afterwards
-# looks illy looping twice but for complicated flux configuration it is cleaner to understand
-# cost is nothing since list is tiny < 1000
-with open(filename, 'wt') as f:
-    for e in flux:
-        f.write("{}\n".format(e))
-    f.write("{}\n".format(1))
-    f.write("Sample flux at 14MeV only")
+pp.serialize(flux, "fluxes")
 
 

@@ -3,6 +3,7 @@ import os
 from pypact.input.keywords import CONTROL_KEYWORDS, INIT_KEYWORDS, INVENTORY_KEYWORDS
 from pypact.util.decorators import freeze_it
 from pypact.util.exceptions import PypactOutOfRangeException
+from pypact.util.jsonserializable import JSONSerializable
 from pypact.util.loglevels import *
 
 PROJECTILE_NEUTRON  = 1
@@ -23,27 +24,32 @@ COMMENT_START = '<<'
 COMMENT_END   = '>>'
 
 @freeze_it
-class MassInventory(object):
+class MassInventory(JSONSerializable):
     def __init__(self):
         # the total mass in kg
-        self._totalMass    = 0.0
+        self.totalMass    = 0.0
         
         # a list of tuples, the first entry is the element symbol
         # the second is the percentage contribution
-        self._elements     = []
+        self.elements     = []
 
     def __str__(self):
-        strrep = "{} {} {}".format('MASS', self._totalMass, len(self._elements))
-        for e in self._elements:
+        strrep = "{} {} {}".format('MASS', self.totalMass, len(self.elements))
+        for e in self.elements:
             strrep += "\n{} {}".format(e[0], e[1])
 
         return strrep
 
 @freeze_it
-class InputData(object):
+class InputData(JSONSerializable):
 
     def __init__(self, name="run"):
-        self._name      = name
+        """
+            Constructor
+            
+            Initialises all input data
+        """
+        self.name = name
         
         self._overwrite             = False
         self._json                  = False
@@ -59,6 +65,7 @@ class InputData(object):
         self._ignoreUncertainties   = False
         self._enableMonitor         = False
         self._useCumFY              = False
+        self._includeClearanceData  = False
         self._logLevel              = LOG_SEVERITY_WARNING
         
         self._xsThreshold           = 0
@@ -82,22 +89,47 @@ class InputData(object):
         self._coolingSchedule       = []
     
     def reset(self):
-        self.__init__(self._name)
+        """
+            Reset the data
+            
+            Reinitialises all input data to defaults
+        """
+        self.__init__(self.name)
 
     def validate(self):
+        """
+            Validate the input data
+            
+            Not implemented yet
+        """
         # to do
         pass
 
     def overwriteExisting(self, overwrite=True):
+        """
+            Enables overwriting of output files
+            uses keyword CLOBBER
+        """
         self._overwrite = overwrite
 
     def enableJSON(self, enable=True):
+        """
+            Enables JSON output file
+            uses keyword JSON
+        """
         self._json = enable
     
     def outputInitialInventory(self, output=True):
+        """
+            Performs the time = 0, inventory step,
+            the initial inventory
+        """
         self._outputInitialInventory = output
     
     def outputHalflife(self, output=True):
+        """
+            Enables half lives to be written to the output file
+        """
         self._outputHalflife = output
     
     def outputHazards(self, output=True):
@@ -112,6 +144,9 @@ class InputData(object):
     
     def useCumulativeFissionYieldData(self, use=True):
         self._useCumFY = use
+    
+    def includeClearanceData(self, include=True):
+        self._includeClearanceData = include
     
     def condense(self, condense=True):
         self._condense = condense
@@ -187,7 +222,7 @@ class InputData(object):
         if not totalMassInKg > 0.0:
             raise PypactOutOfRangeException("Total mass must be positive.")
 
-        self._inventoryMass._totalMass = totalMassInKg
+        self._inventoryMass.totalMass = totalMassInKg
 
     def addElement(self, element, percentage=100.0):
         """
@@ -198,10 +233,10 @@ class InputData(object):
         if percentage > 100.0:
             raise PypactOutOfRangeException("Cannot set the element percentage above 100%.")
         
-        self._inventoryMass._elements.append((element, percentage))
+        self._inventoryMass.elements.append((element, percentage))
         
     def clearElements(self):
-        self._inventoryMass._elements = []
+        self._inventoryMass.elements = []
     
     def _serialize(self, f):
         """
@@ -281,7 +316,7 @@ class InputData(object):
         # end control phase
         addcomment("end control")
         addkeyword('FISPACT')
-        addkeyword('*', args=[self._name])
+        addkeyword('*', args=[self.name])
 
         # initial phase
         addnewline()
@@ -293,8 +328,12 @@ class InputData(object):
         if self._outputHazards:
             addcomment("output ingestion and inhalation values")
             addkeyword('HAZARDS')
+
+        if self._includeClearanceData:
+            addcomment("include clearance data of radionuclides to be input")
+            addkeyword('CLEAR')
             
-        if self._inventoryMass._totalMass > 0.0:
+        if self._inventoryMass.totalMass > 0.0:
             addcomment("set the target via MASS")
             addkeyword(str(self._inventoryMass))
         
@@ -309,26 +348,25 @@ class InputData(object):
         if self._outputInitialInventory:
             addcomment("output the initial inventory")
             addkeyword('ATOMS')
-        
+
         # inventory phase
         addnewline()
         addcomment("INVENTORY PHASE")
-        
+
         addcomment("irradiation schedule")
         for time, fluxamp in self._irradSchedule:
             addkeyword('FLUX', args=[fluxamp])
             addkeyword('TIME', args=[time, 'SECS'])
             addkeyword('ATOMS')
-        
         addcomment("end of irradiation")
+
         addkeyword('FLUX', args=[0.0])
         addkeyword('ZERO')
         for time in self._coolingSchedule:
             addkeyword('TIME', args=[time, 'SECS'])
             addkeyword('ATOMS')
-        
         addcomment("end of cooling")
-        
+
         # end file
         addcomment("end of input")
         addkeyword('END')

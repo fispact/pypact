@@ -1,15 +1,15 @@
 from pypact.util.decorators import freeze_it
-from pypact.output.serializable import Serializable
+from pypact.util.lines import first_occurrence
+from pypact.util.jsonserializable import JSONSerializable
 from pypact.output.nuclide import Nuclide
 from pypact.output.tags import NUCLIDES_HEADER
 import pypact.util.propertyfinder as pf
-from pypact.util.lines import first_occurrence
 
 NUCLIDES_IGNORES = ['\n', '|']
 
 
 @freeze_it
-class Nuclides(Serializable):
+class Nuclides(JSONSerializable):
     """
         The nuclides type from the output
     """

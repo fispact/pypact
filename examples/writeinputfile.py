@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import pypact as pp
 
 runname = 'test'
@@ -27,6 +29,17 @@ id.setMass(1.0)
 id.addElement('Ti', percentage=80.0)
 id.addElement('Fe', percentage=20.0)
 id.addElement('Cr', percentage=5.2)
+
+# irradiate and cooling times
+id.addIrradiation(300.0, 1.1e15)
+id.addCooling(10.0)
+id.addCooling(100.0)
+id.addCooling(1000.0)
+id.addCooling(10000.0)
+id.addCooling(100000.0)
+
+# validate data
+id.validate()
 
 # write to file
 pp.serialize(id, '{}.i'.format(runname))

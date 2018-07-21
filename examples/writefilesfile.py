@@ -1,8 +1,10 @@
+#!/usr/bin/env python3
+
 import os
 import pypact as pp
 
-filename = "files"
-base_dir = os.path.join(os.sep, 'opt', 'fispact', 'nuclear_data')
+
+base_dir = os.getenv('NUCLEAR_DATA', os.path.join(os.sep, 'opt', 'fispact', 'nuclear_data'))
 
 # write a files file
 ff = pp.FilesFile(base_dir=base_dir)
@@ -14,5 +16,5 @@ ff.setDecay('DECAY')
 ff.setRegulatory('DECAY')
 ff.setGammaAbsorb('DECAY')
 
-pp.serialize(ff, filename)
+pp.serialize(ff, "files")
 

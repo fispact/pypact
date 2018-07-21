@@ -1,7 +1,10 @@
+#!/usr/bin/env python3
+
+import os
 import pypact as pp
 
 # change the filename here
-runname = 'inventory'
+runname = os.path.join('..', 'reference', 'test121.out')
 
 # if you change this you must also
 # change the list at the bottom!
@@ -22,8 +25,8 @@ def fmt(items):
         str += ", {:>20}".format(i)
     return "{}\n".format(str)
 
-with pp.Reader('{}.out'.format(runname)) as output:
-    with open('{}.csv'.format(runname), 'wt') as f:
+with pp.Reader(runname) as output:
+    with open('csvexample.csv', 'wt') as f:
         f.write(fmt(headers))
         for t in output:
             for n in t.nuclides:
@@ -37,4 +40,4 @@ with pp.Reader('{}.out'.format(runname)) as output:
                              n.beta_heat,
                              n.gamma_heat,
                              t.currenttime,
-                             t.isirradiation()]))
+                             t.isirradiation]))

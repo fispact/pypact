@@ -1,10 +1,11 @@
 nan = float('NaN')
 
 def arevaluesthesame(value1, value2, rel_tol, abs_tol=0.0):
-    # Use math.isclose algorithm, it is better than numpy.isclose method.
-    # See https://github.com/numpy/numpy/issues/10161 for more on the discussion
-    # Since some python version don't come with math.isclose we implement it here directly
-
+    """
+        Use math.isclose algorithm, it is better than numpy.isclose method.
+        See https://github.com/numpy/numpy/issues/10161 for more on the discussion
+        Since some python version don't come with math.isclose we implement it here directly
+    """
     return abs(value1 - value2) <= max(rel_tol * max(abs(value1), abs(value2)), abs_tol)
 
 

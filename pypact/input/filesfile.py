@@ -1,6 +1,7 @@
 import os
 
 from pypact.util.decorators import freeze_it
+from pypact.util.jsonserializable import JSONSerializable
 from pypact.util.exceptions import PypactDeserializeException
 from pypact.util.file import file_exists, dir_exists
 
@@ -114,9 +115,9 @@ NUCLEAR_LIBS = {
 }
 
 @freeze_it
-class FilesFile(object):
+class FilesFile(JSONSerializable):
     def __init__(self, base_dir=os.sep):
-        self.nullify()
+        self.reset()
 
         self.__base_dir = base_dir
 
@@ -133,7 +134,7 @@ class FilesFile(object):
         self.collapxo   = "COLLAPX"
         self.arrayx     = "ARRAYX"
 
-    def nullify(self):
+    def reset(self):
         self.ind_nuc    = NULL_ENTRY
         self.xs_endf    = NULL_ENTRY
         self.prob_tab   = NULL_ENTRY

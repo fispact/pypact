@@ -2,7 +2,7 @@ from pypact.util.decorators import freeze_it
 from pypact.util.numerical import getfloat
 from pypact.util.exceptions import PypactDeserializeException
 from pypact.util.lines import first_value_from_line, strings_from_line
-from pypact.output.serializable import Serializable
+from pypact.util.jsonserializable import JSONSerializable
 from pypact.output.tags import DOSE_RATE_HEADER
 import pypact.util.propertyfinder as pf
 from pypact.util.lines import first_occurrence, first_value_from_line
@@ -11,7 +11,7 @@ GAMMA_SPECTRUM_IGNORES = ['\n']
 
 
 @freeze_it
-class GammaSpectrum(Serializable):
+class GammaSpectrum(JSONSerializable):
     """
         The gamma spectrum type from the output
     """

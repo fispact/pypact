@@ -1,6 +1,7 @@
 # output readers
 from pypact.reader import Reader
 from pypact.filerecord import FileRecord
+from pypact.runner import compute
 
 # output data structures
 from pypact.output.rundata import RunData

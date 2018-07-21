@@ -1,6 +1,7 @@
+import time
 from functools import wraps
 
-from pypact.util.exceptions import PypactException
+from pypact.util.exceptions import PypactFrozenException
 
 
 def freeze_it(cls):
@@ -24,3 +25,18 @@ def freeze_it(cls):
     cls.__init__ = init_decorator(cls.__init__)
 
     return cls
+
+def timeit(method):
+    def timed(*args, **kwargs):
+        ts = time.time()
+        result = method(*args, **kwargs)
+        te = time.time()
+        
+        if 'runtime' in kwargs:
+            name = kwargs.get('runname', method.__name__.upper())
+            kwargs['runtime'][name] = int((te - ts))
+            kwargs['runtimeunit'][name] = "seconds"
+        else:
+            print(' *** Time taken for {0}:  {1:.4g} seconds'.format(method.__name__, (te - ts)))
+        return result
+    return timed

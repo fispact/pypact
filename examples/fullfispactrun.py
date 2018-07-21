@@ -10,11 +10,6 @@ show_plot = False
 group = 709
 inventory = [('Fe', 1.0)]
 
-# default filenames
-files_filename = "files"
-input_filename = "run.i"
-fluxes_filename = "fluxes"
-
 # files file
 def createfiles():
     nuclear_data_base = os.getenv('NUCLEAR_DATA', os.path.join(os.sep, 'opt', 'fispact', 'nuclear_data'))
@@ -27,7 +22,6 @@ def createfiles():
     ff.setDecay('DECAY')
     ff.setRegulatory('DECAY')
     ff.setGammaAbsorb('DECAY')
-    ff.fluxes = fluxes_filename
     for invalid in ff.invalidpaths():
         print("FilesFile:: missing file: {}".format(invalid))
 
@@ -35,14 +29,14 @@ def createfiles():
 
 # input file
 def createinput():
-    id = pp.InputData(name=input_filename.strip('.i'))
+    id = pp.InputData()
     
     id.overwriteExisting()
     id.enableJSON()
     id.approxGammaSpectrum()
     id.collapse(group)
     id.condense()
-    id.enableMonitor()
+    id.enableMonitor(False)
     id.outputHalflife()
     id.outputHazards()
     id.useNeutron()
@@ -79,25 +73,6 @@ def createflux():
 
     return flux
 
-def fispact_compute(input, files, fluxes):
-    # write all files
-    pp.serialize(input, input_filename)
-    pp.serialize(files, files_filename)
-    pp.serialize(fluxes, fluxes_filename)
-
-    # run fispact
-    fispact_exe = os.getenv('FISPACT', os.path.join(os.sep, 'opt', 'fispact', 'bin', 'fispact'))
-    proc = subprocess.check_call("{} {} {}".format(fispact_exe, input.name, files_filename), shell=True)
-
-    # check for log file
-    logfile = "{}.log".format(input_filename.strip('.i'))
-    if not os.path.isfile(logfile):
-        raise RuntimeError("No log file produced.")
-
-    outfile = "{}.json".format(input.name)
-    with pp.Reader(outfile) as output:
-        return output
-
 # perform analysis on the output
 def analyse(output):
     # plot the final inventory ignoring the initial elements
@@ -129,5 +104,5 @@ def analyse(output):
 input  = createinput()
 files  = createfiles()
 fluxes = createflux()
-output = fispact_compute(input, files, fluxes)
+output = pp.compute(input, files, fluxes)
 analyse(output)

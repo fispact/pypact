@@ -1,5 +1,4 @@
 import os
-from typing import List
 
 from pypact.input.groupstructures import ALL_GROUPS
 from pypact.util.decorators import freeze_it
@@ -11,17 +10,17 @@ from pypact.util.exceptions import PypactException, PypactOutOfRangeException, P
 @freeze_it
 class FluxesFile(JSONSerializable):
     def __init__(self, name="fluxes", norm=1.0):
-        self.name: str = name
-        self.norm: float = norm
+        self.name = name
+        self.norm = norm
     
-        self.boundaries: List[float] = []
-        self.values: List[float] = []
-        self.midPointEnergies: List[float] = []
+        self.boundaries = []
+        self.values = []
+        self.midPointEnergies = []
 
     def reset(self):
         self.__init__(name=self.name)
 
-    def setGroup(self, group: int):
+    def setGroup(self, group):
         if group not in ALL_GROUPS:
             raise PypactOutOfRangeException("Group {} is not a valid group".format(group))
 
@@ -29,7 +28,7 @@ class FluxesFile(JSONSerializable):
         self._setBoundaries(group)
         self.values = [0.0]*group
 
-    def setValue(self, energy: float, value: float):
+    def setValue(self, energy, value):
         """
             Requires setGroup is set before
         """
@@ -54,7 +53,7 @@ class FluxesFile(JSONSerializable):
         if len(self.boundaries) != len(self.values) + 1:
             raise PypactOutOfRangeException("Bin boundaries must be of size one greater than values size")
     
-    def _setBoundaries(self, group: int):
+    def _setBoundaries(self, group):
         self.boundaries = list(reversed(ALL_GROUPS[group]))
         self.midPointEnergies = [(self.boundaries[i] + self.boundaries[i+1])/2.0 for i in range(0, group)]
     

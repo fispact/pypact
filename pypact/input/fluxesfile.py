@@ -13,13 +13,21 @@ class FluxesFile(JSONSerializable):
         self.name = name
         self.norm = norm
     
-        self.boundaries = []
+        self.__boundaries = []
+        self.__midpointenergies = []
         self.values = []
-        self.midPointEnergies = []
 
     def reset(self):
-        self.__init__(name=self.name)
+        self.__init__(name=self.name)   
 
+    @property
+    def boundaries(self):
+        return self.__boundaries
+    
+    @property
+    def midPointEnergies(self):
+        return self.__midpointenergies
+    
     def setGroup(self, group):
         if group not in ALL_GROUPS:
             raise PypactOutOfRangeException("Group {} is not a valid group".format(group))
@@ -32,30 +40,30 @@ class FluxesFile(JSONSerializable):
         """
             Requires setGroup is set before
         """
-        if not self.boundaries:
+        if not self.__boundaries:
             raise PypactException("No group set, cannot set value.")
         
         if value < 0.0:
             raise PypactOutOfRangeException("Flux value cannot be negative.")
         
-        if energy < self.boundaries[0]:
-            raise PypactOutOfRangeException("Energy value below minimum for group, group min is {}.".format(self.boundaries[0]))
+        if energy < self.__boundaries[0]:
+            raise PypactOutOfRangeException("Energy value below minimum for group, group min is {}.".format(self.__boundaries[0]))
         
-        if energy >= self.boundaries[-1]:
-            raise PypactOutOfRangeException("Energy value exceeds maximum for group, group max is {}.".format(self.boundaries[-1]))
+        if energy >= self.__boundaries[-1]:
+            raise PypactOutOfRangeException("Energy value exceeds maximum for group, group max is {}.".format(self.__boundaries[-1]))
         
-        for i in range(0, len(self.boundaries)-1):
-            if self.boundaries[i+1] > energy:
+        for i in range(0, len(self.__boundaries)-1):
+            if self.__boundaries[i+1] > energy:
                 self.values[i] = value
                 return
 
     def validate(self):
-        if len(self.boundaries) != len(self.values) + 1:
+        if len(self.__boundaries) != len(self.values) + 1:
             raise PypactOutOfRangeException("Bin boundaries must be of size one greater than values size")
     
     def _setBoundaries(self, group):
-        self.boundaries = list(reversed(ALL_GROUPS[group]))
-        self.midPointEnergies = [(self.boundaries[i] + self.boundaries[i+1])/2.0 for i in range(0, group)]
+        self.__boundaries = list(reversed(ALL_GROUPS[group]))
+        self.__midpointenergies = [(self.__boundaries[i] + self.__boundaries[i+1])/2.0 for i in range(0, group)]
     
     def _serialize(self, f):
         """

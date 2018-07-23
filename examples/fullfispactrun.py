@@ -6,7 +6,8 @@ import pypact as pp
 import matplotlib.pyplot as plt
 
 
-show_plot = False
+do_collapse = True
+show_plot = True
 group = 709
 inventory = [('Fe', 1.0)]
 
@@ -34,13 +35,14 @@ def createinput():
     id.overwriteExisting()
     id.enableJSON()
     id.approxGammaSpectrum()
-    id.collapse(group)
-    id.condense()
-    id.enableMonitor(False)
-    id.outputHalflife()
-    id.outputHazards()
+    if do_collapse:
+        id.doCollapse(group)
+        id.doCondense()
+    id.enableSystemMonitor(False)
+    id.enableHalflifeInOutput()
+    id.enableHazardsInOutput()
     id.useNeutron()
-    id.outputInitialInventory()
+    id.enableInitialInventoryInOutput()
     id.setLogLevel(pp.LOG_SEVERITY_ERROR)
     id.setAtomsThreshold(1.0e-3)
     id.setDensity(7.875)

@@ -51,42 +51,42 @@ class InputData(JSONSerializable):
         """
         self.name = name
         
-        self._overwrite             = False
-        self._json                  = False
-        self._condense              = False
-        self._binaryXS              = False
-        self._useEAF                = False
-        self._approxGamma           = False
-        self._outputHalflife        = False
-        self._outputHazards         = False
-        self._outputInitialInventory= False
-        self._readGammaGroup        = False
-        self._readSF                = False
-        self._ignoreUncertainties   = False
-        self._enableMonitor         = False
-        self._useCumFY              = False
-        self._includeClearanceData  = False
-        self._logLevel              = LOG_SEVERITY_WARNING
+        self.overwrite             = False
+        self.json                  = False
+        self.condense              = False
+        self.binaryxs              = False
+        self.useeaf                = False
+        self.approxgamma           = False
+        self.outputhalflife        = False
+        self.outputhazards         = False
+        self.initialinventory      = False
+        self.readgammagroup        = False
+        self.readspontfission      = False
+        self.ignoreuncert          = False
+        self.enablemonitor         = False
+        self.usecumfissyield       = False
+        self.clearancedata         = False
+        self.loglevel              = LOG_SEVERITY_WARNING
         
-        self._xsThreshold           = 0
-        self._group                 = 0
-        self._projectile            = PROJECTILE_NEUTRON
+        self.xsthreshold           = 0
+        self.group                 = 0
+        self.projectile            = PROJECTILE_NEUTRON
 
         # set the minimum number of atoms deemed significant for the inventory output
-        self._atomsThreshold        = 0.0
+        self.atomsthreshold        = 0.0
         
         # the total mass in grams per cubic centimetre (g/cc)
-        self._density               = 0.0
+        self.density               = 0.0
         
-        self._inventoryMass         = MassInventory()
+        self.inventorymass         = MassInventory()
     
         # irradiation schedule
         # a list of tuples of (time interval in seconds, flux amplitude)
-        self._irradSchedule         = []
+        self.irradschedule         = []
         
         # cooling schedule
         # a list of time interval in seconds
-        self._coolingSchedule       = []
+        self.coolingschedule       = []
     
     def reset(self):
         """
@@ -110,58 +110,58 @@ class InputData(JSONSerializable):
             Enables overwriting of output files
             uses keyword CLOBBER
         """
-        self._overwrite = overwrite
+        self.overwrite = overwrite
 
     def enableJSON(self, enable=True):
         """
             Enables JSON output file
             uses keyword JSON
         """
-        self._json = enable
+        self.json = enable
     
-    def outputInitialInventory(self, output=True):
+    def enableInitialInventoryInOutput(self, output=True):
         """
             Performs the time = 0, inventory step,
             the initial inventory
         """
-        self._outputInitialInventory = output
+        self.initialinventory = output
     
-    def outputHalflife(self, output=True):
+    def enableHalflifeInOutput(self, output=True):
         """
             Enables half lives to be written to the output file
         """
-        self._outputHalflife = output
+        self.outputhalflife = output
     
-    def outputHazards(self, output=True):
-        self._outputHazards = output
+    def enableHazardsInOutput(self, output=True):
+        self.outputhazards = output
     
-    def collapse(self, group, binary=False):
-        self._group = group
-        self._binaryXS = binary
+    def doCollapse(self, group, binary=False):
+        self.group = group
+        self.binaryxs = binary
     
-    def useEAF(self, use=True):
-        self._useEAF = use
+    def useEAFLibraries(self, use=True):
+        self.useeaf = use
     
     def useCumulativeFissionYieldData(self, use=True):
-        self._useCumFY = use
+        self.usecumfissyield = use
     
     def includeClearanceData(self, include=True):
-        self._includeClearanceData = include
+        self.clearancedata = include
     
-    def condense(self, condense=True):
-        self._condense = condense
+    def doCondense(self, condense=True):
+        self.condense = condense
     
-    def approxGammaSpectrum(self, approxGamma=True):
-        self._approxGamma = approxGamma
+    def approxGammaSpectrum(self, approxgamma=True):
+        self.approxgamma = approxgamma
     
     def ignoreUncertainties(self, ignore=True):
-        self._ignoreUncertainties = ignore
+        self.ignoreuncert = ignore
     
     def setXSThreshold(self, threshold):
-        self._xsThreshold = threshold
+        self.xsthreshold = threshold
     
     def _useParticle(self, particle):
-        self._projectile = particle
+        self.projectile = particle
     
     def useNeutron(self):
         self._useParticle(PROJECTILE_NEUTRON)
@@ -179,30 +179,30 @@ class InputData(JSONSerializable):
         self._useParticle(PROJECTILE_GAMMA)
 
     def readGammaGroup(self, readgg=True):
-        self._readGammaGroup = readgg
+        self.readgammagroup = readgg
     
-    def enableMonitor(self, enable=True):
-        self._enableMonitor = enable
+    def enableSystemMonitor(self, enable=True):
+        self.enablemonitor = enable
 
     def setAtomsThreshold(self, threshold):
-        self._atomsThreshold = threshold
+        self.atomsthreshold = threshold
     
     def addIrradiation(self, timeInSecs, fluxAmp):
-        self._irradSchedule.append((timeInSecs, fluxAmp))
+        self.irradschedule.append((timeInSecs, fluxAmp))
     
     def resetIrradiation(self):
-        self._irradSchedule = []
+        self.irradschedule = []
     
     def addCooling(self, timeInSecs):
-        self._coolingSchedule.append(timeInSecs)
+        self.coolingschedule.append(timeInSecs)
     
     def resetCooling(self):
-        self._coolingSchedule = []
+        self.coolingschedule = []
     
     def setLogLevel(self, severity):
         if severity < LOG_SEVERITY_FATAL or severity > LOG_SEVERITY_TRACE:
             raise PypactOutOfRangeException("Log level {} not valid.".format(severity))
-        self._logLevel = severity
+        self.loglevel = severity
 
     def setDensity(self, densityInGPCC):
         """
@@ -212,7 +212,7 @@ class InputData(JSONSerializable):
         if not densityInGPCC > 0.0:
             raise PypactOutOfRangeException("Density must be positive.")
 
-        self._density = densityInGPCC
+        self.density = densityInGPCC
 
     def setMass(self, totalMassInKg):
         """
@@ -222,7 +222,7 @@ class InputData(JSONSerializable):
         if not totalMassInKg > 0.0:
             raise PypactOutOfRangeException("Total mass must be positive.")
 
-        self._inventoryMass.totalMass = totalMassInKg
+        self.inventorymass.totalMass = totalMassInKg
 
     def addElement(self, element, percentage=100.0):
         """
@@ -233,10 +233,10 @@ class InputData(JSONSerializable):
         if percentage > 100.0:
             raise PypactOutOfRangeException("Cannot set the element percentage above 100%.")
         
-        self._inventoryMass.elements.append((element, percentage))
+        self.inventorymass.elements.append((element, percentage))
         
     def clearElements(self):
-        self._inventoryMass.elements = []
+        self.inventorymass.elements = []
     
     def _serialize(self, f):
         """
@@ -257,61 +257,61 @@ class InputData(JSONSerializable):
         
         # control keywords
         addcomment("CONTROL PHASE")
-        if self._json:
+        if self.json:
             addcomment("enable JSON output")
             addkeyword('JSON')
                 
-        if self._overwrite:
+        if self.overwrite:
             addcomment("overwrite existing output files of same name")
             addkeyword('CLOBBER')
         
-        if self._readGammaGroup:
+        if self.readgammagroup:
             addcomment("read gamma groups from file, specify ggbins in files file")
             addkeyword('READGG')
         
-        if self._readSF:
+        if self.readspontfission:
             addcomment("read spontaneous fission from file, specify sf_endf in files file")
             addkeyword('READSF')
         
-        if self._useEAF:
+        if self.useeaf:
             addcomment("use EAF nuclear data libraries")
             addkeyword('LIBVERSION', args=[0])
         
-        if self._useCumFY:
+        if self.usecumfissyield:
             addcomment("use cumulative fission yield data mt=459 instead of mt=454")
             addkeyword('CUMFYLD')
             
-        if self._enableMonitor:
+        if self.enablemonitor:
             addcomment("monitor FISPACT-II progress")
             addkeyword('MONITOR', args=[1])
         
-        if self._xsThreshold > 0:
+        if self.xsthreshold > 0:
             addcomment("alter the default minimum cross section for inclusion in pathways analysis")
-            addkeyword('XSTHRESHOLD', args=[self._xsThreshold])
+            addkeyword('XSTHRESHOLD', args=[self.xsthreshold])
             
-        if self._group != 0:
+        if self.group != 0:
             addcomment("perform collapse")
-            addkeyword('GETXS', args=[-1 if self._binaryXS and not self._useEAF else 1, self._group])
+            addkeyword('GETXS', args=[-1 if self.binaryxs and not self.useeaf else 1, self.group])
         else:
             addcomment("don't do collapse, just read the existing file")
             addkeyword('GETXS', args=[0])
 
         addcomment("get decay data")
-        addkeyword('GETDECAY', args=[1 if self._condense else 0])
+        addkeyword('GETDECAY', args=[1 if self.condense else 0])
     
-        addcomment("enable logging at level {}".format(self._logLevel))
-        addkeyword('LOGLEVEL', args=[self._logLevel])
+        addcomment("enable logging at level {}".format(self.loglevel))
+        addkeyword('LOGLEVEL', args=[self.loglevel])
 
-        if self._approxGamma:
+        if self.approxgamma:
             addcomment("approximate spectra when not available")
             addkeyword('SPEK')
         
-        if self.ignoreUncertainties:
+        if self.ignoreuncert:
             addcomment("ignore uncertainties")
             addkeyword('NOERROR')
     
         addcomment("set projectile (n=1, d=2, p=3, a=4, g=5)")
-        addkeyword('PROJ', args=[self._projectile])
+        addkeyword('PROJ', args=[self.projectile])
         
         # end control phase
         addcomment("end control")
@@ -321,31 +321,31 @@ class InputData(JSONSerializable):
         # initial phase
         addnewline()
         addcomment("INITIALIZATION PHASE")
-        if self._outputHalflife:
+        if self.outputhalflife:
             addcomment("output half life values")
             addkeyword('HALF')
 
-        if self._outputHazards:
+        if self.outputhazards:
             addcomment("output ingestion and inhalation values")
             addkeyword('HAZARDS')
 
-        if self._includeClearanceData:
+        if self.clearancedata:
             addcomment("include clearance data of radionuclides to be input")
             addkeyword('CLEAR')
             
-        if self._inventoryMass.totalMass > 0.0:
+        if self.inventorymass.totalMass > 0.0:
             addcomment("set the target via MASS")
-            addkeyword(str(self._inventoryMass))
+            addkeyword(str(self.inventorymass))
         
-        if self._density > 0.0:
+        if self.density > 0.0:
             addcomment("set the target density")
-            addkeyword('DENSITY', args=[self._density])
+            addkeyword('DENSITY', args=[self.density])
         
-        if self._atomsThreshold > 0.0:
+        if self.atomsthreshold > 0.0:
             addcomment("set the threshold for atoms in the inventory")
-            addkeyword('MIND', args=[self._atomsThreshold])
+            addkeyword('MIND', args=[self.atomsthreshold])
         
-        if self._outputInitialInventory:
+        if self.initialinventory:
             addcomment("output the initial inventory")
             addkeyword('ATOMS')
 
@@ -354,7 +354,7 @@ class InputData(JSONSerializable):
         addcomment("INVENTORY PHASE")
 
         addcomment("irradiation schedule")
-        for time, fluxamp in self._irradSchedule:
+        for time, fluxamp in self.irradschedule:
             addkeyword('FLUX', args=[fluxamp])
             addkeyword('TIME', args=[time, 'SECS'])
             addkeyword('ATOMS')
@@ -362,7 +362,7 @@ class InputData(JSONSerializable):
 
         addkeyword('FLUX', args=[0.0])
         addkeyword('ZERO')
-        for time in self._coolingSchedule:
+        for time in self.coolingschedule:
             addkeyword('TIME', args=[time, 'SECS'])
             addkeyword('ATOMS')
         addcomment("end of cooling")

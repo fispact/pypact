@@ -10,8 +10,11 @@ FISPACT_EXE_PATH = os.getenv('FISPACT', os.path.join(os.sep, 'opt', 'fispact', '
 
 
 @timeit
-def compute(input, files, fluxes, input_filename="fispacttemp.i",
-            files_filename="fispacttemp.files", fluxes_filename="fispacttemp.fluxes", cleanup=True):
+def compute(input, files, fluxes,
+            input_filename="fispacttemp.i",
+            files_filename="fispacttemp.files",
+            fluxes_filename="fispacttemp.fluxes",
+            cleanup=True):
 
     files.fluxes = fluxes_filename
     runname = input_filename.strip('.i')

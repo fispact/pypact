@@ -137,6 +137,7 @@ class FilesFile(JSONSerializable):
     def reset(self):
         self.ind_nuc    = NULL_ENTRY
         self.xs_endf    = NULL_ENTRY
+        self.xs_endfb   = NULL_ENTRY
         self.prob_tab   = NULL_ENTRY
         self.fy_endf    = NULL_ENTRY
         self.dk_endf    = NULL_ENTRY
@@ -239,6 +240,11 @@ class FilesFile(JSONSerializable):
                 continue
             
             k = data[0]
+
+            # ignore comments
+            if k[0] == '#':
+                continue
+
             if k not in self.__dict__:
                 raise PypactDeserializeException(
                     "Cannot deserialize files file. Unknown key {0} specified.".format(k))

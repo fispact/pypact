@@ -1,6 +1,6 @@
 nan = float('NaN')
 
-def arevaluesthesame(value1, value2, rel_tol, abs_tol=0.0):
+def are_values_the_same(value1, value2, rel_tol, abs_tol=0.0):
     """
         Use math.isclose algorithm, it is better than numpy.isclose method.
         See https://github.com/numpy/numpy/issues/10161 for more on the discussion
@@ -9,19 +9,19 @@ def arevaluesthesame(value1, value2, rel_tol, abs_tol=0.0):
     return abs(value1 - value2) <= max(rel_tol * max(abs(value1), abs(value2)), abs_tol)
 
 
-def getfloat(value):
+def get_float(value):
     """
         Gets the floating point value from a string
         Will allow for fortran style floats, i.e -2.34321-308
         If it is neither then it will return "nan"
     """
-    if istradiationalfloat(value):
+    if _istradiationalfloat(value):
         return float(value)
 
-    return getfortranfloat(value)
+    return _getfortranfloat(value)
 
 
-def istradiationalfloat(value):
+def _istradiationalfloat(value):
     """
         Checks if the string can be converted to a floating point value
         Does not allow for fortran style floats, i.e -2.34321-308
@@ -33,24 +33,24 @@ def istradiationalfloat(value):
     except ValueError:
         return False
 
-def isfloat(value):
+def is_float(value):
     """
         Checks if the string can be converted to a floating point value
         Will allow for fortran style floats, i.e -2.34321-308
         If it is neither then it will return False
     """
     if isinstance(value, (int, float, str)):
-        return istradiationalfloat(value) or isfortranfloat(value)
+        return _istradiationalfloat(value) or _isfortranfloat(value)
     return False
 
-def isfortranfloat(value):
+def _isfortranfloat(value):
     passfunc = lambda sign, esign, parts: True
     failfunc = lambda: False
 
     return _fortranfloat(value, passfunc, failfunc)
 
 
-def getfortranfloat(value):
+def _getfortranfloat(value):
     passfunc = lambda sign, esign, parts: float(sign + parts[0] + 'E' + esign + parts[1])
     failfunc = lambda: "nan"
 
@@ -84,8 +84,8 @@ def _fortranfloat(value, passfunc, failfunc):
             for sn in signs:
                 if sn in valueasstring:
                     parts = valueasstring.split(sn, 1)
-                    if istradiationalfloat(parts[0]) and \
-                       istradiationalfloat(parts[1]) and \
+                    if _istradiationalfloat(parts[0]) and \
+                       _istradiationalfloat(parts[1]) and \
                        '.' in parts[0] and not '.' in parts[1]:
                         return passfunc(sign, sn, parts)
     return failfunc()

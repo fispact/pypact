@@ -41,7 +41,7 @@ def createinput():
     id.enableSystemMonitor(False)
     id.enableHalflifeInOutput()
     id.enableHazardsInOutput()
-    id.useNeutron()
+    id.setProjectile(pp.PROJECTILE_NEUTRON)
     id.enableInitialInventoryInOutput()
     id.setLogLevel(pp.LOG_SEVERITY_ERROR)
     id.setAtomsThreshold(1.0e-3)

@@ -4,6 +4,7 @@ from pypact.util.decorators import freeze_it
 from pypact.util.jsonserializable import JSONSerializable
 from pypact.util.exceptions import PypactDeserializeException
 from pypact.util.file import file_exists, dir_exists
+from pypact.input.projectiles import *
 
 # represents a null entry string
 NULL_ENTRY = "null"
@@ -26,6 +27,19 @@ NUCLEAR_LIBS = {
                 'ind_nuc' : os.path.join('TENDL2017data', 'tendl17_decay12_index'),
                 'xs_endf' : os.path.join('TENDL2017data', 'tal2017-n', 'gxs-709'),
                 'prob_tab' : os.path.join('TENDL2017data', 'tal2017-n', 'tp-709-294')
+            },
+            'EAF2010':
+            {
+                'ind_nuc' : os.path.join('EAF2010data', 'eaf_index_20100'),
+                'crossec' : os.path.join('EAF2010data', 'eaf_n_gxs_066_fis_20100'),
+                'crossunc' : os.path.join('EAF2010data', 'eaf_un_20100'),
+                'decay' : os.path.join('EAF2010data', 'eaf_dec_20100.001'),
+                'asscfy' : os.path.join('EAF2010data', 'eaf_n_asscfy_20100'),
+                'fissyld' : os.path.join('EAF2010data', 'eaf_n_fis_20100'),
+                'hazards' : os.path.join('EAF2010data', 'eaf_haz_20100'),
+                'clear' : os.path.join('EAF2010data', 'eaf_clear_20100'),
+                'a2data' : os.path.join('EAF2010data', 'eaf_a2_20100'),
+                'absorp' : os.path.join('EAF2010data', 'eaf_abs_20100')
             },
             'CENDL31':
             {
@@ -116,10 +130,12 @@ NUCLEAR_LIBS = {
 
 @freeze_it
 class FilesFile(JSONSerializable):
-    def __init__(self, base_dir=os.sep):
+    def __init__(self, base_dir=os.sep, group=709, projectile=PROJECTILE_NEUTRON):
         self.reset()
 
         self.__base_dir = base_dir
+        self.__group = group
+        self.__projectile = projectile
 
         # defaults
         self.setXS('TENDL2015')
@@ -135,6 +151,7 @@ class FilesFile(JSONSerializable):
         self.arrayx     = "ARRAYX"
 
     def reset(self):
+        # nuclear data libraries
         self.ind_nuc    = NULL_ENTRY
         self.xs_endf    = NULL_ENTRY
         self.xs_endfb   = NULL_ENTRY
@@ -145,6 +162,13 @@ class FilesFile(JSONSerializable):
         self.clear      = NULL_ENTRY
         self.a2data     = NULL_ENTRY
         self.absorp     = NULL_ENTRY
+        
+        # eaf nuclear data
+        self.crossec    = NULL_ENTRY
+        self.crossunc   = NULL_ENTRY
+        self.decay      = NULL_ENTRY
+        
+        # additional files  - not nuclear data
         self.fluxes     = NULL_ENTRY
         self.collapxi   = NULL_ENTRY
         self.collapxo   = NULL_ENTRY
@@ -157,7 +181,11 @@ class FilesFile(JSONSerializable):
 
     def setXS(self, type):
         self._setVar(type, 'ind_nuc')
-        self._setVar(type, 'xs_endf')
+        if type == 'EAF2010':
+            self._setVar(type, 'crossec')
+            self._setVar(type, 'crossunc')
+        else:
+            self._setVar(type, 'xs_endf')
 
     def setProbTab(self, type):
         self._setVar(type, 'prob_tab')
@@ -166,8 +194,18 @@ class FilesFile(JSONSerializable):
         self._setVar(type, 'fy_endf')
 
     def setDecay(self, type):
-        self._setVar(type, 'dk_endf')
+        key = 'dk_endf'
+        if type == 'EAF2010':
+            key = 'decay'
 
+        self._setVar(type, key)
+
+    def setEAF(self):
+        self.setXS('EAF2010')
+        self.setDecay('EAF2010')
+        self.setRegulatory('EAF2010')
+        self.setGammaAbsorb('EAF2010')
+    
     def setRegulatory(self, type):
         self._setVar(type, 'hazards')
         self._setVar(type, 'clear')
@@ -191,14 +229,10 @@ class FilesFile(JSONSerializable):
         """
         ignore = ['collapxi',
                   'collapxo',
-                  'arrayx',
-                  'fluxes',
-                  'ggbins',
-                  'xs_extra',
-                  'sf_endf']
+                  'arrayx']
         invalid = []
         for k, v in self.__dict__.items():
-            if k in ignore or '__' in k:
+            if k in ignore or '__' in k or v == NULL_ENTRY:
                 continue
             
             if not v or (not file_exists(v) and not dir_exists(v)):

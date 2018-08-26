@@ -3,13 +3,14 @@ import subprocess
 
 from pypact.reader import Reader
 from pypact.input.serialization import serialize
-from pypact.util.file import file_remove
-from pypact.util.decorators import timeit
+from pypact.util.file import file_remove, file_exists
+from pypact.util.exceptions import PypactFispactExecutableNotFoundException
+from pypact.util.decorators import time_it
 
 FISPACT_EXE_PATH = os.getenv('FISPACT', os.path.join(os.sep, 'opt', 'fispact', 'bin', 'fispact'))
 
 
-@timeit
+@time_it
 def compute(input, files, fluxes,
             input_filename="fispacttemp.i",
             files_filename="fispacttemp.files",
@@ -25,7 +26,12 @@ def compute(input, files, fluxes,
     serialize(fluxes, fluxes_filename)
 
     # run fispact
+    if not file_exists(FISPACT_EXE_PATH):
+        raise PypactFispactExecutableNotFoundException("Cannot find FISPACT-II binary. Instead got {}".format(FISPACT_EXE_PATH))
+
+    print("* Running FISPACT-II...")
     proc = subprocess.check_call("{} {} {}".format(FISPACT_EXE_PATH, runname, files_filename), shell=True)
+    print("* Computation complete")
 
     # check for log file
     logfile = "{}.log".format(runname)

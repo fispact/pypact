@@ -2,7 +2,6 @@ import os
 from pypact.input.fluxesfile import FluxesFile
 from pypact.input.filesfile import FilesFile
 from pypact.input.inputdata import InputData
-from pypact.input.serialization import serialize, deserialize
 from pypact.util.decorators import freeze_it
 from pypact.util.jsonserializable import JSONSerializable
 

@@ -1,5 +1,4 @@
 from pypact.util.decorators import freeze_it
-from pypact.util.numerical import getfloat
 from pypact.util.exceptions import PypactDeserializeException
 from pypact.util.lines import first_value_from_line, strings_from_line
 from pypact.util.jsonserializable import JSONSerializable

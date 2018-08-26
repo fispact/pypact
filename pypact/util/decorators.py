@@ -26,7 +26,7 @@ def freeze_it(cls):
 
     return cls
 
-def timeit(method):
+def time_it(method):
     def timed(*args, **kwargs):
         ts = time.time()
         result = method(*args, **kwargs)

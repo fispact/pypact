@@ -1,24 +1,11 @@
 import os
 
-from pypact.input.keywords import CONTROL_KEYWORDS, INIT_KEYWORDS, INVENTORY_KEYWORDS
 from pypact.util.decorators import freeze_it
-from pypact.util.exceptions import PypactOutOfRangeException
+from pypact.util.exceptions import PypactOutOfRangeException, PypactInvalidOptionException
 from pypact.util.jsonserializable import JSONSerializable
 from pypact.util.loglevels import *
-
-PROJECTILE_NEUTRON  = 1
-PROJECTILE_DEUTERON = 2
-PROJECTILE_PROTRON  = 3
-PROJECTILE_ALPHA    = 4
-PROJECTILE_GAMMA    = 5
-
-VALID_PROJECTILES = [
-    PROJECTILE_NEUTRON,
-    PROJECTILE_DEUTERON,
-    PROJECTILE_PROTRON,
-    PROJECTILE_ALPHA,
-    PROJECTILE_GAMMA
-]
+from pypact.input.keywords import CONTROL_KEYWORDS, INIT_KEYWORDS, INVENTORY_KEYWORDS
+from pypact.input.projectiles import PROJECTILE_NEUTRON, VALID_PROJECTILES
 
 COMMENT_START = '<<'
 COMMENT_END   = '>>'
@@ -160,23 +147,11 @@ class InputData(JSONSerializable):
     def setXSThreshold(self, threshold):
         self.xsthreshold = threshold
     
-    def _useParticle(self, particle):
-        self.projectile = particle
-    
-    def useNeutron(self):
-        self._useParticle(PROJECTILE_NEUTRON)
-    
-    def useDeuteron(self):
-        self._useParticle(PROJECTILE_DEUTERON)
-    
-    def useProton(self):
-        self._useParticle(PROJECTILE_PROTRON)
-    
-    def useAlpha(self):
-        self._useParticle(PROJECTILE_ALPHA)
-    
-    def useGamma(self):
-        self._useParticle(PROJECTILE_GAMMA)
+    def setProjectile(self, proj):
+        if proj not in VALID_PROJECTILES:
+            raise PypactInvalidOptionException("{} is not a valid projectile option.")
+            
+        self.projectile = proj
 
     def readGammaGroup(self, readgg=True):
         self.readgammagroup = readgg

@@ -131,22 +131,22 @@ ELEMENT_KEY='element'
 ISOTOPES_KEY='isotopes'
 ATOMIC_NUMBER_KEY='Z'
 
-def findisotopes(element):
+def find_isotopes(element):
     for i in NUCLIDE_DICTIONARY:
         if ELEMENT_KEY in i and ISOTOPES_KEY in i and i[ELEMENT_KEY] == element:
             return i[ISOTOPES_KEY]
 
-def findelement(Z):
+def find_element(Z):
     for i in NUCLIDE_DICTIONARY:
         if ELEMENT_KEY in i and ATOMIC_NUMBER_KEY in i and i[ATOMIC_NUMBER_KEY] == Z:
             return i[ELEMENT_KEY]
 
-def findZ(element):
+def find_z(element):
     for i in NUCLIDE_DICTIONARY:
         if ELEMENT_KEY in i and ATOMIC_NUMBER_KEY in i and i[ELEMENT_KEY] == element:
             return i[ATOMIC_NUMBER_KEY]
 
-def getallisotopes():
+def get_all_isotopes():
     all_list = [('',0)]*NUMBER_OF_ISOTOPES
     count=0
     for n in NUCLIDE_DICTIONARY:

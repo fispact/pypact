@@ -16,6 +16,7 @@ from tests.output.readertest import ReaderUnitTest
 from tests.input.fluxesfiletest import FluxesFileUnitTest
 from tests.input.keywordstest import KeywordsUnitTest
 from tests.input.groupstructurestest import GroupStructuresUnitTest
+from tests.input.projectilestest import ProjectilesUnitTest
 
 from tests.library.nuclidelibtest import NuclideLibUnitTest
 

@@ -1,5 +1,5 @@
 from pypact.util.decorators import freeze_it
-from pypact.util.numerical import isfloat
+from pypact.util.numerical import is_float, get_float
 from pypact.util.jsonserializable import JSONSerializable
 
 NUCLIDE_IGNORES = ['\n', '|', '>', '&', '?', '#']
@@ -64,8 +64,8 @@ class Nuclide(JSONSerializable):
             column_index = index_containing_substring(column_headers, header_name)
             if column_index != -1:
                 item = strings[column_index]
-                if isfloat(item):
-                    return float(item)
+                if is_float(item):
+                    return get_float(item)
 
             return 0.0
 

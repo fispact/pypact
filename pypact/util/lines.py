@@ -1,4 +1,4 @@
-from pypact.util.numerical import isfloat, getfloat
+from pypact.util.numerical import is_float, get_float
 
 
 def line_indices(lines, tag):
@@ -75,8 +75,8 @@ def first_value_from_line(line, linetag, ignoretags=[]):
     for s in strings:
         # strip off any common tags around numbers
         s = s.replace(',', '').replace('*', '')
-        if isfloat(s):
-            return getfloat(s)
+        if is_float(s):
+            return get_float(s)
 
     return nan
 

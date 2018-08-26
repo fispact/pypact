@@ -3,7 +3,7 @@ import os
 from pypact.input.groupstructures import ALL_GROUPS
 from pypact.util.decorators import freeze_it
 from pypact.util.jsonserializable import JSONSerializable
-from pypact.util.numerical import getfloat, isfloat
+from pypact.util.numerical import get_float, is_float
 from pypact.util.exceptions import PypactException, PypactOutOfRangeException, PypactDeserializeException
 
 
@@ -101,12 +101,12 @@ class FluxesFile(JSONSerializable):
         lines = f.readlines()
         # last two lines are the normalisation and the name
         self.name = str(lines[-1])
-        self.norm =  getfloat(lines[-2])
+        self.norm =  get_float(lines[-2])
 
         for l in lines[:-2]:
             for e in l.split():
-                if isfloat(e):
-                    self.values.append(getfloat(e))
+                if is_float(e):
+                    self.values.append(get_float(e))
                 else:
                     raise PypactDeserializeException("Entry {} in line {} is not a float.".format(e, l))
 

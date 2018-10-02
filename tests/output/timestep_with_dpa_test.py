@@ -21,8 +21,8 @@ def assert_inventory(inv, compareinv):
 
 
 def assert_timestep(inv, timestep):
-    tester.ds_assertor.assert_timestep(inv.dose_rate, timestep)
-    tester.nuc_assertor.assert_timestep(inv.nuclides, timestep)
+    ds_assertor.assert_timestep(inv.dose_rate, timestep)
+    nuc_assertor.assert_timestep(inv.nuclides, timestep)
 
     # Let's test some key timesteps
     # much too time consuming to test all timesteps

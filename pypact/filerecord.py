@@ -18,6 +18,7 @@ class FileRecord:
         self.timesteps = []
         self.irradiation_times = []
         self.cooling_times = []
+        self.times = []
 
         self._processtimesteps()
 
@@ -92,6 +93,9 @@ class FileRecord:
             self.timesteps.append((interval, self.cachedlines[t:nt]))
             self.irradiation_times.append(irrad_time)
             self.cooling_times.append(cool_time)
+            if irrad_time == 0.0:
+                irrad_time = cool_time
+            self.times.append(irrad_time)
 
         # turn them into cumulative values
         self.irradiation_times = list(accumulate(self.irradiation_times))

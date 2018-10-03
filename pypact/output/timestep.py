@@ -23,6 +23,8 @@ class TimeStep(Serializable):
         self.inhalation_dose = 0.0
         self.total_activity = 0.0
         self.total_activity_exclude_trit = 0.0
+        self.total_displacement_rate = 0.0
+        self.time = 0.0
         self.dose_rate = DoseRate()
         self.nuclides = Nuclides()
 
@@ -56,6 +58,16 @@ class TimeStep(Serializable):
 
         self.total_activity = get_value(starttag='TOTAL ACTIVITY FOR ALL MATERIALS', endtag='Bq')
         self.total_activity_exclude_trit = get_value(starttag='TOTAL ACTIVITY EXCLUDING TRITIUM', endtag='Bq')
+
+        self.total_displacement_rate = pf.first(
+            datadump=substring,
+            headertag="Total Displacement Rate (n,Dtot ) =",
+            starttag="Displacements/sec  =",
+            endtag="Displacements Per Atom/sec  =",
+            ignores=TIME_STEP_IGNORES,
+            asstring=False
+        )
+        self.time = filerecord.times[interval - 1]
 
         self.dose_rate.fispact_deserialize(filerecord, interval)
         self.nuclides.fispact_deserialize(filerecord, interval)

@@ -1,13 +1,15 @@
-from pypact.util.numerical import getfloat
+from pypact.util.decorators import freeze_it
+from pypact.util.numerical import get_float
 from pypact.util.lines import first_value_from_line, strings_from_line
-from pypact.output.serializable import Serializable
+from pypact.util.jsonserializable import JSONSerializable
 from pypact.output.tags import DOSE_RATE_HEADER
 import pypact.util.propertyfinder as pf
 
 DOSE_RATE_IGNORES = ['\n', '|']
 
 
-class DoseRate(Serializable):
+@freeze_it
+class DoseRate(JSONSerializable):
     """
         The dose rate type from the output
     """
@@ -41,7 +43,8 @@ class DoseRate(Serializable):
 
             # Distance is always in meters but is written without a space so
             # we must strip it off
-            self.distance = getfloat(strings_from_line(dose_string, 'SOURCE')[-1].replace('m', ''))
+            floatstr = strings_from_line(dose_string, 'SOURCE')[-1].replace('m', '')
+            self.distance = get_float(floatstr)
 
         self.dose = pf.first(datadump=substring,
                              headertag=DOSE_RATE_HEADER,

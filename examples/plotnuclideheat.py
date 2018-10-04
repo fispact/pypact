@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import os
-
 import pypact as pp
 import pypact.analysis as ppa
 

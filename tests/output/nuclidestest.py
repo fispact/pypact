@@ -1,7 +1,6 @@
 from tests.output.baseoutputtest import BaseOutputUnitTest
 
-from pypact.output.nuclides import Nuclides
-from pypact.output.nuclide import Nuclide
+import pypact as pp
 
 
 class NuclidesAssertor(BaseOutputUnitTest):
@@ -16,19 +15,19 @@ class NuclidesAssertor(BaseOutputUnitTest):
             self.assert_nuclide(nuclides[i], list[i])
 
     def assert_nuclide(self, nuclide, comparenuclide):
-        self.assertValueAndType(nuclide, Nuclide, 'element', str, comparenuclide.element)
-        self.assertValueAndType(nuclide, Nuclide, 'isotope', int, comparenuclide.isotope)
-        self.assertValueAndType(nuclide, Nuclide, 'state', str, comparenuclide.state)
-        self.assertValueAndType(nuclide, Nuclide, 'half_life', float, comparenuclide.half_life)
-        self.assertValueAndType(nuclide, Nuclide, 'grams', float, comparenuclide.grams)
-        self.assertValueAndType(nuclide, Nuclide, 'activity', float, comparenuclide.activity)
-        self.assertValueAndType(nuclide, Nuclide, 'heat', float, comparenuclide.heat)
-        self.assertValueAndType(nuclide, Nuclide, 'alpha_heat', float, comparenuclide.alpha_heat)
-        self.assertValueAndType(nuclide, Nuclide, 'beta_heat', float, comparenuclide.beta_heat)
-        self.assertValueAndType(nuclide, Nuclide, 'gamma_heat', float, comparenuclide.gamma_heat)
-        self.assertValueAndType(nuclide, Nuclide, 'dose', float, comparenuclide.dose)
-        self.assertValueAndType(nuclide, Nuclide, 'ingestion', float, comparenuclide.ingestion)
-        self.assertValueAndType(nuclide, Nuclide, 'inhalation', float, comparenuclide.inhalation)
+        self.assertValueAndType(nuclide, pp.Nuclide, 'element', str, comparenuclide.element)
+        self.assertValueAndType(nuclide, pp.Nuclide, 'isotope', int, comparenuclide.isotope)
+        self.assertValueAndType(nuclide, pp.Nuclide, 'state', str, comparenuclide.state)
+        self.assertValueAndType(nuclide, pp.Nuclide, 'half_life', float, comparenuclide.half_life)
+        self.assertValueAndType(nuclide, pp.Nuclide, 'grams', float, comparenuclide.grams)
+        self.assertValueAndType(nuclide, pp.Nuclide, 'activity', float, comparenuclide.activity)
+        self.assertValueAndType(nuclide, pp.Nuclide, 'heat', float, comparenuclide.heat)
+        self.assertValueAndType(nuclide, pp.Nuclide, 'alpha_heat', float, comparenuclide.alpha_heat)
+        self.assertValueAndType(nuclide, pp.Nuclide, 'beta_heat', float, comparenuclide.beta_heat)
+        self.assertValueAndType(nuclide, pp.Nuclide, 'gamma_heat', float, comparenuclide.gamma_heat)
+        self.assertValueAndType(nuclide, pp.Nuclide, 'dose', float, comparenuclide.dose)
+        self.assertValueAndType(nuclide, pp.Nuclide, 'ingestion', float, comparenuclide.ingestion)
+        self.assertValueAndType(nuclide, pp.Nuclide, 'inhalation', float, comparenuclide.inhalation)
 
     def assert_timestep(self, nuclides, timestep):
         if timestep == 1:
@@ -71,7 +70,7 @@ class NuclidesAssertor31(NuclidesAssertor):
 def timestep_1_nuclides():
     nuclides = []
 
-    n = Nuclide()
+    n = pp.Nuclide()
     n.element = "U"
     n.isotope = 235
     n.state = ""
@@ -87,7 +86,7 @@ def timestep_1_nuclides():
     n.inhalation = 2.108E+01
     nuclides.append(n)
 
-    n = Nuclide()
+    n = pp.Nuclide()
     n.element = "U"
     n.isotope = 238
     n.state = ""
@@ -109,7 +108,7 @@ def timestep_1_nuclides():
 def timestep_2_nuclides():
     nuclides = []
 
-    n = Nuclide()
+    n = pp.Nuclide()
     n.element = "He"
     n.isotope = 4
     n.state = ""
@@ -125,7 +124,7 @@ def timestep_2_nuclides():
     n.inhalation = 0.0
     nuclides.append(n)
 
-    n = Nuclide()
+    n = pp.Nuclide()
     n.element = "Ac"
     n.isotope = 227
     n.state = ""
@@ -141,7 +140,7 @@ def timestep_2_nuclides():
     n.inhalation = 2.883E-06
     nuclides.append(n)
 
-    n = Nuclide()
+    n = pp.Nuclide()
     n.element = "Th"
     n.isotope = 230
     n.state = ""
@@ -157,7 +156,7 @@ def timestep_2_nuclides():
     n.inhalation = 2.619E-11
     nuclides.append(n)
 
-    n = Nuclide()
+    n = pp.Nuclide()
     n.element = "Th"
     n.isotope = 231
     n.state = ""
@@ -173,7 +172,7 @@ def timestep_2_nuclides():
     n.inhalation = 8.185E-04
     nuclides.append(n)
 
-    n = Nuclide()
+    n = pp.Nuclide()
     n.element = "Th"
     n.isotope = 234
     n.state = ""
@@ -189,7 +188,7 @@ def timestep_2_nuclides():
     n.inhalation = 5.430E-02
     nuclides.append(n)
 
-    n = Nuclide()
+    n = pp.Nuclide()
     n.element = "Pa"
     n.isotope = 231
     n.state = ""
@@ -205,7 +204,7 @@ def timestep_2_nuclides():
     n.inhalation = 5.814E-04
     nuclides.append(n)
 
-    n = Nuclide()
+    n = pp.Nuclide()
     n.element = "Pa"
     n.isotope = 234
     n.state = ""
@@ -221,7 +220,7 @@ def timestep_2_nuclides():
     n.inhalation = 4.196E-06
     nuclides.append(n)
 
-    n = Nuclide()
+    n = pp.Nuclide()
     n.element = "Pa"
     n.isotope = 234
     n.state = "m"
@@ -237,7 +236,7 @@ def timestep_2_nuclides():
     n.inhalation = 1.128E-03
     nuclides.append(n)
 
-    n = Nuclide()
+    n = pp.Nuclide()
     n.element = "U"
     n.isotope = 234
     n.state = ""
@@ -253,7 +252,7 @@ def timestep_2_nuclides():
     n.inhalation = 8.854E-06
     nuclides.append(n)
 
-    n = Nuclide()
+    n = pp.Nuclide()
     n.element = "U"
     n.isotope = 235
     n.state = ""
@@ -269,7 +268,7 @@ def timestep_2_nuclides():
     n.inhalation = 2.108E+01
     nuclides.append(n)
 
-    n = Nuclide()
+    n = pp.Nuclide()
     n.element = "U"
     n.isotope = 238
     n.state = ""
@@ -291,7 +290,7 @@ def timestep_2_nuclides():
 def timestep_2_nuclides31():
     nuclides = []
 
-    n = Nuclide()
+    n = pp.Nuclide()
     n.element = "H"
     n.isotope = 3
     n.state = ""
@@ -307,7 +306,7 @@ def timestep_2_nuclides31():
     n.inhalation = 1.797E+01
     nuclides.append(n)
 
-    n = Nuclide()
+    n = pp.Nuclide()
     n.element = "Cl"
     n.isotope = 38
     n.state = "m"
@@ -323,7 +322,7 @@ def timestep_2_nuclides31():
     n.inhalation = 4.037E-08
     nuclides.append(n)
 
-    n = Nuclide()
+    n = pp.Nuclide()
     n.element = "Cl"
     n.isotope = 39
     n.state = ""
@@ -374,7 +373,7 @@ class NuclidesUnitTest(BaseOutputUnitTest):
             j = nucs.json_serialize()
 
             # reset object
-            newnucs = Nuclides()
+            newnucs = pp.Nuclides()
             self.assertor.assert_defaults(newnucs)
 
             # deserialize JSON and compare to original
@@ -394,7 +393,7 @@ class NuclidesUnitTest(BaseOutputUnitTest):
             j = nucs.json_serialize()
 
             # reset object
-            newnucs = Nuclides()
+            newnucs = pp.Nuclides()
             self.assertor31.assert_defaults(newnucs)
 
             # deserialize JSON and compare to original
@@ -404,7 +403,7 @@ class NuclidesUnitTest(BaseOutputUnitTest):
         self._wrapper(func)
 
     def _wrapper(self, func):
-        nucs = Nuclides()
+        nucs = pp.Nuclides()
         self.assertor.assert_defaults(nucs)
 
         for i in range(-100, 100):

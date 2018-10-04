@@ -22,20 +22,33 @@ def file_exists(filename):
     return os.path.isfile(filename)
 
 
+# checks if directory exists
+def dir_exists(filename):
+    return os.path.isdir(filename)
+
+
+def file_remove(filename):
+    if file_exists(filename):
+        os.remove(filename)
+
+
 def get_filename_ext(filename):
     return os.path.basename(os.path.splitext(filename)[-1])
 
 
-def str_in_file(filename, str):
-    if file_exists(filename) and str in open(filename).read():
-        return True
-    else:
-        return False
+def str_in_file(filename, string):
+    if file_exists(filename):
+        with open(filename) as file:
+            return string in file.read()
+
+    return False
 
 
-# note that regardless of the flag 'ignore_empty_lines' value, the last line is always ignored
+# note that regardless of the flag 'ignore_empty_lines' value,
+# the last line is always ignored
 def nr_of_lines(filename, ignore_empty_lines=False):
-    if ignore_empty_lines:
-        return len([i for i in open(filename) if i[:-1]])
-    else:
-        return len([i for i in open(filename)])
+    with open(filename) as file:
+        if ignore_empty_lines:
+            return len([i for i in file if i[:-1]])
+
+        return len([i for i in file])

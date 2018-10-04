@@ -1,13 +1,15 @@
-from pypact.output.serializable import Serializable
+from pypact.util.decorators import freeze_it
+from pypact.util.lines import first_occurrence
+from pypact.util.jsonserializable import JSONSerializable
 from pypact.output.nuclide import Nuclide
 from pypact.output.tags import NUCLIDES_HEADER
 import pypact.util.propertyfinder as pf
-from pypact.util.lines import first_occurrence
 
 NUCLIDES_IGNORES = ['\n', '|']
 
 
-class Nuclides(Serializable):
+@freeze_it
+class Nuclides(JSONSerializable):
     """
         The nuclides type from the output
     """
@@ -20,7 +22,7 @@ class Nuclides(Serializable):
     def __getitem__(self, index):
         return self.nuclides[index]
 
-    def json_deserialize(self, j):
+    def json_deserialize(self, j, objtype=object):
         super(Nuclides, self).json_deserialize(j)
         self.json_deserialize_list(j, 'nuclides', Nuclide)
 
@@ -29,8 +31,6 @@ class Nuclides(Serializable):
         self.__init__()
 
         substring = filerecord[interval]
-
-        header_index, header_line = first_occurrence(lines=substring, tag=NUCLIDES_HEADER)
 
         nuclidetag = 'TOTAL NUMBER OF NUCLIDES PRINTED IN INVENTORY'
 
@@ -61,5 +61,6 @@ class Nuclides(Serializable):
 
         for n in range(i - nr_of_nuclides(), i):
             nuclide = Nuclide()
-            nuclide.fispact_deserialize(substring[n:], column_headers=get_header(i - nr_of_nuclides()-3))
+            nuclide.fispact_deserialize(substring[n:],
+                                        column_headers=get_header(i - nr_of_nuclides()-3))
             self.nuclides.append(nuclide)

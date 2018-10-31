@@ -14,7 +14,7 @@ from pypact.output.timestep import TimeStep
 
 # input
 from pypact.input.fispactinput import FispactInput
-from pypact.input.fluxesfile import FluxesFile
+from pypact.input.fluxesfile import FluxesFile, ArbFluxesFile
 from pypact.input.filesfile import FilesFile
 from pypact.input.inputdata import InputData
 from pypact.input.serialization import serialize, deserialize

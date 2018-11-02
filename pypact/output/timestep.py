@@ -1,7 +1,10 @@
+import json
+
 from pypact.util.decorators import freeze_it
 from pypact.util.jsonserializable import JSONSerializable
 from pypact.output.doserate import DoseRate
 from pypact.output.nuclides import Nuclides
+from pypact.output.nuclide import Nuclide
 from pypact.output.gammaspectrum import GammaSpectrum
 from pypact.output.tags import TIME_STEP_HEADER
 import pypact.util.propertyfinder as pf
@@ -35,7 +38,7 @@ class TimeStep(JSONSerializable):
         self.total_displacement_rate = 0.0
         self.time = 0.0
         self.dose_rate = DoseRate()
-        self.nuclides = Nuclides()
+        self.nuclides = []
 
         self.__ignorenuclides = ignorenuclides
 
@@ -104,4 +107,24 @@ class TimeStep(JSONSerializable):
             # if you do not care about the nuclides then we can set
             # it to ignore nuclides
             if not self.__ignorenuclides:
-                self.nuclides.fispact_deserialize(filerecord, interval)
+                t = Nuclides()
+                t.fispact_deserialize(filerecord, interval)
+                self.nuclides = t.nuclides
+
+    def json_deserialize(self, j, objtype=object):
+        """
+        Read the JSON file into the JSONSerializable data objects
+
+        :param j: The JSON dump
+        :param key: The key/member variable name
+        :param objtype: The type of object to be added to the list
+        :return:
+        """
+        self.__init__(ignorenuclides=self.__ignorenuclides)
+
+        d = JSONSerializable.json_deserialize(self, j, objtype)
+
+        if not self.__ignorenuclides:
+            key = 'nuclides'
+            if key in d:
+                self.json_deserialize_list(json.dumps(d[key]), key, objtype=Nuclide)

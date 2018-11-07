@@ -170,6 +170,7 @@ class FilesFile(JSONSerializable):
         
         # additional files  - not nuclear data
         self.fluxes     = NULL_ENTRY
+        self.arb_flux   = NULL_ENTRY
         self.collapxi   = NULL_ENTRY
         self.collapxo   = NULL_ENTRY
         self.arrayx     = NULL_ENTRY

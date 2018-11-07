@@ -248,7 +248,13 @@ class FilesFile(JSONSerializable):
         """
         ignore = ['collapxi',
                   'collapxo',
-                  'arrayx']
+                  'arrayx',
+                  'tab1',
+                  'tab2',
+                  'tab3',
+                  'tab4',
+                  'output',
+                  'ind_nuco']
         invalid = []
         for k, v in self.to_dict().items():
             if k in ignore:

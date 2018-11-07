@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
+import os
 import pypact as pp
+
 
 runname = 'test'
 id = pp.InputData(name=runname)
@@ -42,4 +44,4 @@ id.addCooling(100000.0)
 id.validate()
 
 # write to file
-pp.serialize(id, '{}.i'.format(runname))
+pp.serialize(id, os.path.join('files', '{}.i'.format(runname)))

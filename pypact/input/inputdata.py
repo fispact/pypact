@@ -40,6 +40,8 @@ class InputData(JSONSerializable):
         
         self.overwrite             = False
         self.json                  = False
+        self.ignorecollapse        = True
+        self.ignorecondense        = True
         self.condense              = False
         self.binaryxs              = False
         self.useeaf                = False
@@ -123,6 +125,7 @@ class InputData(JSONSerializable):
         self.outputhazards = output
     
     def doCollapse(self, group, binary=False):
+        self.ignorecollapse = False
         self.group = group
         self.binaryxs = binary
     
@@ -136,6 +139,7 @@ class InputData(JSONSerializable):
         self.clearancedata = include
     
     def doCondense(self, condense=True):
+        self.ignorecondense = False
         self.condense = condense
     
     def approxGammaSpectrum(self, approxgamma=True):
@@ -263,19 +267,22 @@ class InputData(JSONSerializable):
         if self.xsthreshold > 0:
             addcomment("alter the default minimum cross section for inclusion in pathways analysis")
             addkeyword('XSTHRESHOLD', args=[self.xsthreshold])
-            
-        if self.group != 0:
-            addcomment("perform collapse")
-            addkeyword('GETXS', args=[-1 if self.binaryxs and not self.useeaf else 1, self.group])
-        else:
-            addcomment("don't do collapse, just read the existing file")
-            addkeyword('GETXS', args=[0])
+        
+        if not self.ignorecollapse:
+            if self.group != 0:
+                addcomment("perform collapse")
+                addkeyword('GETXS', args=[-1 if self.binaryxs and not self.useeaf else 1, self.group])
+            else:
+                addcomment("don't do collapse, just read the existing file")
+                addkeyword('GETXS', args=[0])
 
-        addcomment("get decay data")
-        addkeyword('GETDECAY', args=[1 if self.condense else 0])
+        if not self.ignorecondense:
+            addcomment("get decay data")
+            addkeyword('GETDECAY', args=[1 if self.condense else 0])
     
-        addcomment("enable logging at level {}".format(self.loglevel))
-        addkeyword('LOGLEVEL', args=[self.loglevel])
+        if self.loglevel != LOG_SEVERITY_WARNING:
+            addcomment("enable logging at level {}".format(self.loglevel))
+            addkeyword('LOGLEVEL', args=[self.loglevel])
 
         if self.approxgamma:
             addcomment("approximate spectra when not available")
@@ -285,8 +292,9 @@ class InputData(JSONSerializable):
             addcomment("ignore uncertainties")
             addkeyword('NOERROR')
     
-        addcomment("set projectile (n=1, d=2, p=3, a=4, g=5)")
-        addkeyword('PROJ', args=[self.projectile])
+        if self.projectile != PROJECTILE_NEUTRON:
+            addcomment("set projectile (n=1, d=2, p=3, a=4, g=5)")
+            addkeyword('PROJ', args=[self.projectile])
         
         # end control phase
         addcomment("end control")
@@ -327,22 +335,23 @@ class InputData(JSONSerializable):
         # inventory phase
         addnewline()
         addcomment("INVENTORY PHASE")
+        if len(self.irradschedule) > 0:
+            addcomment("irradiation schedule")
+            for time, fluxamp in self.irradschedule:
+                addkeyword('FLUX', args=[fluxamp])
+                addkeyword('TIME', args=[time, 'SECS'])
+                addkeyword('ATOMS')
+            addcomment("end of irradiation")
 
-        addcomment("irradiation schedule")
-        for time, fluxamp in self.irradschedule:
-            addkeyword('FLUX', args=[fluxamp])
-            addkeyword('TIME', args=[time, 'SECS'])
-            addkeyword('ATOMS')
-        addcomment("end of irradiation")
-
-        addkeyword('FLUX', args=[0.0])
-        addkeyword('ZERO')
-        for time in self.coolingschedule:
-            addkeyword('TIME', args=[time, 'SECS'])
-            addkeyword('ATOMS')
-        addcomment("end of cooling")
+            addkeyword('FLUX', args=[0.0])
+            addkeyword('ZERO')
+            for time in self.coolingschedule:
+                addkeyword('TIME', args=[time, 'SECS'])
+                addkeyword('ATOMS')
+            addcomment("end of cooling")
 
         # end file
+        addnewline()
         addcomment("end of input")
         addkeyword('END')
         addkeyword('*', args=['end'])

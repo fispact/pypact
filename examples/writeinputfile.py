@@ -4,8 +4,7 @@ import os
 import pypact as pp
 
 
-runname = 'test'
-id = pp.InputData(name=runname)
+id = pp.InputData(name='test')
 
 # control setup
 id.overwriteExisting()
@@ -46,4 +45,4 @@ id.validate()
 #print(pp.to_string(id))
 
 # write to file
-pp.to_file(id, os.path.join('files', '{}.i'.format(runname)))
+pp.to_file(id, os.path.join('files', '{}.i'.format(id.name)))

@@ -16,5 +16,17 @@ script:
   - pylint -j4 $PYPACT/pypact --rcfile=$PYPACT/.pylintrc || true
   - fispactconverter.py $PYPACT/reference/test31.out test31.json
 #  - diff test31.json $PYPACT/reference/test31.json
+# run examples (no plotting)
+  - cd $PYPACT/examples
+  - python changefilesfile.py
+  - python doserates.py
+  - python outputjson.py
+  - python readfilesfile.py
+  - python rundatajson.py
+  - python tocsv.py
+  - python writefilesfile.py
+  - python writefluxesfile.py
+  - python writeinputfile.py
+  - cd $PYPACT
 after_success:
   - codecov

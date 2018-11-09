@@ -101,7 +101,7 @@ class FluxesFileUnitTest(Tester):
 
         # write to file
         filename = "_PYPACT_TEST_set_162_writeread_fluxes"
-        pp.serialize(ff, filename)
+        pp.to_file(ff, filename)
 
         ff.reset()
         self.assertEqual(0, len(ff), "Assert group")
@@ -112,7 +112,7 @@ class FluxesFileUnitTest(Tester):
         self.assertEqual(0, len(ff.midPointEnergies), "Assert default mid point boundaries")
         
         # read from file
-        pp.deserialize(ff, filename)
+        pp.from_file(ff, filename)
         self.assertEqual(group, len(ff), "Assert group")
         self.assertEqual(group+1, len(ff.boundaries), "Assert boundaries length")
         self.assertEqual(group, len(ff.values), "Assert values length")
@@ -156,7 +156,7 @@ class FluxesFileUnitTest(Tester):
 
         # write to file
         filename = "_PYPACT_TEST_set_arb161_writeread_fluxes"
-        pp.serialize(ff, filename)
+        pp.to_file(ff, filename)
 
         ff.reset()
         self.assertEqual("test_set_arb161_writeread", ff.name, "Assert name")
@@ -165,7 +165,7 @@ class FluxesFileUnitTest(Tester):
         self.assertEqual(0, len(ff.values), "Assert default values")
         self.assertEqual(0, len(ff.midPointEnergies), "Assert default mid point boundaries")
         
-        pp.deserialize(ff, filename)
+        pp.from_file(ff, filename)
         self.assertEqual(group+1, len(ff.boundaries), "Assert boundaries length")
         self.assertEqual(group, len(ff.values), "Assert values length")
         self.assertEqual(group, len(ff.midPointEnergies), "Assert mid point boundaries length")

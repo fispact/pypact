@@ -8,7 +8,7 @@ old_path = '/FISPACT-II'
 new_path = '/new/path/to/FISPACT-II/nuclear_data'
 
 ff = pp.FilesFile()
-pp.deserialize(ff, os.path.join('files', 'filesfileexample'))
+pp.from_file(ff, os.path.join('files', 'filesfileexample'))
 
 # verbose output for old files file
 print(ff.json_serialize())
@@ -27,4 +27,4 @@ print(" * Invalid paths are: ")
 for k, p in ff.invalidpaths():
     print("Key: {}, Path: {}".format(k, p))
 
-pp.serialize(ff, os.path.join('files', 'filesfileexamplenew'))
+pp.to_file(ff, os.path.join('files', 'filesfileexamplenew'))

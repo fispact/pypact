@@ -14,5 +14,7 @@ _PYPACT_TEST_*
 
 build
 dist
+temp/
 
 *.xcworkspace
+.vscode

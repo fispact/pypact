@@ -17,7 +17,7 @@ from pypact.input.fispactinput import FispactInput
 from pypact.input.fluxesfile import FluxesFile, ArbFluxesFile
 from pypact.input.filesfile import FilesFile
 from pypact.input.inputdata import InputData
-from pypact.input.serialization import serialize, deserialize
+from pypact.input.serialization import to_file, from_file, to_string
 from pypact.input.groupstructures import ALL_GROUPS
 from pypact.input.keywords import CONTROL_KEYWORDS
 from pypact.input.keywords import INIT_KEYWORDS

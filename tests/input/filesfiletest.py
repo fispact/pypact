@@ -95,7 +95,7 @@ class FilesFileUnitTest(Tester):
 
         # write to file
         filename = '_PYPACT_TEST_writeread_files'
-        pp.serialize(ff, filename)
+        pp.to_file(ff, filename)
         
         # reset
         ff.reset()
@@ -111,7 +111,7 @@ class FilesFileUnitTest(Tester):
         
         # read from file
         filename = '_PYPACT_TEST_writeread_files'
-        pp.deserialize(ff, filename)
+        pp.from_file(ff, filename)
         
         d = ff.to_dict()
         # 4 defaults + 2 set above

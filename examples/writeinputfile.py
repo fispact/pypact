@@ -43,5 +43,7 @@ id.addCooling(100000.0)
 # validate data
 id.validate()
 
+#print(pp.to_string(id))
+
 # write to file
-pp.serialize(id, os.path.join('files', '{}.i'.format(runname)))
+pp.to_file(id, os.path.join('files', '{}.i'.format(runname)))

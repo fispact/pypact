@@ -32,6 +32,9 @@ from pypact.input.projectiles import PROJECTILE_GAMMA
 from pypact.input.projectiles import get_projectile_name
 from pypact.input.projectiles import get_projectile_symbol
 from pypact.input.projectiles import get_projectile_value
+from pypact.input.projectiles import VALID_PROJECTILE_NAMES
+from pypact.input.projectiles import VALID_PROJECTILE_SYMBOLS
+from pypact.input.projectiles import VALID_PROJECTILES
 
 # library
 from pypact.library.nuclidelib import NUCLIDE_DICTIONARY

@@ -241,7 +241,7 @@ class InputData(JSONSerializable):
             numberOfAtoms: the number of atoms present 
         """
         if numberOfAtoms < 0:
-            raise PypactOutOfRangeException("Number of atoms must be positive")
+            raise PypactUnphysicalValueException("Number of atoms must be positive")
         #could check for integer value and raise here PypactTypeException
         
         self.inventoryfuel.isotopes.append((isotope, numberOfAtoms))

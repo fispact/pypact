@@ -21,3 +21,6 @@ class PypactFispactExecutableNotFoundException(PypactException):
 
 class PypactTypeException(PypactException):
     pass
+
+class PypactUnphysicalValueException(PypactException):
+    pass

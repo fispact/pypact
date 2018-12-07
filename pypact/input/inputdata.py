@@ -28,6 +28,22 @@ class MassInventory(JSONSerializable):
         return strrep
 
 @freeze_it
+class FuelInventory(JSONSerializable):
+    def __init__(self):
+
+        
+        # a list of tuples, the first entry is the isotope symbol
+        # the second is the number of atoms
+        self.isotopes     = []
+
+    def __str__(self):
+        strrep = "{} {}".format('FUEL', len(self.isotopes))
+        for i in self.isotopes:
+            strrep += "\n{} {}".format(i[0], i[1])
+
+        return strrep        
+
+@freeze_it
 class InputData(JSONSerializable):
 
     def __init__(self, name="run"):
@@ -66,8 +82,12 @@ class InputData(JSONSerializable):
         
         # the total mass in grams per cubic centimetre (g/cc)
         self.density               = 0.0
+
+        self.inventoryismass       = False
+        self.inventoryisfuel       = False 
         
         self.inventorymass         = MassInventory()
+        self.inventoryfuel         = FuelInventory()
     
         # irradiation schedule
         # a list of tuples of (time interval in seconds, flux amplitude)
@@ -195,6 +215,7 @@ class InputData(JSONSerializable):
 
     def setMass(self, totalMassInKg):
         """
+            Sets the material mode to Mass
             Sets the total mass of the target in kg
             totalMassInKg: mass in kg, must be positive
         """
@@ -202,6 +223,31 @@ class InputData(JSONSerializable):
             raise PypactOutOfRangeException("Total mass must be positive.")
 
         self.inventorymass.totalMass = totalMassInKg
+        self.inventoryismass = True
+        self.inventoryisfuel = False
+
+    def setFuel(self):
+        """
+            Sets the material mode to Fuel
+        """
+
+        self.inventoryismass = False
+        self.inventoryisfuel = True
+
+    def addIsotope(self, isotope, numberOfAtoms):
+        """
+            Add an isotope
+            isotope: character symbol of element name, e.g. 'Fe' and the mass number of the isotpe e.g '56'
+            numberOfAtoms: the number of atoms present 
+        """
+        if numberOfAtoms < 0:
+            raise PypactUnphysicalValueException("Number of atoms must be positive")
+        #could check for integer value and raise here PypactTypeException
+        
+        self.inventoryfuel.isotopes.append((isotope, numberOfAtoms))
+
+    def clearIsotopes(self):
+        self.inventoryfuel.isotopes = []
 
     def addElement(self, element, percentage=100.0):
         """
@@ -316,9 +362,15 @@ class InputData(JSONSerializable):
             addcomment("include clearance data of radionuclides to be input")
             addkeyword('CLEAR')
             
-        if self.inventorymass.totalMass > 0.0:
-            addcomment("set the target via MASS")
-            addkeyword(str(self.inventorymass))
+        if self.inventoryismass and not self.inventoryisfuel:
+            if self.inventorymass.totalMass > 0.0:
+                addcomment("set the target via MASS")
+                addkeyword(str(self.inventorymass))
+
+        if self.inventoryisfuel and not self.inventoryismass:
+            if self.density > 0.0:
+                addcomment("set the target via FUEL")
+                addkeyword(str(self.inventoryfuel))  
         
         if self.density > 0.0:
             addcomment("set the target density")

@@ -17,7 +17,7 @@ class InventoryType(JSONSerializable):
     def __init__(self):
         # a list of tuples, the first entry is the element/nuclide symbol
         # the second is the value
-        self.entries: List(str, float) = []
+        self.entries: List[str, float] = []
 
 @freeze_it
 class MassInventory(InventoryType):
@@ -49,7 +49,7 @@ class FuelInventory(InventoryType):
 @freeze_it
 class InputData(JSONSerializable):
 
-    def __init__(self, name: str ="run"):
+    def __init__(self, name: str = "run"):
         """
             Constructor
             
@@ -95,11 +95,11 @@ class InputData(JSONSerializable):
     
         # irradiation schedule
         # a list of tuples of (time interval in seconds, flux amplitude)
-        self._irradschedule: list = []
+        self._irradschedule: List(float, float) = []
         
         # cooling schedule
         # a list of time interval in seconds
-        self._coolingschedule: list = []
+        self._coolingschedule: List(float) = []
     
     def reset(self):
         """

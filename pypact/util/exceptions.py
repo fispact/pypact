@@ -7,6 +7,9 @@ class PypactFrozenException(PypactException):
 class PypactInvalidOptionException(PypactException):
     pass
 
+class PypactIncompatibleOptionException(PypactException):
+    pass
+
 class PypactOutOfRangeException(PypactException):
     pass
 

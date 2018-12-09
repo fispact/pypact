@@ -1,0 +1,4 @@
+typing
+codecov
+pytest-cov
+pylint

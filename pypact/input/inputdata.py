@@ -147,7 +147,7 @@ class InputData(JSONSerializable):
     def enableHazardsInOutput(self, output = True):
         self._outputhazards = output
     
-    def doCollapse(self, group, binary = False):
+    def readXSData(self, group, binary = False):
         if self._useeaf and binary:
             raise PypactIncompatibleOptionException("Cannot enable binary format reading when using EAF")
 
@@ -167,7 +167,7 @@ class InputData(JSONSerializable):
     def includeClearanceData(self, include = True):
         self._clearancedata = include
     
-    def doCondense(self, condense = True):
+    def readDecayData(self, condense = True):
         self._ignorecondense = False
         self._condense = condense
     

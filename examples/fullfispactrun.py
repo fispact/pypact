@@ -36,8 +36,8 @@ def createinput():
     id.enableJSON()
     id.approxGammaSpectrum()
     if do_collapse:
-        id.doCollapse(group)
-        id.doCondense()
+        id.readXSData(group)
+        id.readDecayData()
     id.enableSystemMonitor(False)
     id.enableHalflifeInOutput()
     id.enableHazardsInOutput()

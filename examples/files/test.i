@@ -7,7 +7,7 @@ CLOBBER
 READGG 
 << monitor FISPACT-II progress >>
 MONITOR 1
-<< alter the default minimum cross section for inclusion in pathways analysis >>
+<< the minimum cross section (barns) for inclusion in pathways analysis >>
 XSTHRESHOLD 1e-12
 << perform collapse >>
 GETXS 1 709
@@ -17,8 +17,6 @@ GETDECAY 1
 LOGLEVEL 1
 << approximate spectra when not available >>
 SPEK 
-<< set projectile (n=1, d=2, p=3, a=4, g=5) >>
-PROJ 1
 << end control >>
 FISPACT 
 * test
@@ -59,6 +57,7 @@ ATOMS
 TIME 100000.0 SECS
 ATOMS 
 << end of cooling >>
+
 << end of input >>
 END 
 * end

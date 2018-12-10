@@ -89,8 +89,8 @@ class InputData(JSONSerializable):
         self._inventoryismass      = False
         self._inventoryisfuel      = False 
         
-        self._inventorymass: InventoryType = MassInventory()
-        self._inventoryfuel: InventoryType = FuelInventory()
+        self._inventorymass        = MassInventory()
+        self._inventoryfuel        = FuelInventory()
     
         # irradiation schedule
         # a list of tuples of (time interval in seconds, flux amplitude)

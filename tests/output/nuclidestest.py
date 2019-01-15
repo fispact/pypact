@@ -19,6 +19,7 @@ class NuclidesAssertor(BaseOutputUnitTest):
         self.assertValueAndType(nuclide, pp.Nuclide, 'isotope', int, comparenuclide.isotope)
         self.assertValueAndType(nuclide, pp.Nuclide, 'state', str, comparenuclide.state)
         self.assertValueAndType(nuclide, pp.Nuclide, 'half_life', float, comparenuclide.half_life)
+        self.assertValueAndType(nuclide, pp.Nuclide, 'atoms', float, comparenuclide.atoms)
         self.assertValueAndType(nuclide, pp.Nuclide, 'grams', float, comparenuclide.grams)
         self.assertValueAndType(nuclide, pp.Nuclide, 'activity', float, comparenuclide.activity)
         self.assertValueAndType(nuclide, pp.Nuclide, 'heat', float, comparenuclide.heat)
@@ -75,6 +76,7 @@ def timestep_1_nuclides():
     n.isotope = 235
     n.state = ""
     n.half_life = 2.221E+16
+    n.atoms = 7.94800E+22
     n.grams = 3.102E+01
     n.activity = 2.480E+06
     n.alpha_heat = 1.77E-09
@@ -91,6 +93,7 @@ def timestep_1_nuclides():
     n.isotope = 238
     n.state = ""
     n.half_life = 1.410E+17
+    n.atoms = 2.45300E+24
     n.grams = 9.697E+02
     n.activity = 1.206E+07
     n.alpha_heat = 8.23E-09
@@ -113,6 +116,7 @@ def timestep_2_nuclides():
     n.isotope = 4
     n.state = ""
     n.half_life = 0.0
+    n.atoms = 3.82362E+13
     n.grams = 2.541E-10
     n.activity = 0.0
     n.alpha_heat = 0.0
@@ -129,6 +133,7 @@ def timestep_2_nuclides():
     n.isotope = 227
     n.state = ""
     n.half_life = 6.871E+08
+    n.atoms = 5.19573E+06
     n.grams = 1.959E-15
     n.activity = 5.241E-03
     n.alpha_heat = 5.82E-20
@@ -145,6 +150,7 @@ def timestep_2_nuclides():
     n.isotope = 230
     n.state = ""
     n.half_life = 2.379E+12
+    n.atoms = 8.99093E+05
     n.grams = 3.434E-16
     n.activity = 2.619E-07
     n.alpha_heat = 1.99E-22
@@ -161,6 +167,7 @@ def timestep_2_nuclides():
     n.isotope = 231
     n.state = ""
     n.half_life = 9.187E+04
+    n.atoms = 3.28759E+11 
     n.grams = 1.261E-10
     n.activity = 2.480E+06
     n.alpha_heat = 0.00E+00
@@ -177,6 +184,7 @@ def timestep_2_nuclides():
     n.isotope = 234
     n.state = ""
     n.half_life = 2.081E+06
+    n.atoms = 2.11761E+13
     n.grams = 8.230E-09
     n.activity = 7.052E+06
     n.alpha_heat = 0.00E+00
@@ -193,6 +201,7 @@ def timestep_2_nuclides():
     n.isotope = 231
     n.state = ""
     n.half_life = 1.034E+12
+    n.atoms = 6.19433E+12
     n.grams = 2.376E-09
     n.activity = 4.153E+00
     n.alpha_heat = 3.37E-15
@@ -209,6 +218,7 @@ def timestep_2_nuclides():
     n.isotope = 234
     n.state = ""
     n.half_life = 2.441E+04
+    n.atoms = 3.69346E+08
     n.grams = 1.435E-13
     n.activity = 1.049E+04
     n.alpha_heat = 0.00E+00
@@ -225,6 +235,7 @@ def timestep_2_nuclides():
     n.isotope = 234
     n.state = "m"
     n.half_life = 7.020E+01
+    n.atoms = 7.14202E+08
     n.grams = 2.776E-13
     n.activity = 7.052E+06
     n.alpha_heat = 0.00E+00
@@ -241,6 +252,7 @@ def timestep_2_nuclides():
     n.isotope = 234
     n.state = ""
     n.half_life = 7.754E+12
+    n.atoms = 1.05359E+13 
     n.grams = 4.095E-09
     n.activity = 9.419E-01
     n.alpha_heat = 7.31E-16
@@ -257,6 +269,7 @@ def timestep_2_nuclides():
     n.isotope = 235
     n.state = ""
     n.half_life = 2.221E+16
+    n.atoms = 7.94800E+22
     n.grams = 3.102E+01
     n.activity = 2.480E+06
     n.alpha_heat = 1.77E-09
@@ -273,6 +286,7 @@ def timestep_2_nuclides():
     n.isotope = 238
     n.state = ""
     n.half_life = 1.410E+17
+    n.atoms = 2.45300E+24
     n.grams = 9.697E+02
     n.activity = 1.206E+07
     n.alpha_heat = 8.23E-09
@@ -295,6 +309,7 @@ def timestep_2_nuclides31():
     n.isotope = 3
     n.state = ""
     n.half_life = 3.891E+08
+    n.atoms = 3.87956E+19
     n.grams = 1.943E-04
     n.activity = 6.911E+10
     n.alpha_heat = 0.0
@@ -311,6 +326,7 @@ def timestep_2_nuclides31():
     n.isotope = 38
     n.state = "m"
     n.half_life = 7.150E-01
+    n.atoms = 1.43597E+06
     n.grams = 9.053E-17
     n.activity = 1.392E+06
     n.alpha_heat = 0.0
@@ -327,6 +343,7 @@ def timestep_2_nuclides31():
     n.isotope = 39
     n.state = ""
     n.half_life = 3.336E+03
+    n.atoms =  6.02606E+09
     n.grams = 3.899E-13
     n.activity = 1.252E+06
     n.alpha_heat = 0.0

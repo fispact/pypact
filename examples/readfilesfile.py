@@ -1,10 +1,12 @@
+#!/usr/bin/env python3
+
+import os
 import pypact as pp
 
-filename = "dummyfiles"
 
 # read a files file
 ff = pp.FilesFile()
-pp.deserialize(ff, filename)
+pp.from_file(ff, os.path.join('files', 'filesfileexample'))
 
 print("Decay data: ", ff.dk_endf)
 print("Condense output file: ", ff.arrayx)

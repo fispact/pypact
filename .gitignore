@@ -10,7 +10,11 @@ __pycache__
 pypact.egg-info
 .pytest_cache
 
+_PYPACT_TEST_*
+
 build
 dist
+temp/
 
 *.xcworkspace
+.vscode

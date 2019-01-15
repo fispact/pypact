@@ -1,6 +1,34 @@
+"""
+    Group structures are taken from FISPACT-II manual version 4.0
+    http://www.ccfe.ac.uk/FISPACT-II/documentation/UKAEA-R18001.pdf
 
-# taken directly from FISPACT-II fortran source code
-# note that all group energy bounds are in DESCENDING ORDER
+    note that all group energy bounds are in DESCENDING ORDER
+    as is specified in the manual and standard for FISPACT-II
+    usage.
+
+    To return the group structures in ascending order use
+    list(reversed(*)), where * is the group list.
+
+    For example to get 709 group structure in ascending order:
+
+    g_709 = list(reversed(ALL_GROUPS[709]))
+
+
+    All group structures are held in a dictionary object, namely
+    ALL_GROUPS, which can be used to access each group structure data
+    if the group structure does not exist then a KeyError will be raised.
+
+    For example, to get group 69, you could simply do:
+
+    g69 = GROUP_69
+
+    or use the dictionary, ALL_GROUPS, as:
+
+    g69 = ALL_GROUPS[69]
+
+    The length of each group structure list is then n+1 of that group,
+    since each group represents the energy bounds for the bins.
+"""
 
 # 66 group structure
 GROUP_66 = [
@@ -192,6 +220,10 @@ GROUP_211 = [
     1.00001E-1, 1.0E-5
 ]
 assert len(GROUP_211) == 212
+
+# group 175 is a subset of 211
+GROUP_175 = GROUP_211[36:]
+assert len(GROUP_175) == 176
 
 # 315 group structure
 GROUP_315 = [
@@ -956,6 +988,7 @@ ALL_GROUPS = {
     100: GROUP_100,
     162: GROUP_162,
     172: GROUP_172,
+    175: GROUP_175,
     211: GROUP_211,
     315: GROUP_315,
     351: GROUP_351,

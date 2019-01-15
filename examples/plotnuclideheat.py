@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 
 import os
-
 import pypact as pp
 import pypact.analysis as ppa
 
 filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                             '..', 'reference', 'test127.out')
+                        '..', 'reference', 'test127.out')
 
 tz = ppa.TimeZone.COOL
 properties = ['heat', 'grams', 'ingestion']
-isotopes = [ ppa.NuclideDataEntry(i) for i in ppa.getallisotopes() if ppa.findZ(i[0]) <= 10]
+isotopes = [ ppa.NuclideDataEntry(i) for i in ppa.get_all_isotopes() if ppa.find_z(i[0]) <= 10]
 
 plt = ppa.LinePlotAdapter()
 

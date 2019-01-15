@@ -83,6 +83,21 @@ class GroupStructuresUnitTest(Tester):
                                
         self._check_list_is_decreasing(g)
 
+    def test_group175(self):
+        g = pp.ALL_GROUPS[175]
+        self.assertEqual(176, len(g), "Assert the length of group 175 is 176")
+        
+        self.assertEqual(1.96403E7, g[0], "Assert the first entry for group 175")
+        self.assertEqual(1.45499E7, g[6], "Assert the seventh entry for group 175")
+        self.assertEqual(1.0E-5, g[-1], "Assert the last entry for group 175")
+        
+        # for regression check the sum of all entries
+        self.assertAlmostEqual(431739677.108859, sum(g),
+                               places=DECIMAL_PLACE_ACC,
+                               msg="Assert the sum of all entries of 175")
+                               
+        self._check_list_is_decreasing(g)
+
     def test_group211(self):
         g = pp.ALL_GROUPS[211]
         self.assertEqual(212, len(g), "Assert the length of group 211 is 212")

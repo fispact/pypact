@@ -1,10 +1,10 @@
-[![Build Status](https://travis-ci.org/fispact/pypact.svg?branch=master)](https://travis-ci.org/fispact/pypact)
-[![Code Coverage](https://codecov.io/gh/fispact/pypact/branch/master/graph/badge.svg)](https://codecov.io/gh/fispact/pypact)
+[![Build Status](https://travis-ci.org/fispact/pypact.svg?branch=dev)](https://travis-ci.org/fispact/pypact)
+[![Code Coverage](https://codecov.io/gh/fispact/pypact/branch/dev/graph/badge.svg)](https://codecov.io/gh/fispact/pypact)
 
 [![PyPI](https://img.shields.io/pypi/v/pypact.svg)](https://pypi.python.org/pypi/pypact)
 [![PyPI](https://img.shields.io/pypi/wheel/pypact.svg)](https://pypi.python.org/pypi/pypact)
 [![PyPI](https://img.shields.io/pypi/format/pypact.svg)](https://pypi.python.org/pypi/pypact)
-[![License](https://img.shields.io/pypi/l/pypact.svg)](https://github.com/fispact/pypact/blob/master/LICENSE)
+[![License](https://img.shields.io/pypi/l/pypact.svg)](https://github.com/fispact/pypact/blob/dev/LICENSE)
 
 # Pypact
 ### Making FISPACT-II output easier to parse, with Python 3
@@ -15,6 +15,7 @@
 - [Usage](#usage)
   - [Command line tool](#command-line-tool)
   - [Importing package](#importing-package)
+  - [Input Creation](#input-creation)
 - [Examples](#examples)
   - [Print the run name](#print-run-name)
   - [Loop over time steps](#loop-time-steps)
@@ -26,6 +27,7 @@
 - [Executing unit tests](#executing-unit-tests)
 - [Contact](#contact)
 
+![Alt Text](https://github.com/fispact/pypact/blob/dev/examples/figures/gs_animation.gif)
 
 #### <a name="design-goals"></a>Design Goals
 The aim of Pypact is to make the FISPACT-II output file easy to parse so that more time can be spent on analysis, and much less time on interrogating the output file. No more convoluted scripts, just one simple to use package!
@@ -41,38 +43,38 @@ An example is shown for a Si 31 nuclide entry, using both JSON approaches.
 ##### Using pypact to parse the FISPACT-II standard output.
 ```JSON
 {
-"element": "Si",
-"isotope": 31,
-"state": "",
-"half_life": 9432.0,
-"grams": 3.699e-16,
-"activity": 528.5,
-"heat": 5.046e-14,
-"alpha_heat": 0.0,
-"beta_heat": 5.028e-14,
-"gamma_heat": 1.84e-16,
-"dose": 1.399e-10,
-"ingestion": 8.456e-08,
-"inhalation": 4.175e-08
+    "element": "Si",
+    "isotope": 31,
+    "state": "",
+    "half_life": 9432.0,
+    "grams": 3.699e-16,
+    "activity": 528.5,
+    "heat": 5.046e-14,
+    "alpha_heat": 0.0,
+    "beta_heat": 5.028e-14,
+    "gamma_heat": 1.84e-16,
+    "dose": 1.399e-10,
+    "ingestion": 8.456e-08,
+    "inhalation": 4.175e-08
 }
 ```
 
 ##### Using FISPACT-II JSON output directly.
 ```JSON
 {
-"element": "Si",
-"isotope": 31,
-"state": "",
-"half_life": 0.9432E+4,
-"grams": 0.36990418187287751E-15,
-"activity": 0.52850009418322043E+3,
-"heat": 0.50459332881338111E-13,
-"alpha_heat": 0.0E+0,
-"beta_heat": 0.50275382281787085E-13,
-"gamma_heat": 0.18395059955102398E-15,
-"dose": 0.1398653735340394E-9,
-"ingestion": 0.84560014731430124E-7,
-"inhalation": 0.41751507961244766E-7
+    "element": "Si",
+    "isotope": 31,
+    "state": "",
+    "half_life": 0.9432E+4,
+    "grams": 0.36990418187287751E-15,
+    "activity": 0.52850009418322043E+3,
+    "heat": 0.50459332881338111E-13,
+    "alpha_heat": 0.0E+0,
+    "beta_heat": 0.50275382281787085E-13,
+    "gamma_heat": 0.18395059955102398E-15,
+    "dose": 0.1398653735340394E-9,
+    "ingestion": 0.84560014731430124E-7,
+    "inhalation": 0.41751507961244766E-7
 }
 ```
 
@@ -159,6 +161,58 @@ filename = "fispact_ii_run_output_file.out"
 
 with pp.Reader(filename) as output:
     # do your analysis here
+...
+```
+##### <a name="input-creation"></a>Creating and manipulating input files
+It is now possible to use pypact to manipulate and create some of the legacy input files,
+such as the input (*.i) FISPACT-II run file, the files file (IO paths), and the fluxes file, 
+necessary for FISPACT-II to run.
+
+Some examples are provided of how to use this module in the examples subdirectory.
+
+A simple example of creating an input file is shown below:
+```python
+import pypact as pp
+
+id = pp.InputData(name='test')
+
+# control setup
+id.overwriteExisting()
+id.enableJSON()
+id.approxGammaSpectrum()
+id.readXSData(709)
+id.readDecayData()
+id.enableHalflifeInOutput()
+id.enableHazardsInOutput()
+id.setProjectile(pp.PROJECTILE_NEUTRON)
+id.enableSystemMonitor()
+id.readGammaGroup()
+id.enableInitialInventoryInOutput()
+id.setLogLevel(pp.LOG_SEVERITY_ERROR)
+
+# thresholds
+id.setXSThreshold(1e-12)
+id.setAtomsThreshold(1e5)
+
+# set target
+id.setDensity(19.5)
+id.setMass(1.0)
+id.addElement('Ti', percentage=80.0)
+id.addElement('Fe', percentage=14.8)
+id.addElement('Cr', percentage=5.2)
+
+# irradiate and cooling times
+id.addIrradiation(300.0, 1.1e15)
+id.addCooling(10.0)
+id.addCooling(100.0)
+id.addCooling(1000.0)
+id.addCooling(10000.0)
+id.addCooling(100000.0)
+
+# validate data
+id.validate()
+# write to file
+pp.to_file(id, '{}.i'.format(id.name))
 ...
 ```
 #### <a name="examples"></a>Examples
@@ -292,16 +346,16 @@ plt.show()
 ```
 The results of this script are shown below.
 
-![Figure of fractional grams](https://github.com/fispact/pypact/blob/master/examples/figures/fractional_grams.png?raw=true)
+![Figure of fractional grams](https://github.com/fispact/pypact/blob/dev/examples/figures/fractional_grams.png?raw=true)
 
-![Figure of fractional heat](https://github.com/fispact/pypact/blob/master/examples/figures/fractional_heat.png?raw=true)
+![Figure of fractional heat](https://github.com/fispact/pypact/blob/dev/examples/figures/fractional_heat.png?raw=true)
 
-![Figure of fractional ingestion](https://github.com/fispact/pypact/blob/master/examples/figures/fractional_ingestion.png?raw=true)
+![Figure of fractional ingestion](https://github.com/fispact/pypact/blob/dev/examples/figures/fractional_ingestion.png?raw=true)
 
 ##### <a name="compare"></a>Compare .out to .json outputs
 Pypact can handle the parsing of both the .out fispact file and the .json fispact file, which was added in FISPACT-II 4.0. To compare that both output parsers handle the data correctly, an example has been added to use both file formats to plot the total heat after irradiation. The example produces two identical plots to prove the parser correctness. The example, compareplots.py, can be found at 'pypact/examples/compareplots.py' and uses the reference output files test31.out and test31.json to produce the following plot.
 
-![Figure of total heat after irradiation](https://github.com/fispact/pypact/blob/master/examples/figures/heat_output_irradiation.png?raw=true)
+![Figure of total heat after irradiation](https://github.com/fispact/pypact/blob/dev/examples/figures/heat_output_irradiation.png?raw=true)
 
 #### <a name="executing-unit-tests"></a>Executing tests
 In order to run the unit tests to check if the package is correctly downloaded, it is required to install pytest from pip.
@@ -316,46 +370,51 @@ python3 setup.py test
 #### <a name="supported-outputs"></a>Supported outputs
 At time of writing, not all of the FISPACT-II output can be parsed and therefore some data is missing from Pypact. It is our intention to cover the whole file (or the important bits) in the future, until then the list of supported outputs is listed below.
 
+Now contains gamma spectrum, which has the bin values of size n, and bin boundaries of size n+1. See the examples for gammaspectrum and the animation option.
+
 * Output (returned from reader() operation)
-	+ Run Data (output.run_data)
-  		- run name (output.run_data.run_name)
-  		- timestamp (output.run_data.timestamp)
-  		- flux name (output.run_data.flux_name)
-	+ Inventory Data (output.inventory_data)
-  		- list of **TimeStep** objects, which has
-  			- irradation time (output.inventory_data[entry].irradiation_time)
-  			- cooling time 	  (output.inventory_data[entry].cooling_time)
-  			- flux (output.inventory_data[entry].flux)
-  			- total heat (output.inventory_data[entry].total_heat)
-  			- alpha heat (output.inventory_data[entry].alpha_heat)
-  			- beta heat (output.inventory_data[entry].beta_heat)
-  			- gamma heat (output.inventory_data[entry].gamma_heat)
-  			- ingestion dose (output.inventory_data[entry].ingestion_dose)
-  			- inhalation dose (output.inventory_data[entry].inhalation_dose)
-  			- dose rate (output.inventory_data[entry].dose_rate)
-  				- type (output.inventory_data[entry].dose_rate.type)
-  				- distance (output.inventory_data[entry].dose_rate.distance)
-  				- mass (output.inventory_data[entry].dose_rate.mass)
-  				- dose (output.inventory_data[entry].dose_rate.dose)
-  			- nuclides (output.inventory_data[entry].nuclides)
-  				- nuclides (output.inventory_data[entry].nuclides.nuclides)
+    + Run Data (output.run_data)
+          - run name (output.run_data.run_name)
+          - timestamp (output.run_data.timestamp)
+          - flux name (output.run_data.flux_name)
+    + Inventory Data (output.inventory_data)
+          - list of **TimeStep** objects, which has
+              - irradation time (output.inventory_data[entry].irradiation_time)
+              - cooling time       (output.inventory_data[entry].cooling_time)
+              - flux (output.inventory_data[entry].flux)
+              - total heat (output.inventory_data[entry].total_heat)
+              - alpha heat (output.inventory_data[entry].alpha_heat)
+              - beta heat (output.inventory_data[entry].beta_heat)
+              - gamma heat (output.inventory_data[entry].gamma_heat)
+              - ingestion dose (output.inventory_data[entry].ingestion_dose)
+              - inhalation dose (output.inventory_data[entry].inhalation_dose)
+              - gamma_spectrum (output.inventory_data[entry].gamma_spectrum)
+                  - boundaries  (output.inventory_data[entry].gamma_spectrum.boundaries)
+                  - values  (output.inventory_data[entry].gamma_spectrum.values)
+              - dose rate (output.inventory_data[entry].dose_rate)
+                  - type (output.inventory_data[entry].dose_rate.type)
+                  - distance (output.inventory_data[entry].dose_rate.distance)
+                  - mass (output.inventory_data[entry].dose_rate.mass)
+                  - dose (output.inventory_data[entry].dose_rate.dose)
+              - nuclides (output.inventory_data[entry].nuclides)
+                  - nuclides (output.inventory_data[entry].nuclides.nuclides)
 
 Nuclides is a list of **Nuclide** objects containing:
 + Nuclide (output.inventory_data[entry].nuclides.nuclides[nentry] *aka nuclide*)
-	- element (nuclide.element)
-	- isotope (nuclide.isotope)
-	- state (nuclide.state)
-	- half life (nuclide.half_life)
-	- grams (nuclide.grams)
-	- activity (nuclide.activity)
-	- heat (nuclide.heat)
-	- alpha heat (nuclide.alpha_heat)
-	- beta heat (nuclide.beta_heat)
-	- gamma heat (nuclide.gamma_heat)
-	- dose (nuclide.dose)
-	- ingestion (nuclide.ingestion)
-	- inhalation (nuclide.inhalation)
+    - element (nuclide.element)
+    - isotope (nuclide.isotope)
+    - state (nuclide.state)
+    - half life (nuclide.half_life)
+    - grams (nuclide.grams)
+    - activity (nuclide.activity)
+    - heat (nuclide.heat)
+    - alpha heat (nuclide.alpha_heat)
+    - beta heat (nuclide.beta_heat)
+    - gamma heat (nuclide.gamma_heat)
+    - dose (nuclide.dose)
+    - ingestion (nuclide.ingestion)
+    - inhalation (nuclide.inhalation)
 
 
 #### <a name="contact"></a>Contact
-For more information or requests, contact us through http://fispact.ukaea.uk/contact
+For more information or requests, contact us through https://fispact.ukaea.uk/contact

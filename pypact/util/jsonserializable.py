@@ -1,7 +1,7 @@
 import json
 
 
-class Serializable(object):
+class JSONSerializable(object):
 
     def json_serialize(self):
         def obj_dict(obj):
@@ -15,7 +15,7 @@ class Serializable(object):
 
     def json_deserialize(self, j, objtype=object):
         """
-        Read the JSON file into the Serializable data objects
+        Read the JSON file into the JSONSerializable data objects
 
         :param j: The JSON dump
         :param key: The key/member variable name
@@ -25,7 +25,7 @@ class Serializable(object):
         d = json.loads(j)
         for key, value in self.__dict__.items():
             if key in d:
-                if isinstance(value, Serializable):
+                if isinstance(value, JSONSerializable):
                     value.json_deserialize(json.dumps(d[key]))
                 elif isinstance(d[key], dict):
                     self.json_deserialize(json.dumps(d[key]))
@@ -47,8 +47,14 @@ class Serializable(object):
         d = json.loads(j)
 
         def do_append(a):
+            # for the standard case of a list of str, int or floats
+            if isinstance(a, (int, float, str)):
+                self.__dict__[key].append(a)
+                return
+
+            # for the unique case of a list of JSONSerializable objects
             t = objtype()
-            if isinstance(t, Serializable):
+            if isinstance(t, JSONSerializable):
                 t.json_deserialize(json.dumps(a))
                 self.__dict__[key].append(t)
 

@@ -1,8 +1,10 @@
 import os
 
 from pypact.util.decorators import freeze_it
+from pypact.util.jsonserializable import JSONSerializable
 from pypact.util.exceptions import PypactDeserializeException
 from pypact.util.file import file_exists, dir_exists
+from pypact.input.projectiles import *
 
 # represents a null entry string
 NULL_ENTRY = "null"
@@ -25,6 +27,19 @@ NUCLEAR_LIBS = {
                 'ind_nuc' : os.path.join('TENDL2017data', 'tendl17_decay12_index'),
                 'xs_endf' : os.path.join('TENDL2017data', 'tal2017-n', 'gxs-709'),
                 'prob_tab' : os.path.join('TENDL2017data', 'tal2017-n', 'tp-709-294')
+            },
+            'EAF2010':
+            {
+                'ind_nuc' : os.path.join('EAF2010data', 'eaf_index_20100'),
+                'crossec' : os.path.join('EAF2010data', 'eaf_n_gxs_066_fis_20100'),
+                'crossunc' : os.path.join('EAF2010data', 'eaf_un_20100'),
+                'decay' : os.path.join('EAF2010data', 'eaf_dec_20100.001'),
+                'asscfy' : os.path.join('EAF2010data', 'eaf_n_asscfy_20100'),
+                'fissyld' : os.path.join('EAF2010data', 'eaf_n_fis_20100'),
+                'hazards' : os.path.join('EAF2010data', 'eaf_haz_20100'),
+                'clear' : os.path.join('EAF2010data', 'eaf_clear_20100'),
+                'a2data' : os.path.join('EAF2010data', 'eaf_a2_20100'),
+                'absorp' : os.path.join('EAF2010data', 'eaf_abs_20100')
             },
             'CENDL31':
             {
@@ -114,48 +129,82 @@ NUCLEAR_LIBS = {
 }
 
 @freeze_it
-class FilesFile(object):
-    def __init__(self, base_dir=os.sep):
-        self.nullify()
+class FilesFile(JSONSerializable):
+    def __init__(self, base_dir=os.sep, group=709, projectile=PROJECTILE_NEUTRON):
+        self.reset()
 
         self.__base_dir = base_dir
+        self.__group = group
+        self.__projectile = projectile
 
         # defaults
-        self.setXS('TENDL2015')
-        self.setProbTab('TENDL2015')
-        self.setFissionYield('GEFY61')
-        self.setDecay('DECAY')
-        self.setRegulatory('DECAY')
-        self.setGammaAbsorb('DECAY')
-
         self.fluxes     = "fluxes"
         self.collapxi   = "COLLAPX"
         self.collapxo   = "COLLAPX"
         self.arrayx     = "ARRAYX"
 
-    def nullify(self):
+    def reset(self):
+        # nuclear data libraries
         self.ind_nuc    = NULL_ENTRY
         self.xs_endf    = NULL_ENTRY
+        self.xs_endfb   = NULL_ENTRY
         self.prob_tab   = NULL_ENTRY
         self.fy_endf    = NULL_ENTRY
+        self.asscfy     = NULL_ENTRY
         self.dk_endf    = NULL_ENTRY
         self.hazards    = NULL_ENTRY
         self.clear      = NULL_ENTRY
         self.a2data     = NULL_ENTRY
         self.absorp     = NULL_ENTRY
+        self.sf_endf    = NULL_ENTRY
+        self.sp_endf    = NULL_ENTRY
+        self.ggbins     = NULL_ENTRY
+        self.enbins     = NULL_ENTRY
+        self.xs_extra   = NULL_ENTRY
+        
+        # eaf nuclear data
+        self.crossec    = NULL_ENTRY
+        self.crossunc   = NULL_ENTRY
+        self.decay      = NULL_ENTRY
+        self.fissyld    = NULL_ENTRY
+        
+        # additional files  - not nuclear data
         self.fluxes     = NULL_ENTRY
+        self.arb_flux   = NULL_ENTRY
         self.collapxi   = NULL_ENTRY
         self.collapxo   = NULL_ENTRY
         self.arrayx     = NULL_ENTRY
+        self.files      = NULL_ENTRY
+        self.input      = NULL_ENTRY
+        self.graph      = NULL_ENTRY
+        self.gnuplot    = NULL_ENTRY
+        self.spec       = NULL_ENTRY
+        self.output     = NULL_ENTRY
+        self.tab1       = NULL_ENTRY
+        self.tab2       = NULL_ENTRY
+        self.tab3       = NULL_ENTRY
+        self.tab4       = NULL_ENTRY
+        self.runlog     = NULL_ENTRY
+        self.ind_nuco   = NULL_ENTRY
+        self.sens       = NULL_ENTRY
+        self.nucgraph   = NULL_ENTRY
+        self.nucgnu     = NULL_ENTRY
+    
+    def to_dict(self):
+        d = dict()
+        for k, v in self.__dict__.items():
+            if '__' not in k and v != NULL_ENTRY:
+                d[k] = v
 
-        # optionals
-        self.sf_endf    = NULL_ENTRY
-        self.ggbins     = NULL_ENTRY
-        self.xs_extra   = NULL_ENTRY
+        return d
 
     def setXS(self, type):
         self._setVar(type, 'ind_nuc')
-        self._setVar(type, 'xs_endf')
+        if type == 'EAF2010':
+            self._setVar(type, 'crossec')
+            self._setVar(type, 'crossunc')
+        else:
+            self._setVar(type, 'xs_endf')
 
     def setProbTab(self, type):
         self._setVar(type, 'prob_tab')
@@ -164,8 +213,18 @@ class FilesFile(object):
         self._setVar(type, 'fy_endf')
 
     def setDecay(self, type):
-        self._setVar(type, 'dk_endf')
+        key = 'dk_endf'
+        if type == 'EAF2010':
+            key = 'decay'
 
+        self._setVar(type, key)
+
+    def setEAF(self):
+        self.setXS('EAF2010')
+        self.setDecay('EAF2010')
+        self.setRegulatory('EAF2010')
+        self.setGammaAbsorb('EAF2010')
+    
     def setRegulatory(self, type):
         self._setVar(type, 'hazards')
         self._setVar(type, 'clear')
@@ -182,7 +241,7 @@ class FilesFile(object):
 
         self.__setattr__(key, os.path.join(self.__base_dir, NUCLEAR_LIBS[type][key]))
 
-    def validate(self):
+    def invalidpaths(self):
         """
             Validate if paths in files file exist
             Return a list of tuples (key, value) that do not exist
@@ -190,13 +249,15 @@ class FilesFile(object):
         ignore = ['collapxi',
                   'collapxo',
                   'arrayx',
-                  'fluxes',
-                  'ggbins',
-                  'xs_extra',
-                  'sf_endf']
+                  'tab1',
+                  'tab2',
+                  'tab3',
+                  'tab4',
+                  'output',
+                  'ind_nuco']
         invalid = []
-        for k, v in self.__dict__.items():
-            if k in ignore or '__' in k:
+        for k, v in self.to_dict().items():
+            if k in ignore:
                 continue
             
             if not v or (not file_exists(v) and not dir_exists(v)):
@@ -217,9 +278,8 @@ class FilesFile(object):
             
             ...
         """
-        for k, v in self.__dict__.items():
-            if '__' not in k and v != NULL_ENTRY:
-                f.write("{:<20} {:<100}\n\n".format(k,v))
+        for k, v in self.to_dict().items():
+            f.write("{:<20} {:<100}\n\n".format(k,v))
 
     def _deserialize(self, f):
         """
@@ -238,6 +298,11 @@ class FilesFile(object):
                 continue
             
             k = data[0]
+
+            # ignore comments
+            if k[0] == '#':
+                continue
+
             if k not in self.__dict__:
                 raise PypactDeserializeException(
                     "Cannot deserialize files file. Unknown key {0} specified.".format(k))

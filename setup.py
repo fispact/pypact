@@ -2,7 +2,7 @@ from setuptools import setup
 
 
 setup(name='pypact',
-      version='1.2.1',
+      version='1.2.2',
       description='The package for reading and manipulating the fispact output text file.',
       url='https://github.com/fispact/pypact',
       author='UKAEA',

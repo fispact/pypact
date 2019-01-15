@@ -1,12 +1,12 @@
 from pypact.util.decorators import freeze_it
-from pypact.util.numerical import isfloat
-from pypact.output.serializable import Serializable
+from pypact.util.numerical import is_float, get_float
+from pypact.util.jsonserializable import JSONSerializable
 
 NUCLIDE_IGNORES = ['\n', '|', '>', '&', '?', '#']
 
 
 @freeze_it
-class Nuclide(Serializable):
+class Nuclide(JSONSerializable):
     """
         The nuclide type from the output
     """
@@ -15,6 +15,7 @@ class Nuclide(Serializable):
         self.isotope = 0
         self.state = ""
         self.half_life = 0.0
+        self.atoms = 0.0
         self.grams = 0.0
         self.activity = 0.0
         self.heat = 0.0
@@ -64,11 +65,12 @@ class Nuclide(Serializable):
             column_index = index_containing_substring(column_headers, header_name)
             if column_index != -1:
                 item = strings[column_index]
-                if isfloat(item):
-                    return float(item)
+                if is_float(item):
+                    return get_float(item)
 
             return 0.0
 
+        self.atoms = get_entry('ATOMS')
         self.grams = get_entry('GRAMS')
         self.activity = get_entry('Bq')
         self.half_life = get_entry('HALF LIFE')

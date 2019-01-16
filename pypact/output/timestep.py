@@ -71,8 +71,8 @@ class TimeStep(JSONSerializable):
         self.gamma_heat = get_value(starttag='TOTAL GAMMA HEAT PRODUCTION', endtag='kW')
         self.total_heat = self.alpha_heat + self.beta_heat + self.gamma_heat
 
-        self.initial_mass = get_value(starttag='INITIAL TOTAL MASS OF MATERIAL', endtag='kg')
-        self.total_mass = get_value(starttag='TOTAL MASS OF MATERIAL', endtag='kg')
+        self.initial_mass = get_value(starttag='0  INITIAL TOTAL MASS OF MATERIAL', endtag='kg')
+        self.total_mass = get_value(starttag='0  TOTAL MASS OF MATERIAL', endtag='kg')
         
         self.number_of_fissions = get_value(starttag='NUMBER OF FISSIONS', endtag='BURN-UP')
         self.burnup = get_value(starttag='BURN-UP OF ACTINIDES', endtag='%')

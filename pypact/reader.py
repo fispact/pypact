@@ -4,22 +4,30 @@ from pypact.filerecord import FileRecord
 from pypact.output.output import Output
 
 
-class Reader:
+class Reader(object):
+    """
+        It can read fispact out file formats
+    """
     def __init__(self, filename, ignorenuclides=False):
-        """
-            It can read both JSON and out file formats
-        """
         self.record = FileRecord(filename)
         self.output = Output(ignorenuclides=ignorenuclides)
-        self.isjson = False
-        if os.path.splitext(filename)[-1] == '.json':
-            self.isjson = True
-            with open(filename) as f:
-                self.output.json_deserialize(f.read())
+        self.filename = filename
 
     def __enter__(self):
-        if not self.isjson:
-            self.output.fispact_deserialize(self.record)
+        self.output.fispact_deserialize(self.record)
+        return self.output
+
+    def __exit__(self, *args):
+        pass
+
+
+class JSONReader(Reader):
+    """
+        It can read JSON fispact file formats
+    """
+    def __enter__(self):
+        with open(self.filename, 'rt') as f:
+            self.output.json_deserialize(f.read())
 
         return self.output
 

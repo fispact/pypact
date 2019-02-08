@@ -1,5 +1,5 @@
 # output readers
-from pypact.reader import Reader
+from pypact.reader import Reader, JSONReader
 from pypact.filerecord import FileRecord
 from pypact.runner import compute
 

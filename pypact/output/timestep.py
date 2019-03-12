@@ -26,6 +26,9 @@ class TimeStep(JSONSerializable):
         self.inhalation_dose = 0.0
         self.total_activity = 0.0
         self.total_activity_exclude_trit = 0.0
+        self.alpha_activity = 0.0
+        self.beta_activity = 0.0
+        self.gamma_activity = 0.0
         self.initial_mass = 0.0
         self.total_mass = 0.0
         self.number_of_fissions = 0.0
@@ -79,6 +82,10 @@ class TimeStep(JSONSerializable):
 
         self.ingestion_dose = get_value(starttag='INGESTION  HAZARD FOR ALL MATERIALS', endtag='Sv/kg')
         self.inhalation_dose = get_value(starttag='INHALATION HAZARD FOR ALL MATERIALS', endtag='Sv/kg')
+
+        self.alpha_activity = get_value(starttag='ALPHA BECQUERELS =', endtag='BETA')
+        self.beta_activity = get_value(starttag='BETA BECQUERELS =', endtag='GAMMA')
+        self.gamma_activity = get_value(starttag='GAMMA BECQUERELS =', endtag='')
 
         self.total_activity = get_value(starttag='TOTAL ACTIVITY FOR ALL MATERIALS', endtag='Bq')
         self.total_activity_exclude_trit = get_value(starttag='TOTAL ACTIVITY EXCLUDING TRITIUM', endtag='Bq')

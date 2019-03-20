@@ -1,0 +1,36 @@
+# gamma attenuation data
+absorp  /FISPACT-II/decay/abs_2012
+
+# index of nuclides to be included
+ind_nuc  /FISPACT-II/JEFF33data/jeff33_index
+
+# Library cross section data
+xs_endf /FISPACT-II/JEFF33data/jeff33-n/gxs-709
+ 
+# Library probability tables for self-shielding
+prob_tab  /FISPACT-II/JEFF33data/jeff33-n/tp-709-294
+
+# fluxes
+fluxes  fluxes
+arb_flux  spectra
+
+# Library decay data
+dk_endf /FISPACT-II/JEFF33data/decay/
+
+# Library fission  data
+fy_endf /FISPACT-II/GEFY61data/gefy61_nfy
+
+# Spontaneous fission data
+sf_endf /FISPACT-II/GEFY61data/gefy61_sfy
+
+# Library regulatory data
+hazards /FISPACT-II/decay/hazards_2012
+clear   /FISPACT-II/decay/clear_2012
+a2data  /FISPACT-II/decay/a2_2012
+
+# collapsed cross section data (in and out)
+collapxi  COLLAPX
+collapxo  COLLAPX
+
+# condensed decay and fission data (in and out)
+arrayx  ARRAYX

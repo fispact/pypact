@@ -2,7 +2,7 @@ import os
 import subprocess
 
 from pypact.reader import Reader
-from pypact.input.serialization import serialize
+from pypact.input.serialization import to_file
 from pypact.util.file import file_remove, file_exists
 from pypact.util.exceptions import PypactFispactExecutableNotFoundException
 from pypact.util.decorators import time_it
@@ -21,9 +21,9 @@ def compute(input, files, fluxes,
     runname = input_filename.strip('.i')
     
     # write all files
-    serialize(input, input_filename)
-    serialize(files, files_filename)
-    serialize(fluxes, fluxes_filename)
+    to_file(input, input_filename)
+    to_file(files, files_filename)
+    to_file(fluxes, fluxes_filename)
 
     # run fispact
     if not file_exists(FISPACT_EXE_PATH):

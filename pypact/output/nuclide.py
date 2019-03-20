@@ -15,6 +15,7 @@ class Nuclide(JSONSerializable):
         self.isotope = 0
         self.state = ""
         self.half_life = 0.0
+        self.atoms = 0.0
         self.grams = 0.0
         self.activity = 0.0
         self.heat = 0.0
@@ -69,6 +70,7 @@ class Nuclide(JSONSerializable):
 
             return 0.0
 
+        self.atoms = get_entry('ATOMS')
         self.grams = get_entry('GRAMS')
         self.activity = get_entry('Bq')
         self.half_life = get_entry('HALF LIFE')

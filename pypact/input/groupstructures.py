@@ -221,6 +221,10 @@ GROUP_211 = [
 ]
 assert len(GROUP_211) == 212
 
+# group 175 is a subset of 211
+GROUP_175 = GROUP_211[36:]
+assert len(GROUP_175) == 176
+
 # 315 group structure
 GROUP_315 = [
     1.9640E7, 1.7330E7, 1.6910E7, 1.6490E7, 1.5680E7,
@@ -984,6 +988,7 @@ ALL_GROUPS = {
     100: GROUP_100,
     162: GROUP_162,
     172: GROUP_172,
+    175: GROUP_175,
     211: GROUP_211,
     315: GROUP_315,
     351: GROUP_351,

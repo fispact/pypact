@@ -1,5 +1,5 @@
 # output readers
-from pypact.reader import Reader
+from pypact.reader import Reader, JSONReader
 from pypact.filerecord import FileRecord
 from pypact.runner import compute
 
@@ -14,10 +14,10 @@ from pypact.output.timestep import TimeStep
 
 # input
 from pypact.input.fispactinput import FispactInput
-from pypact.input.fluxesfile import FluxesFile
+from pypact.input.fluxesfile import FluxesFile, ArbFluxesFile
 from pypact.input.filesfile import FilesFile
 from pypact.input.inputdata import InputData
-from pypact.input.serialization import serialize, deserialize
+from pypact.input.serialization import to_file, from_file, to_string
 from pypact.input.groupstructures import ALL_GROUPS
 from pypact.input.keywords import CONTROL_KEYWORDS
 from pypact.input.keywords import INIT_KEYWORDS
@@ -32,6 +32,9 @@ from pypact.input.projectiles import PROJECTILE_GAMMA
 from pypact.input.projectiles import get_projectile_name
 from pypact.input.projectiles import get_projectile_symbol
 from pypact.input.projectiles import get_projectile_value
+from pypact.input.projectiles import VALID_PROJECTILE_NAMES
+from pypact.input.projectiles import VALID_PROJECTILE_SYMBOLS
+from pypact.input.projectiles import VALID_PROJECTILES
 
 # library
 from pypact.library.nuclidelib import NUCLIDE_DICTIONARY

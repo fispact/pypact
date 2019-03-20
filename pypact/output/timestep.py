@@ -30,6 +30,9 @@ class TimeStep(JSONSerializable):
         self.inhalation_dose = 0.0
         self.total_activity = 0.0
         self.total_activity_exclude_trit = 0.0
+        self.alpha_activity = 0.0
+        self.beta_activity = 0.0
+        self.gamma_activity = 0.0
         self.initial_mass = 0.0
         self.total_mass = 0.0
         self.number_of_fissions = 0.0
@@ -103,6 +106,29 @@ class TimeStep(JSONSerializable):
             )
             self.time = filerecord.times[interval - 1]
 
+            self.flux = get_value(starttag='* * * FLUX AMP IS', endtag='/cm^2/s')
+
+            self.alpha_heat = get_value(starttag='TOTAL ALPHA HEAT PRODUCTION', endtag='kW')
+            self.beta_heat = get_value(starttag='TOTAL BETA  HEAT PRODUCTION', endtag='kW')
+            self.gamma_heat = get_value(starttag='TOTAL GAMMA HEAT PRODUCTION', endtag='kW')
+            self.total_heat = self.alpha_heat + self.beta_heat + self.gamma_heat
+
+            self.initial_mass = get_value(starttag='0  INITIAL TOTAL MASS OF MATERIAL', endtag='kg')
+            self.total_mass = get_value(starttag='0  TOTAL MASS OF MATERIAL', endtag='kg')
+
+            self.number_of_fissions = get_value(starttag='NUMBER OF FISSIONS', endtag='BURN-UP')
+            self.burnup = get_value(starttag='BURN-UP OF ACTINIDES', endtag='%')
+
+            self.ingestion_dose = get_value(starttag='INGESTION  HAZARD FOR ALL MATERIALS', endtag='Sv/kg')
+            self.inhalation_dose = get_value(starttag='INHALATION HAZARD FOR ALL MATERIALS', endtag='Sv/kg')
+
+            self.alpha_activity = get_value(starttag='ALPHA BECQUERELS =', endtag='BETA')
+            self.beta_activity = get_value(starttag='BETA BECQUERELS =', endtag='GAMMA')
+            self.gamma_activity = get_value(starttag='GAMMA BECQUERELS =', endtag='')
+
+            self.total_activity = get_value(starttag='TOTAL ACTIVITY FOR ALL MATERIALS', endtag='Bq')
+            self.total_activity_exclude_trit = get_value(starttag='TOTAL ACTIVITY EXCLUDING TRITIUM', endtag='Bq')
+
             # for fission this can be very large and hence very slow
             # if you do not care about the nuclides then we can set
             # it to ignore nuclides
@@ -111,18 +137,12 @@ class TimeStep(JSONSerializable):
                 t.fispact_deserialize(filerecord, interval)
                 self.nuclides = t.nuclides
 
-    def json_deserialize(self, j, objtype=object):
-        """
-        Read the JSON file into the JSONSerializable data objects
 
-        :param j: The JSON dump
-        :param key: The key/member variable name
-        :param objtype: The type of object to be added to the list
-        :return:
-        """
+    def json_deserialize(self, json_dump, objtype=object):
+
         self.__init__(ignorenuclides=self.__ignorenuclides)
 
-        d = JSONSerializable.json_deserialize(self, j, objtype)
+        d = JSONSerializable.json_deserialize(self, json_dump, objtype)
 
         if not self.__ignorenuclides:
             key = 'nuclides'

@@ -15,6 +15,7 @@
 - [Usage](#usage)
   - [Command line tool](#command-line-tool)
   - [Importing package](#importing-package)
+  - [Input Creation](#input-creation)
 - [Examples](#examples)
   - [Print the run name](#print-run-name)
   - [Loop over time steps](#loop-time-steps)
@@ -160,6 +161,58 @@ filename = "fispact_ii_run_output_file.out"
 
 with pp.Reader(filename) as output:
     # do your analysis here
+...
+```
+##### <a name="input-creation"></a>Creating and manipulating input files
+It is now possible to use pypact to manipulate and create some of the legacy input files,
+such as the input (*.i) FISPACT-II run file, the files file (IO paths), and the fluxes file, 
+necessary for FISPACT-II to run.
+
+Some examples are provided of how to use this module in the examples subdirectory.
+
+A simple example of creating an input file is shown below:
+```python
+import pypact as pp
+
+id = pp.InputData(name='test')
+
+# control setup
+id.overwriteExisting()
+id.enableJSON()
+id.approxGammaSpectrum()
+id.readXSData(709)
+id.readDecayData()
+id.enableHalflifeInOutput()
+id.enableHazardsInOutput()
+id.setProjectile(pp.PROJECTILE_NEUTRON)
+id.enableSystemMonitor()
+id.readGammaGroup()
+id.enableInitialInventoryInOutput()
+id.setLogLevel(pp.LOG_SEVERITY_ERROR)
+
+# thresholds
+id.setXSThreshold(1e-12)
+id.setAtomsThreshold(1e5)
+
+# set target
+id.setDensity(19.5)
+id.setMass(1.0)
+id.addElement('Ti', percentage=80.0)
+id.addElement('Fe', percentage=14.8)
+id.addElement('Cr', percentage=5.2)
+
+# irradiate and cooling times
+id.addIrradiation(300.0, 1.1e15)
+id.addCooling(10.0)
+id.addCooling(100.0)
+id.addCooling(1000.0)
+id.addCooling(10000.0)
+id.addCooling(100000.0)
+
+# validate data
+id.validate()
+# write to file
+pp.to_file(id, '{}.i'.format(id.name))
 ...
 ```
 #### <a name="examples"></a>Examples

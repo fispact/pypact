@@ -1,5 +1,13 @@
+from io import StringIO
 
-def serialize(obj, filename):
+def to_string(obj):
+    stream = StringIO()
+    obj._serialize(stream)
+    s = stream.getvalue()
+    stream.close()
+    return s
+
+def to_file(obj, filename):
     """
         Serialize data to test file (files file)
         
@@ -10,7 +18,7 @@ def serialize(obj, filename):
         obj._serialize(f)
 
 
-def deserialize(obj, filename):
+def from_file(obj, filename):
     """
         Deserialize data from file
         

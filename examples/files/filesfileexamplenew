@@ -1,0 +1,30 @@
+ind_nuc              /new/path/to/FISPACT-II/nuclear_data/JEFF33data/jeff33_index                                        
+
+xs_endf              /new/path/to/FISPACT-II/nuclear_data/JEFF33data/jeff33-n/gxs-709                                    
+
+prob_tab             /new/path/to/FISPACT-II/nuclear_data/JEFF33data/jeff33-n/tp-709-294                                 
+
+fy_endf              /new/path/to/FISPACT-II/nuclear_data/GEFY61data/gefy61_nfy                                          
+
+dk_endf              /new/path/to/FISPACT-II/nuclear_data/JEFF33data/decay/                                              
+
+hazards              /new/path/to/FISPACT-II/nuclear_data/decay/hazards_2012                                             
+
+clear                /new/path/to/FISPACT-II/nuclear_data/decay/clear_2012                                               
+
+a2data               /new/path/to/FISPACT-II/nuclear_data/decay/a2_2012                                                  
+
+absorp               /new/path/to/FISPACT-II/nuclear_data/decay/abs_2012                                                 
+
+sf_endf              /new/path/to/FISPACT-II/nuclear_data/GEFY61data/gefy61_sfy                                          
+
+fluxes               fluxes                                                                                              
+
+arb_flux             spectra                                                                                             
+
+collapxi             COLLAPX                                                                                             
+
+collapxo             COLLAPX                                                                                             
+
+arrayx               ARRAYX                                                                                              
+

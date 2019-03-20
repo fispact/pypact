@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 
+import os
 import pypact as pp
 
-runname = 'test'
-id = pp.InputData(name=runname)
+
+id = pp.InputData(name='test')
 
 # control setup
 id.overwriteExisting()
 id.enableJSON()
 id.approxGammaSpectrum()
-id.doCollapse(709)
-id.doCondense()
+id.readXSData(709)
+id.readDecayData()
 id.enableHalflifeInOutput()
 id.enableHazardsInOutput()
 id.setProjectile(pp.PROJECTILE_NEUTRON)
@@ -41,5 +42,7 @@ id.addCooling(100000.0)
 # validate data
 id.validate()
 
+#print(pp.to_string(id))
+
 # write to file
-pp.serialize(id, '{}.i'.format(runname))
+pp.to_file(id, os.path.join('files', '{}.i'.format(id.name)))

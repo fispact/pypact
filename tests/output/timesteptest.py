@@ -26,6 +26,9 @@ class TimeStepAssertor(BaseOutputUnitTest):
         ts.burnup = 0.0
         ts.total_activity = 0.0
         ts.total_activity_exclude_trit = 0.0
+        ts.alpha_activity = 0.0
+        ts.beta_activity = 0.0
+        ts.gamma_activity = 0.0
         self.assert_inventory(timestep, ts)
 
         self.ds_assertor.assert_defaults(timestep.dose_rate)
@@ -47,6 +50,9 @@ class TimeStepAssertor(BaseOutputUnitTest):
         self.assertValueAndType(inv, pp.TimeStep, 'inhalation_dose', float, compareinv.inhalation_dose)
         self.assertValueAndType(inv, pp.TimeStep, 'total_activity', float, compareinv.total_activity)
         self.assertValueAndType(inv, pp.TimeStep, 'total_activity_exclude_trit', float, compareinv.total_activity_exclude_trit)
+        self.assertValueAndType(inv, pp.TimeStep, 'alpha_activity', float, compareinv.alpha_activity)
+        self.assertValueAndType(inv, pp.TimeStep, 'beta_activity', float, compareinv.beta_activity)
+        self.assertValueAndType(inv, pp.TimeStep, 'gamma_activity', float, compareinv.gamma_activity)
 
     def assert_timestep(self, inv, timestep):
         self.ds_assertor.assert_timestep(inv.dose_rate, timestep)
@@ -83,6 +89,9 @@ def timestep_1_inv():
     inv.burnup = 0.0E+00
     inv.total_activity = 1.45396E+07
     inv.total_activity_exclude_trit = 1.45396E+07
+    inv.alpha_activity = 1.453958E+07
+    inv.beta_activity = 0.0
+    inv.gamma_activity = 0.0
     return inv
 
 
@@ -103,6 +112,9 @@ def timestep_2_inv():
     inv.burnup = 0.0E+00
     inv.total_activity = 3.11345E+07
     inv.total_activity_exclude_trit = 3.11345E+07
+    inv.alpha_activity = 1.453958E+07
+    inv.beta_activity = 1.658438E+07
+    inv.gamma_activity = 1.057793E+04
     return inv
 
 
@@ -125,6 +137,9 @@ def timestep_14_inv():
     inv.burnup = 0.0E+00
     inv.total_activity = 4.11571E+07
     inv.total_activity_exclude_trit = 4.11571E+07
+    inv.alpha_activity = 1.454025E+07
+    inv.beta_activity = 2.659877E+07
+    inv.gamma_activity = 1.808869E+04
     return inv
 
 

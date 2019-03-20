@@ -138,13 +138,6 @@ class FilesFile(JSONSerializable):
         self.__projectile = projectile
 
         # defaults
-        self.setXS('TENDL2015')
-        self.setProbTab('TENDL2015')
-        self.setFissionYield('GEFY61')
-        self.setDecay('DECAY')
-        self.setRegulatory('DECAY')
-        self.setGammaAbsorb('DECAY')
-
         self.fluxes     = "fluxes"
         self.collapxi   = "COLLAPX"
         self.collapxo   = "COLLAPX"
@@ -157,27 +150,53 @@ class FilesFile(JSONSerializable):
         self.xs_endfb   = NULL_ENTRY
         self.prob_tab   = NULL_ENTRY
         self.fy_endf    = NULL_ENTRY
+        self.asscfy     = NULL_ENTRY
         self.dk_endf    = NULL_ENTRY
         self.hazards    = NULL_ENTRY
         self.clear      = NULL_ENTRY
         self.a2data     = NULL_ENTRY
         self.absorp     = NULL_ENTRY
+        self.sf_endf    = NULL_ENTRY
+        self.sp_endf    = NULL_ENTRY
+        self.ggbins     = NULL_ENTRY
+        self.enbins     = NULL_ENTRY
+        self.xs_extra   = NULL_ENTRY
         
         # eaf nuclear data
         self.crossec    = NULL_ENTRY
         self.crossunc   = NULL_ENTRY
         self.decay      = NULL_ENTRY
+        self.fissyld    = NULL_ENTRY
         
         # additional files  - not nuclear data
         self.fluxes     = NULL_ENTRY
+        self.arb_flux   = NULL_ENTRY
         self.collapxi   = NULL_ENTRY
         self.collapxo   = NULL_ENTRY
         self.arrayx     = NULL_ENTRY
+        self.files      = NULL_ENTRY
+        self.input      = NULL_ENTRY
+        self.graph      = NULL_ENTRY
+        self.gnuplot    = NULL_ENTRY
+        self.spec       = NULL_ENTRY
+        self.output     = NULL_ENTRY
+        self.tab1       = NULL_ENTRY
+        self.tab2       = NULL_ENTRY
+        self.tab3       = NULL_ENTRY
+        self.tab4       = NULL_ENTRY
+        self.runlog     = NULL_ENTRY
+        self.ind_nuco   = NULL_ENTRY
+        self.sens       = NULL_ENTRY
+        self.nucgraph   = NULL_ENTRY
+        self.nucgnu     = NULL_ENTRY
+    
+    def to_dict(self):
+        d = dict()
+        for k, v in self.__dict__.items():
+            if '__' not in k and v != NULL_ENTRY:
+                d[k] = v
 
-        # optionals
-        self.sf_endf    = NULL_ENTRY
-        self.ggbins     = NULL_ENTRY
-        self.xs_extra   = NULL_ENTRY
+        return d
 
     def setXS(self, type):
         self._setVar(type, 'ind_nuc')
@@ -229,10 +248,16 @@ class FilesFile(JSONSerializable):
         """
         ignore = ['collapxi',
                   'collapxo',
-                  'arrayx']
+                  'arrayx',
+                  'tab1',
+                  'tab2',
+                  'tab3',
+                  'tab4',
+                  'output',
+                  'ind_nuco']
         invalid = []
-        for k, v in self.__dict__.items():
-            if k in ignore or '__' in k or v == NULL_ENTRY:
+        for k, v in self.to_dict().items():
+            if k in ignore:
                 continue
             
             if not v or (not file_exists(v) and not dir_exists(v)):
@@ -253,9 +278,8 @@ class FilesFile(JSONSerializable):
             
             ...
         """
-        for k, v in self.__dict__.items():
-            if '__' not in k and v != NULL_ENTRY:
-                f.write("{:<20} {:<100}\n\n".format(k,v))
+        for k, v in self.to_dict().items():
+            f.write("{:<20} {:<100}\n\n".format(k,v))
 
     def _deserialize(self, f):
         """

@@ -21,6 +21,7 @@ class FluxesFileUnitTest(Tester):
         g = list(reversed(pp.ALL_GROUPS[group]))
         
         ff.setGroup(group)
+        self.assertEqual(group, len(ff), "Assert group")
         self.assertEqual(group+1, len(ff.boundaries), "Assert group boundaries")
         self.assertEqual(group, len(ff.values), "Assert group default values")
         self.assertEqual(group, len(ff.midPointEnergies), "Assert group mid point boundaries")
@@ -37,6 +38,7 @@ class FluxesFileUnitTest(Tester):
         g = list(reversed(pp.ALL_GROUPS[group]))
         
         ff.setGroup(group)
+        self.assertEqual(group, len(ff), "Assert group")
         self.assertEqual(group+1, len(ff.boundaries), "Assert group boundaries")
         self.assertEqual(group, len(ff.values), "Assert group default values")
         self.assertEqual(group, len(ff.midPointEnergies), "Assert group mid point boundaries")
@@ -65,6 +67,7 @@ class FluxesFileUnitTest(Tester):
         
         group = 709
         ff.setGroup(group)
+        self.assertEqual(group, len(ff), "Assert group")
         self.assertEqual(group+1, len(ff.boundaries), "Assert group boundaries")
         self.assertEqual(group, len(ff.values), "Assert group default values")
         self.assertEqual(group, len(ff.midPointEnergies), "Assert group mid point boundaries")
@@ -93,30 +96,97 @@ class FluxesFileUnitTest(Tester):
         value2 = 89.4e3
         ff.setValue(energy1, value1)
         ff.setValue(energy2, value2)
+        
+        self.assertEqual(group, len(ff), "Assert group")
 
         # write to file
         filename = "_PYPACT_TEST_set_162_writeread_fluxes"
-        pp.serialize(ff, filename)
+        pp.to_file(ff, filename)
 
         ff.reset()
+        self.assertEqual(0, len(ff), "Assert group")
         self.assertEqual("test_set_162_writeread", ff.name, "Assert name")
         self.assertEqual(1.0, ff.norm, "Assert norm")
         self.assertEqual(0, len(ff.boundaries), "Assert default boundaries")
         self.assertEqual(0, len(ff.values), "Assert default values")
         self.assertEqual(0, len(ff.midPointEnergies), "Assert default mid point boundaries")
         
-        pp.deserialize(ff, filename)
+        # read from file
+        pp.from_file(ff, filename)
+        self.assertEqual(group, len(ff), "Assert group")
         self.assertEqual(group+1, len(ff.boundaries), "Assert boundaries length")
         self.assertEqual(group, len(ff.values), "Assert values length")
         self.assertEqual(group, len(ff.midPointEnergies), "Assert mid point boundaries length")
 
+        # get index of value1
         v1 = [i for i, j in enumerate(ff.values) if j == value1]
         self.assertEqual(1, len(v1), "Assert value1 is unique")
         self.assertTrue(ff.boundaries[v1[0]+1] > energy1 and ff.boundaries[v1[0]] <= energy1, "Assert value1 energy")
 
+        # get index of value2
         v2 = [i for i, j in enumerate(ff.values) if j == value2]
         self.assertEqual(1, len(v2), "Assert value2 is unique")
         self.assertTrue(ff.boundaries[v2[0]+1] > energy2 and ff.boundaries[v2[0]] <= energy2, "Assert value2 energy")
 
+    def test_set_arb161_writeread(self):
+        ff = pp.ArbFluxesFile(name="test_set_arb161_writeread", norm=1.0)
+        
+        # create some cutoms bounds in ascending order
+        group = 161
+        bounds = [g for g in range(0, group+1)]
+        ff.setGroup(bounds)
+        
+        # set some values at desired energies
+        energy1 = 14
+        value1 = 23.34
+        energy2 = 100.4
+        value2 = 189.4e3
+        ff.setValue(energy1, value1)
+        ff.setValue(energy2, value2)
+        
+        # assert bins values set at energies
+        self.assertEqual(group, len(ff), "Assert group")
+        self.assertEqual(0.0, ff.values[0], "Assert first value is 0")
+        self.assertEqual(0.0, ff.values[13], "Assert first value is 0")
+        self.assertEqual(value1, ff.values[14], "Assert 15th value is {}".format(value1))
+        self.assertEqual(0.0, ff.values[15], "Assert 16th value is 0")
+        self.assertEqual(0.0, ff.values[99], "Assert 100th value is 0")
+        self.assertEqual(value2, ff.values[100], "Assert 101st value is {}".format(value2))
+        self.assertEqual(0.0, ff.values[101], "Assert 102nd value is 0")
+
+        # write to file
+        filename = "_PYPACT_TEST_set_arb161_writeread_fluxes"
+        pp.to_file(ff, filename)
+
+        ff.reset()
+        self.assertEqual("test_set_arb161_writeread", ff.name, "Assert name")
+        self.assertEqual(1.0, ff.norm, "Assert norm")
+        self.assertEqual(0, len(ff.boundaries), "Assert default boundaries")
+        self.assertEqual(0, len(ff.values), "Assert default values")
+        self.assertEqual(0, len(ff.midPointEnergies), "Assert default mid point boundaries")
+        
+        pp.from_file(ff, filename)
+        self.assertEqual(group+1, len(ff.boundaries), "Assert boundaries length")
+        self.assertEqual(group, len(ff.values), "Assert values length")
+        self.assertEqual(group, len(ff.midPointEnergies), "Assert mid point boundaries length")
+
+        # get index of value1
+        v1 = [i for i, j in enumerate(ff.values) if j == value1]
+        self.assertEqual(1, len(v1), "Assert value1 is unique")
+        self.assertTrue(ff.boundaries[v1[0]+1] > energy1 and ff.boundaries[v1[0]] <= energy1, "Assert value1 energy")
+
+        # get index of value2
+        v2 = [i for i, j in enumerate(ff.values) if j == value2]
+        self.assertEqual(1, len(v2), "Assert value2 is unique")
+        self.assertTrue(ff.boundaries[v2[0]+1] > energy2 and ff.boundaries[v2[0]] <= energy2, "Assert value2 energy")
+
+        self.assertEqual(group, len(ff), "Assert group")
+        self.assertEqual(0.0, ff.values[0], "Assert first value is 0")
+        self.assertEqual(0.0, ff.values[13], "Assert first value is 0")
+        self.assertEqual(value1, ff.values[14], "Assert 15th value is {}".format(value1))
+        self.assertEqual(0.0, ff.values[15], "Assert 16th value is 0")
+        self.assertEqual(0.0, ff.values[99], "Assert 100th value is 0")
+        self.assertEqual(value2, ff.values[100], "Assert 101st value is {}".format(value2))
+        self.assertEqual(0.0, ff.values[101], "Assert 102nd value is 0")
 
 

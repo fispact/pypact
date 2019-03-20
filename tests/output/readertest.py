@@ -28,6 +28,6 @@ class ReaderUnitTest(BaseOutputUnitTest):
             self._assert_test91(o)
 
     def test_reader_json(self):
-        with pp.Reader(self.filename_test91json) as o:
+        with pp.JSONReader(self.filename_test91json) as o:
             self._assert_test91(o)
 

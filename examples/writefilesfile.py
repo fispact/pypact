@@ -16,5 +16,4 @@ ff.setDecay('DECAY')
 ff.setRegulatory('DECAY')
 ff.setGammaAbsorb('DECAY')
 
-pp.serialize(ff, "files")
-
+pp.to_file(ff, os.path.join('files', 'newfilesfile'))

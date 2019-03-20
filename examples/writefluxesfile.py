@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import pypact as pp
 
 
@@ -16,6 +17,6 @@ flux.setValue(14.0e6, 1.0)
 # validate the data
 flux.validate()
 
-pp.serialize(flux, "fluxes")
+pp.to_file(flux, os.path.join('files', 'fluxes'))
 
 

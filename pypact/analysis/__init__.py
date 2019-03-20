@@ -7,7 +7,7 @@ from pypact.analysis.propertyplotter import plotproperty
 
 from pypact.analysis.timezone import TimeZone
 
-from pypact.library.nuclidelib import findisotopes
-from pypact.library.nuclidelib import findelement
-from pypact.library.nuclidelib import findZ
-from pypact.library.nuclidelib import getallisotopes
+from pypact.library.nuclidelib import find_isotopes
+from pypact.library.nuclidelib import find_element
+from pypact.library.nuclidelib import find_z
+from pypact.library.nuclidelib import get_all_isotopes

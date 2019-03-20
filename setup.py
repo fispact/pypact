@@ -19,8 +19,22 @@ setup(name='pypact',
       ],
       install_requires=[],
       python_requires='>=3',
-      scripts=['pypact/tools/fispactconverter.py'],
-      setup_requires=['pytest-runner'],
+      # scripts=[
+      #       'pypact/tools/fispactconverter.py'
+      # ],
+      setup_requires=[
+            'pytest-runner',
+      ],
       test_suite='tests.testsuite',
-      tests_require=['pytest', 'mock', 'jsonschema'],
-      zip_safe=False)
+      tests_require=[
+            'pytest',
+            'mock',
+            'jsonschema',
+      ],
+      zip_safe=False,
+      entry_points={
+            'console_scripts': [
+                  'fispactconverter = pypact.tools.fispactconverter:main',
+            ]
+      },
+      )

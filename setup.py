@@ -19,9 +19,9 @@ setup(name='pypact',
       ],
       install_requires=[],
       python_requires='>=3',
-      # scripts=[
-      #       'pypact/tools/fispactconverter.py'
-      # ],
+      scripts=[
+           'pypact/tools/fispactconverter.py'
+      ],
       setup_requires=[
             'pytest-runner',
       ],

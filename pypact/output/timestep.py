@@ -14,13 +14,12 @@ TIME_STEP_IGNORES = []
 
 @freeze_it
 class TimeStep(JSONSerializable):
-    """
-        An object to represent a time step in the output
-    """
+
 
     def __init__(self, ignorenuclides=False):
         self.irradiation_time = 0.0
         self.cooling_time = 0.0
+        self.duration = 0.0
         self.flux = 0.0
         self.total_heat = 0.0
         self.alpha_heat = 0.0
@@ -39,10 +38,8 @@ class TimeStep(JSONSerializable):
         self.burnup = 0.0
         self.gamma_spectrum = GammaSpectrum()
         self.total_displacement_rate = 0.0
-        self.time = 0.0
         self.dose_rate = DoseRate()
         self.nuclides = []
-
         self.__ignorenuclides = ignorenuclides
 
     @property
@@ -90,6 +87,10 @@ class TimeStep(JSONSerializable):
             self.ingestion_dose = get_value(starttag='INGESTION  HAZARD FOR ALL MATERIALS', endtag='Sv/kg')
             self.inhalation_dose = get_value(starttag='INHALATION HAZARD FOR ALL MATERIALS', endtag='Sv/kg')
 
+            self.alpha_activity = get_value(starttag='ALPHA BECQUERELS =', endtag='BETA')
+            self.beta_activity = get_value(starttag='BETA BECQUERELS =', endtag='GAMMA')
+            self.gamma_activity = get_value(starttag='GAMMA BECQUERELS =', endtag='')
+
             self.total_activity = get_value(starttag='TOTAL ACTIVITY FOR ALL MATERIALS', endtag='Bq')
             self.total_activity_exclude_trit = get_value(starttag='TOTAL ACTIVITY EXCLUDING TRITIUM', endtag='Bq')
 
@@ -104,30 +105,8 @@ class TimeStep(JSONSerializable):
                 ignores=TIME_STEP_IGNORES,
                 asstring=False
             )
-            self.time = filerecord.times[interval - 1]
+            self.duration = filerecord.times[interval - 1]
 
-            self.flux = get_value(starttag='* * * FLUX AMP IS', endtag='/cm^2/s')
-
-            self.alpha_heat = get_value(starttag='TOTAL ALPHA HEAT PRODUCTION', endtag='kW')
-            self.beta_heat = get_value(starttag='TOTAL BETA  HEAT PRODUCTION', endtag='kW')
-            self.gamma_heat = get_value(starttag='TOTAL GAMMA HEAT PRODUCTION', endtag='kW')
-            self.total_heat = self.alpha_heat + self.beta_heat + self.gamma_heat
-
-            self.initial_mass = get_value(starttag='0  INITIAL TOTAL MASS OF MATERIAL', endtag='kg')
-            self.total_mass = get_value(starttag='0  TOTAL MASS OF MATERIAL', endtag='kg')
-
-            self.number_of_fissions = get_value(starttag='NUMBER OF FISSIONS', endtag='BURN-UP')
-            self.burnup = get_value(starttag='BURN-UP OF ACTINIDES', endtag='%')
-
-            self.ingestion_dose = get_value(starttag='INGESTION  HAZARD FOR ALL MATERIALS', endtag='Sv/kg')
-            self.inhalation_dose = get_value(starttag='INHALATION HAZARD FOR ALL MATERIALS', endtag='Sv/kg')
-
-            self.alpha_activity = get_value(starttag='ALPHA BECQUERELS =', endtag='BETA')
-            self.beta_activity = get_value(starttag='BETA BECQUERELS =', endtag='GAMMA')
-            self.gamma_activity = get_value(starttag='GAMMA BECQUERELS =', endtag='')
-
-            self.total_activity = get_value(starttag='TOTAL ACTIVITY FOR ALL MATERIALS', endtag='Bq')
-            self.total_activity_exclude_trit = get_value(starttag='TOTAL ACTIVITY EXCLUDING TRITIUM', endtag='Bq')
 
             # for fission this can be very large and hence very slow
             # if you do not care about the nuclides then we can set

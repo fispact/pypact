@@ -15,7 +15,7 @@ setup(name='pypact',
             'pypact.input',
             'pypact.output',
             'pypact.tools',
-            'pypact.util'
+            'pypact.util',
       ],
       install_requires=[],
       python_requires='>=3',

@@ -227,7 +227,7 @@ class DoseRateUnitTest(BaseOutputUnitTest):
         """.splitlines()
 
         dr = pp.DoseRate()
-        fr = pp.FileRecord(filename=None,asstring=output_string)
+        fr = pp.InventoryFileRecord(filename=None,asstring=output_string)
         self.assertor.assert_defaults(dr)
         dr.fispact_deserialize(fr, 1)
         self.assertor.assert_defaults(dr)

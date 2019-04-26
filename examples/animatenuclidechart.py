@@ -22,13 +22,13 @@ with pp.Reader(filename) as output:
     for t in output:
         minN = min(t.nuclides,key=attrgetter('isotope')).isotope
         maxN = max(t.nuclides,key=attrgetter('isotope')).isotope
-        minZ = ppa.findZ(min(t.nuclides,key=lambda x: ppa.findZ(x.element)).element)
-        maxZ = ppa.findZ(max(t.nuclides,key=lambda x: ppa.findZ(x.element)).element)
+        minZ = ppa.find_z(min(t.nuclides,key=lambda x: ppa.find_z(x.element)).element)
+        maxZ = ppa.find_z(max(t.nuclides,key=lambda x: ppa.find_z(x.element)).element)
 
         matrix = np.zeros((maxN+1,maxZ+1))
 
         for n in t.nuclides:
-            matrix[n.isotope, ppa.findZ(n.element)] = getattr(n, prop)
+            matrix[n.isotope, ppa.find_z(n.element)] = getattr(n, prop)
 
         matricies.append(matrix)
 

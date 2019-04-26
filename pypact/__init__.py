@@ -1,6 +1,7 @@
 # output readers
-from pypact.reader import Reader, JSONReader
-from pypact.filerecord import FileRecord
+from pypact.reader import InventoryReader as Reader
+from pypact.reader import JSONReader
+from pypact.filerecord import InventoryFileRecord 
 from pypact.runner import compute
 
 # output data structures

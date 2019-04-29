@@ -1,10 +1,10 @@
-[![Build Status](https://travis-ci.org/fispact/pypact.svg?branch=dev)](https://travis-ci.org/fispact/pypact)
-[![Code Coverage](https://codecov.io/gh/fispact/pypact/branch/dev/graph/badge.svg)](https://codecov.io/gh/fispact/pypact)
+[![Build Status](https://travis-ci.org/fispact/pypact.svg?branch=master)](https://travis-ci.org/fispact/pypact)
+[![Code Coverage](https://codecov.io/gh/fispact/pypact/branch/master/graph/badge.svg)](https://codecov.io/gh/fispact/pypact)
 
 [![PyPI](https://img.shields.io/pypi/v/pypact.svg)](https://pypi.python.org/pypi/pypact)
 [![PyPI](https://img.shields.io/pypi/wheel/pypact.svg)](https://pypi.python.org/pypi/pypact)
 [![PyPI](https://img.shields.io/pypi/format/pypact.svg)](https://pypi.python.org/pypi/pypact)
-[![License](https://img.shields.io/pypi/l/pypact.svg)](https://github.com/fispact/pypact/blob/dev/LICENSE)
+[![License](https://img.shields.io/pypi/l/pypact.svg)](https://github.com/fispact/pypact/blob/master/LICENSE)
 
 # Pypact
 ### Making FISPACT-II output easier to parse, with Python 3
@@ -23,11 +23,12 @@
   - [JSON serialize](#json-serialize)
   - [Plotting](#plotting)
   - [Compare outputs](#compare)
+  - [Spectral line data](#gammaspec)
 - [Supported outputs](#supported-outputs)
 - [Executing unit tests](#executing-unit-tests)
 - [Contact](#contact)
 
-![Alt Text](https://github.com/fispact/pypact/blob/dev/examples/figures/gs_animation.gif)
+![Alt Text](https://github.com/fispact/pypact/blob/master/examples/figures/gs_animation.gif)
 
 #### <a name="design-goals"></a>Design Goals
 The aim of Pypact is to make the FISPACT-II output file easy to parse so that more time can be spent on analysis, and much less time on interrogating the output file. No more convoluted scripts, just one simple to use package!
@@ -346,16 +347,33 @@ plt.show()
 ```
 The results of this script are shown below.
 
-![Figure of fractional grams](https://github.com/fispact/pypact/blob/dev/examples/figures/fractional_grams.png?raw=true)
+![Figure of fractional grams](https://github.com/fispact/pypact/blob/master/examples/figures/fractional_grams.png?raw=true)
 
-![Figure of fractional heat](https://github.com/fispact/pypact/blob/dev/examples/figures/fractional_heat.png?raw=true)
+![Figure of fractional heat](https://github.com/fispact/pypact/blob/master/examples/figures/fractional_heat.png?raw=true)
 
-![Figure of fractional ingestion](https://github.com/fispact/pypact/blob/dev/examples/figures/fractional_ingestion.png?raw=true)
+![Figure of fractional ingestion](https://github.com/fispact/pypact/blob/master/examples/figures/fractional_ingestion.png?raw=true)
 
 ##### <a name="compare"></a>Compare .out to .json outputs
 Pypact can handle the parsing of both the .out fispact file and the .json fispact file, which was added in FISPACT-II 4.0. To compare that both output parsers handle the data correctly, an example has been added to use both file formats to plot the total heat after irradiation. The example produces two identical plots to prove the parser correctness. The example, compareplots.py, can be found at 'pypact/examples/compareplots.py' and uses the reference output files test31.out and test31.json to produce the following plot.
 
-![Figure of total heat after irradiation](https://github.com/fispact/pypact/blob/dev/examples/figures/heat_output_irradiation.png?raw=true)
+![Figure of total heat after irradiation](https://github.com/fispact/pypact/blob/master/examples/figures/heat_output_irradiation.png?raw=true)
+
+##### <a name="gammaspec"></a>Get the spectral line data from the printlib files
+Whilst Pypact is designed to handle only conventional inventory output files, recent developments can allow parsing of other files, such as printlib outputs. Currently only printlib 5 output (spectral lines) is supported.
+
+An example of using this is given in the examples, but the API is similar to the conventional reader. Note that PrintLib5Reader must be used instead of Reader.
+```python
+import pypact as pp
+
+with pp.PrintLib5Reader('printlib5.out') as output:
+    for m in output.spectral_data:
+        # U235
+        if m.zai == 922350:
+            print(m.json_serialize())
+```
+
+The spectral lines can easily be plotted:
+![Figure of spectral lines example](https://github.com/fispact/pypact/blob/master/examples/figures/U235_gamma_spec.png?raw=true)
 
 #### <a name="executing-unit-tests"></a>Executing tests
 In order to run the unit tests to check if the package is correctly downloaded, it is required to install pytest from pip.

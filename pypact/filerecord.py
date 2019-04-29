@@ -6,7 +6,6 @@ import pypact.util.propertyfinder as pf
 
 
 class FileRecord:
-
     def __init__(self, filename, asstring=''):
         """
         Cache the file content as a list of strings and process the timesteps
@@ -14,12 +13,23 @@ class FileRecord:
         """
 
         self.cachedlines = (asstring if asstring else content_as_str(filename))
+        self._setup()
+        self._process()
+    
+    def _setup(self):
+        pass
+
+    def _process(self):
+        pass
+
+
+class InventoryFileRecord(FileRecord):
+
+    def _setup(self):
         self.lineindices = line_indices(self.cachedlines, TIME_STEP_HEADER)
         self.timesteps = []
         self.irradiation_times = []
         self.cooling_times = []
-
-        self._processtimesteps()
 
     def __len__(self):
         return len(self.lineindices)
@@ -55,7 +65,7 @@ class FileRecord:
         """
         return self._getcumultime(interval, self.cooling_times)
 
-    def _processtimesteps(self):
+    def _process(self):
 
         for i in range(0, len(self)):
             t = self.lineindices[i]

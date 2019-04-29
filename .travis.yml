@@ -23,6 +23,7 @@ script:
   - python outputjson.py
   - python readfilesfile.py
   - python rundatajson.py
+  - python printlib5.py
   - python tocsv.py
   - python writefilesfile.py
   - python writefluxesfile.py

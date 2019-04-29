@@ -14,6 +14,7 @@ setup(name='pypact',
             'pypact.library',
             'pypact.input',
             'pypact.output',
+            'pypact.printlib',
             'pypact.tools',
             'pypact.util'
       ],

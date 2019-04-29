@@ -1,7 +1,7 @@
 # output readers
 from pypact.reader import InventoryReader as Reader
 from pypact.reader import JSONReader
-from pypact.filerecord import InventoryFileRecord 
+from pypact.filerecord import InventoryFileRecord
 from pypact.runner import compute
 
 # output data structures
@@ -12,6 +12,9 @@ from pypact.output.nuclides import Nuclides
 from pypact.output.output import Output
 from pypact.output.gammaspectrum import GammaSpectrum
 from pypact.output.timestep import TimeStep
+
+# printlib data structures
+from pypact.printlib.printlib5 import PrintLib5, PrintLib5FileRecord, PrintLib5Reader
 
 # input
 from pypact.input.fispactinput import FispactInput
@@ -49,6 +52,7 @@ from pypact.library.nuclidelib import get_all_isotopes
 # utilities
 from pypact.util.exceptions import PypactException
 from pypact.util.loglevels import *
+
 
 # This makes importing slow, keep it seperate
 #import pypact.analysis

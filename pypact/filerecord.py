@@ -23,29 +23,7 @@ class FileRecord:
         pass
 
 
-class PrintLibFileRecord(FileRecord):
-    def __init__(self, *args, **kwargs):
-        """
-        Cache the file content as a list of strings and process the timesteps
-        :param filename:
-        """
-        super().__init__(*args, **kwargs)
-
-    def _setup(self):
-        pass
-
-    def _process(self):
-        pass
-
-
 class InventoryFileRecord(FileRecord):
-
-    def __init__(self, *args, **kwargs):
-        """
-        Cache the file content as a list of strings and process the timesteps
-        :param filename:
-        """
-        super().__init__(*args, **kwargs)
 
     def _setup(self):
         self.lineindices = line_indices(self.cachedlines, TIME_STEP_HEADER)

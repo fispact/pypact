@@ -31,14 +31,14 @@ class PrintLib5UnitTest(Tester):
 
         pl = pp.PrintLib5()
         pl.fispact_deserialize(fr)
-        self.assertEqual(8257, len(pl), "Assert data")
-        self.assertEqual(8257, len(pl.spectral_data), "Assert mean data")
+        self.assertEqual(8422, len(pl), "Assert data")
+        self.assertEqual(8422, len(pl.spectral_data), "Assert mean data")
         self.assertEqual(3875, pl.nr_of_zais, "Assert number of ZAIs")
 
     def test_reader(self):
         with pp.PrintLib5Reader(self.filename) as pl:
-            self.assertEqual(8257, len(pl), "Assert data")
-            self.assertEqual(8257, len(pl.spectral_data), "Assert mean data")
+            self.assertEqual(8422, len(pl), "Assert data")
+            self.assertEqual(8422, len(pl.spectral_data), "Assert mean data")
             self.assertEqual(3875, pl.nr_of_zais, "Assert number of ZAIs")
 
             s = pl.spectral_data[0]
@@ -110,8 +110,8 @@ class PrintLib5UnitTest(Tester):
 
     def test_reader_spectral_lines(self):
         with pp.PrintLib5Reader(self.filename) as pl:
-            self.assertEqual(8257, len(pl), "Assert data")
-            self.assertEqual(8257, len(pl.spectral_data), "Assert mean data")
+            self.assertEqual(8422, len(pl), "Assert data")
+            self.assertEqual(8422, len(pl.spectral_data), "Assert mean data")
             self.assertEqual(3875, pl.nr_of_zais, "Assert number of ZAIs")
 
             s = pl.spectral_data[0]
@@ -394,7 +394,7 @@ class PrintLib5UnitTest(Tester):
             self.assertEqual([0.0], s.lines.norms_unc, "Assert line norms uncert")
 
             # last non zero entry
-            s = pl.spectral_data[8168]
+            s = pl.spectral_data[8333]
             self.assertEqual("Lr257", s.name, "Assert name")
             self.assertEqual(1032570, s.zai, "Assert zai")
             self.assertEqual(3787, s.number, "Assert number")

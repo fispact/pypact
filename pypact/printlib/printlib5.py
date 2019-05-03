@@ -144,6 +144,7 @@ class PrintLib5(JSONSerializable):
             # with type not equal to "no spectral data"
             # need to account for this 
             if (spectral_data.nr_of_lines == 0) and (spectral_data.type != "no spectral data"):
+                self.spectral_data.append(spectral_data)
                 continue
 
             if spectral_data.nr_of_lines > 0:            

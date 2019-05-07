@@ -1,12 +1,13 @@
 import os
-import pypact as pp
 import pytest
+
+from pypact.filerecord import InventoryFileRecord as FileRecord
 
 from tests.testerbase import REFERENCE_DIR
 from pypact.output.timestep import TimeStep
 
 data_file_name = os.path.join(REFERENCE_DIR, "test_dpa.out")
-filerecord = pp.FileRecord(data_file_name)
+filerecord = FileRecord(data_file_name)
 
 
 @pytest.mark.parametrize("interval, duration, total_displacement_rate", [

@@ -29,6 +29,7 @@ setup(name='pypact',
       test_suite='tests.testsuite',
       tests_require=[
             'pytest',
+            'pytest-cov>=2.3.1',
             'mock',
             'jsonschema',
       ],

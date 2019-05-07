@@ -9,19 +9,19 @@ class BaseOutputUnitTest(Tester):
         self.base_dir = os.path.join(REFERENCE_DIR)
         self.filename_test91out = os.path.join(self.base_dir, "test91.out")
         self.filename_test91json = os.path.join(self.base_dir, "test91.json")
-        self.filerecord91 = pp.FileRecord(self.filename_test91out)
+        self.filerecord91 = pp.InventoryFileRecord(self.filename_test91out)
         self.jsonoutput91 = pp.Output()
         with open(self.filename_test91json) as f:
             self.jsonoutput91.json_deserialize(f.read())
         
         self.filename_test31out = os.path.join(self.base_dir, "test31.out")
         self.filename_test31json = os.path.join(self.base_dir, "test31.json")
-        self.filerecord31 = pp.FileRecord(self.filename_test31out)
+        self.filerecord31 = pp.InventoryFileRecord(self.filename_test31out)
         self.jsonoutput31 = pp.Output()
         with open(self.filename_test31json) as f:
             self.jsonoutput31.json_deserialize(f.read())
 
-        self.filerecord_fission = pp.FileRecord(None, asstring=self.fission_example())
+        self.filerecord_fission = pp.InventoryFileRecord(None, asstring=self.fission_example())
 
     def tearDown(self):
         pass

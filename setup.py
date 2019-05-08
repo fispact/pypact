@@ -16,12 +16,27 @@ setup(name='pypact',
             'pypact.output',
             'pypact.printlib',
             'pypact.tools',
-            'pypact.util'
+            'pypact.util',
       ],
       install_requires=[],
       python_requires='>=3',
-      scripts=['pypact/tools/fispactconverter.py'],
-      setup_requires=['pytest-runner'],
+      scripts=[
+           'pypact/tools/fispactconverter.py'
+      ],
+      setup_requires=[
+            'pytest-runner',
+      ],
       test_suite='tests.testsuite',
-      tests_require=['pytest', 'mock'],
-      zip_safe=False)
+      tests_require=[
+            'pytest',
+            'pytest-cov>=2.3.1',
+            'mock',
+            'jsonschema',
+      ],
+      zip_safe=False,
+      entry_points={
+            'console_scripts': [
+                  'fispactconverter = pypact.tools.fispactconverter:main',
+            ]
+      },
+      )

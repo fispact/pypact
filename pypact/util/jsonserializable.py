@@ -1,5 +1,8 @@
 import json
 
+#
+# TODO[dvp] JSON serialization implementation is awfull
+#
 
 class JSONSerializable(object):
 
@@ -33,6 +36,7 @@ class JSONSerializable(object):
                     self.json_deserialize_list(json.dumps(d[key]), key, objtype=objtype)
                 else:
                     setattr(self, key, d[key])
+        return d
 
     def json_deserialize_list(self, j, key, objtype):
         """

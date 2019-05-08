@@ -17,4 +17,6 @@ dist
 temp/
 
 *.xcworkspace
+.wrk
 .vscode
+htmlcov/

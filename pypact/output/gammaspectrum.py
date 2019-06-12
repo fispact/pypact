@@ -4,12 +4,13 @@ from pypact.output.tags import GAMMA_SPECTRUM_SUB_HEADER
 from pypact.util.decorators import freeze_it
 from pypact.util.jsonserializable import JSONSerializable
 
-FLOAT_NUMBER = r"[0-9]+(?:\.(?:[0-9]+))?(?:e?(?:[-+][0-9]+)?)?"
+FLOAT_NUMBER = r"[0-9]+(?:\.(?:[0-9]+))?(?:e?(?:[-+]?[0-9]+)?)?"
 GAMMA_SPECTRUM_LINE = \
     r"[^(]*\(\s*(?P<lb>{FN})\s*-\s*(?P<ub>{FN})\s*MeV\)\s*(?P<value>{FN}).*".format(
-       FN=FLOAT_NUMBER,
+        FN=FLOAT_NUMBER,
     )
 GAMMA_SPECTRUM_LINE_MATCHER = re.compile(GAMMA_SPECTRUM_LINE, re.IGNORECASE)
+
 
 @freeze_it
 class GammaSpectrum(JSONSerializable):
@@ -18,7 +19,7 @@ class GammaSpectrum(JSONSerializable):
     """
 
     def __init__(self):
-        self.boundaries = []   # TODO dvp: should be numpy arrays (or even better xarrays)
+        self.boundaries = []  # TODO dvp: should be numpy arrays (or even better xarrays)
         self.values = []
 
     def fispact_deserialize(self, file_record, interval):

@@ -65,34 +65,36 @@ def test_every_time_step_has_valid_gamma_spectra():
 FLOAT_NUMBER_MATCHER = re.compile(FLOAT_NUMBER, re.IGNORECASE)
 
 
-@pytest.mark.parametrize("input, expected", [
+@pytest.mark.parametrize("_input, expected", [
     ("1.0", 1.0),
     ("0.01", 0.01),
     ("1e-3", 0.001),
     ("1.0e-3", 0.001),
+    ("8e+10", 8.0e10),
+    ("9.0e3", 9000.0),
 ])
-def test_float_number_pattern(input, expected):
-    match = FLOAT_NUMBER_MATCHER.match(input)
+def test_float_number_pattern(_input, expected):
+    match = FLOAT_NUMBER_MATCHER.match(_input)
     actual = float(match.group(0))
     assert expected == actual, "Cannot match value %s" % input
 
 
-@pytest.mark.parametrize("input, lower_boundary, upper_boundary, value", [
+@pytest.mark.parametrize("_input, lower_boundary, upper_boundary, value", [
     ("     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        \
       ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00",
-        1.0e-3, 0.01, 0.0
-    ),
+     1.0e-3, 0.01, 0.0
+     ),
     ("                                                         \
       ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00",
-        0.01, 0.02, 0.0
-    ),
+     0.01, 0.02, 0.0
+     ),
     ("                                                          \
       ( 8.00-10.00 MeV)   0.00000E+00                                          0.00000E+00",
-        8.0, 10.0, 0.0
-    ),
+     8.0, 10.0, 0.0
+     ),
 ])
-def test_gamma_spectrum_line_pattern(input, lower_boundary, upper_boundary, value):
-    match = GAMMA_SPECTRUM_LINE_MATCHER.match(input)
+def test_gamma_spectrum_line_pattern(_input, lower_boundary, upper_boundary, value):
+    match = GAMMA_SPECTRUM_LINE_MATCHER.match(_input)
     assert match
     actual_lower_boundary = float(match.group("lb"))
     actual_upper_boundary = float(match.group("ub"))

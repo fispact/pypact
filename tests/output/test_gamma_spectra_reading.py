@@ -74,20 +74,21 @@ FLOAT_NUMBER_MATCHER = re.compile(FLOAT_NUMBER, re.IGNORECASE)
 def test_float_number_pattern(input, expected):
     match = FLOAT_NUMBER_MATCHER.match(input)
     actual = float(match.group(0))
-    assert expected == actual, f"Cannot match value {input}"
+    assert expected == actual, "Cannot match value %s" % input
 
 
 @pytest.mark.parametrize("input, lower_boundary, upper_boundary, value", [
-    ("     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00",
-       1.0e-3, 0.01, 0.0
+    ("     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        \
+      ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00",
+        1.0e-3, 0.01, 0.0
     ),
-    (
-    "                                                         ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00",
-      0.01, 0.02, 0.0
+    ("                                                         \
+      ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00",
+        0.01, 0.02, 0.0
     ),
-    (
-    "                                                         ( 8.00-10.00 MeV)   0.00000E+00                                          0.00000E+00",
-      8.0, 10.0, 0.0
+    ("                                                          \
+      ( 8.00-10.00 MeV)   0.00000E+00                                          0.00000E+00",
+        8.0, 10.0, 0.0
     ),
 ])
 def test_gamma_spectrum_line_pattern(input, lower_boundary, upper_boundary, value):

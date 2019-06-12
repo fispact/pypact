@@ -1,7 +1,13 @@
+import re
+
 from pypact.output.tags import GAMMA_SPECTRUM_SUB_HEADER
 from pypact.util.decorators import freeze_it
 from pypact.util.jsonserializable import JSONSerializable
 
+FLOAT_NUMBER = r"[0-9]+(?:\.(?:[0-9]+))?(?:e?(?:[-+][0-9]+)?)?"
+GAMMA_SPECTRUM_LINE = \
+    rf"[^(]*\(\s*(?P<lb>{FLOAT_NUMBER})\s*-\s*(?P<ub>{FLOAT_NUMBER})\s*MeV\)\s*(?P<value>{FLOAT_NUMBER}).*"
+GAMMA_SPECTRUM_LINE_MATCHER = re.compile(GAMMA_SPECTRUM_LINE, re.IGNORECASE)
 
 @freeze_it
 class GammaSpectrum(JSONSerializable):
@@ -27,17 +33,19 @@ class GammaSpectrum(JSONSerializable):
                 if header_found:
                     if line.strip() == "":
                         return
-                    _, line = line.split('-', maxsplit=1)    # drop the not interesting first part
-                    tokens = line.split()
-                    boundary = float(tokens[0])  # the first token is boundary
-                    value = float(tokens[2])     # the third one is MeV/s/group
-                    yield boundary, value
+                    match = GAMMA_SPECTRUM_LINE_MATCHER.match(line)
+                    lower_boundary = float(match.group("lb"))
+                    upper_boundary = float(match.group("ub"))
+                    value = float(match.group("value"))
+                    yield lower_boundary, upper_boundary, value
 
-        boundaries = [0.0]
+        boundaries = []
         values = []
 
-        for b, v in extract_boundaries_and_values(lines):
-            boundaries.append(b)
+        for lb, ub, v in extract_boundaries_and_values(lines):
+            if not boundaries:
+                boundaries.append(lb)
+            boundaries.append(ub)
             values.append(v)
 
         if values:

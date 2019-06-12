@@ -99,7 +99,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -179,7 +179,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -259,7 +259,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -339,7 +339,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -419,7 +419,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -499,7 +499,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -579,7 +579,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -659,7 +659,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -739,7 +739,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -819,7 +819,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -899,7 +899,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -979,7 +979,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -1059,7 +1059,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -1139,7 +1139,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -1219,7 +1219,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -1299,7 +1299,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -1379,7 +1379,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -1459,7 +1459,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -1539,7 +1539,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -1619,7 +1619,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -1699,7 +1699,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -1779,7 +1779,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -1859,7 +1859,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -1939,7 +1939,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -2019,7 +2019,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -2099,7 +2099,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -2179,7 +2179,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -2259,7 +2259,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -2339,7 +2339,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -2419,7 +2419,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -2499,7 +2499,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -2579,7 +2579,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -2659,7 +2659,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -2739,7 +2739,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -2819,7 +2819,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -2899,7 +2899,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -2979,7 +2979,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -3059,7 +3059,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -3139,7 +3139,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -3219,7 +3219,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -3299,7 +3299,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -3379,7 +3379,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -3459,7 +3459,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -3539,7 +3539,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -3675,7 +3675,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -3811,7 +3811,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -3947,7 +3947,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -4083,7 +4083,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -4219,7 +4219,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -4355,7 +4355,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -4491,7 +4491,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -4627,7 +4627,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -4763,7 +4763,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -4899,7 +4899,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -5035,7 +5035,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -5171,7 +5171,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -5307,7 +5307,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -5443,7 +5443,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -5579,7 +5579,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -5715,7 +5715,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -5851,7 +5851,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -5987,7 +5987,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00
@@ -6123,7 +6123,7 @@
      POWER FROM ALPHA PARTICLES (MeV per Second)                             0.00000E+00
      POWER FROM BETA  PARTICLES (MeV per Second)                             2.29734E+01
      TOTAL GAMMA POWER FROM ACTIVATION  (MeV per Second)                     0.00000E+00    Total gammas (per cc per second)      0.00000E+00
-     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 0.00- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
+     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00
                                                          ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.02- 0.05 MeV)   0.00000E+00                                          0.00000E+00
                                                          ( 0.05- 0.10 MeV)   0.00000E+00                                          0.00000E+00

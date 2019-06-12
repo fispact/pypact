@@ -6,7 +6,9 @@ from pypact.util.jsonserializable import JSONSerializable
 
 FLOAT_NUMBER = r"[0-9]+(?:\.(?:[0-9]+))?(?:e?(?:[-+][0-9]+)?)?"
 GAMMA_SPECTRUM_LINE = \
-    rf"[^(]*\(\s*(?P<lb>{FLOAT_NUMBER})\s*-\s*(?P<ub>{FLOAT_NUMBER})\s*MeV\)\s*(?P<value>{FLOAT_NUMBER}).*"
+    r"[^(]*\(\s*(?P<lb>{FN})\s*-\s*(?P<ub>{FN})\s*MeV\)\s*(?P<value>{FN}).*".format(
+       FN=FLOAT_NUMBER,
+    )
 GAMMA_SPECTRUM_LINE_MATCHER = re.compile(GAMMA_SPECTRUM_LINE, re.IGNORECASE)
 
 @freeze_it

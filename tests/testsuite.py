@@ -13,6 +13,8 @@ from tests.output.timesteptest import TimeStepUnitTest
 from tests.output.outputtest import OutputUnitTest
 from tests.output.readertest import ReaderUnitTest
 
+from tests.printlib.printlib5test import PrintLib5UnitTest
+
 from tests.input.inputdatatest import InputDataUnitTest
 from tests.input.filesfiletest import FilesFileUnitTest
 from tests.input.fluxesfiletest import FluxesFileUnitTest

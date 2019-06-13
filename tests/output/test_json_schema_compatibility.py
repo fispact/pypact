@@ -1,8 +1,10 @@
 import os
 import pytest
-import pypact as pp
 import json
 from jsonschema import validate, ValidationError
+import pypact as pp
+from pypact.filerecord import InventoryFileRecord as FileRecord
+
 
 from tests.testerbase import REFERENCE_DIR
 
@@ -22,7 +24,7 @@ with open(schema_file) as fid:
 ])
 def test_output_writes_correct_json(fispact_out_file_name):
     data_file_name = os.path.join(REFERENCE_DIR, fispact_out_file_name)
-    filerecord = pp.FileRecord(data_file_name)
+    filerecord = FileRecord(data_file_name)
     output = pp.Output()
     output.fispact_deserialize(filerecord)
     json_text = output.json_serialize()

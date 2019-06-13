@@ -1,6 +1,5 @@
 language: python
 python:
-  - "3.4"
   - "3.5"
   - "3.6"
 # command to install dependencies
@@ -12,7 +11,9 @@ before_script:
 script:
   - pip3 install -e $PYPACT
   - python $PYPACT/setup.py test
-  - coverage run $PYPACT/tests/testsuite.py
+#  - coverage run $PYPACT/tests/testsuite.py #dvp: don't use this testsuite with pytest
+  - coverage run -m pytest $PYPACT/tests
+  - coverage report --show-missing --skip-covered
   - pylint -j4 $PYPACT/pypact --rcfile=$PYPACT/.pylintrc || true
   - fispactconverter.py $PYPACT/reference/test31.out test31.json
 #  - diff test31.json $PYPACT/reference/test31.json
@@ -23,6 +24,7 @@ script:
   - python outputjson.py
   - python readfilesfile.py
   - python rundatajson.py
+  - python printlib5.py
   - python tocsv.py
   - python writefilesfile.py
   - python writefluxesfile.py

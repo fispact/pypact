@@ -1,4 +1,5 @@
 import os
+import re
 import pytest
 
 import numpy as np
@@ -6,13 +7,14 @@ from numpy.testing import assert_array_equal
 
 from tests.testerbase import REFERENCE_DIR
 from pypact.filerecord import InventoryFileRecord as FileRecord
-from pypact.output.timestep import TimeStep, GammaSpectrum
+from pypact.output.timestep import TimeStep
+from pypact.output.gammaspectrum import GammaSpectrum, GAMMA_SPECTRUM_LINE_MATCHER, FLOAT_NUMBER
 
 data_file_name = os.path.join(REFERENCE_DIR, "gamma_spectra_read_bug.out")
 file_record = FileRecord(data_file_name)
 
 EXPECTED_BOUNDARIES = np.array([
-    0.00,
+    1e-3,
     0.01,
     0.02,
     0.05,
@@ -58,6 +60,48 @@ def test_every_time_step_has_valid_gamma_spectra():
         ts.fispact_deserialize(file_record, i)
         gs = ts.gamma_spectrum
         assert_is_valid_gs(gs)
+
+
+FLOAT_NUMBER_MATCHER = re.compile(FLOAT_NUMBER, re.IGNORECASE)
+
+
+@pytest.mark.parametrize("_input, expected", [
+    ("1.0", 1.0),
+    ("0.01", 0.01),
+    ("1e-3", 0.001),
+    ("1.0e-3", 0.001),
+    ("8e+10", 8.0e10),
+    ("9.0e3", 9000.0),
+])
+def test_float_number_pattern(_input, expected):
+    match = FLOAT_NUMBER_MATCHER.match(_input)
+    actual = float(match.group(0))
+    assert expected == actual, "Cannot match value %s" % input
+
+
+@pytest.mark.parametrize("_input, lower_boundary, upper_boundary, value", [
+    ("     GAMMA RAY POWER FROM ACTIVATION DECAY  MeV/s        \
+      ( 1e-3- 0.01 MeV)   0.00000E+00    Gammas per group (per cc per second)  0.00000E+00",
+     1.0e-3, 0.01, 0.0
+     ),
+    ("                                                         \
+      ( 0.01- 0.02 MeV)   0.00000E+00                                          0.00000E+00",
+     0.01, 0.02, 0.0
+     ),
+    ("                                                          \
+      ( 8.00-10.00 MeV)   0.00000E+00                                          0.00000E+00",
+     8.0, 10.0, 0.0
+     ),
+])
+def test_gamma_spectrum_line_pattern(_input, lower_boundary, upper_boundary, value):
+    match = GAMMA_SPECTRUM_LINE_MATCHER.match(_input)
+    assert match
+    actual_lower_boundary = float(match.group("lb"))
+    actual_upper_boundary = float(match.group("ub"))
+    actual_value = float(match.group("value"))
+    assert lower_boundary == actual_lower_boundary
+    assert upper_boundary == actual_upper_boundary
+    assert value == actual_value
 
 
 if __name__ == '__main__':

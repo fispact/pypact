@@ -22,7 +22,7 @@ with open(schema_file) as fid:
     'test127.out',
     'test_dpa.out',
 ])
-def test_timestep_reads_dpa_and_time(fispact_out_file_name):
+def test_output_writes_correct_json(fispact_out_file_name):
     data_file_name = os.path.join(REFERENCE_DIR, fispact_out_file_name)
     filerecord = FileRecord(data_file_name)
     output = pp.Output()

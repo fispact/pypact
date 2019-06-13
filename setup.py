@@ -32,6 +32,7 @@ setup(name='pypact',
             'pytest-cov>=2.3.1',
             'mock',
             'jsonschema',
+            'numpy',
       ],
       zip_safe=False,
       entry_points={

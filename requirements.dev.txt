@@ -3,3 +3,4 @@ pytest-cov
 pylint
 mock
 jsonschema
+numpy

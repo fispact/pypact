@@ -15,7 +15,7 @@ class FileRecord:
         self.cachedlines = (asstring if asstring else content_as_str(filename))
         self._setup()
         self._process()
-    
+
     def _setup(self):
         pass
 
@@ -72,7 +72,7 @@ class InventoryFileRecord(FileRecord):
             t = self.lineindices[i]
             nt = -1
             if i < len(self.lineindices) - 1:
-                nt = self.lineindices[i+1]
+                nt = self.lineindices[i + 1]
 
             interval = int(pf.first(datadump=self.cachedlines[t:nt],
                                     headertag=TIME_STEP_HEADER,

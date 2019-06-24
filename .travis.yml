@@ -11,12 +11,9 @@ before_script:
 script:
   - pip3 install -e $PYPACT
   - python $PYPACT/setup.py test
-#  - coverage run $PYPACT/tests/testsuite.py #dvp: don't use this testsuite with pytest
-  - coverage run -m pytest $PYPACT/tests
-  - coverage report --show-missing --skip-covered
+  - bash scripts/run_coverage
   - pylint -j4 $PYPACT/pypact --rcfile=$PYPACT/.pylintrc || true
   - fispactconverter.py $PYPACT/reference/test31.out test31.json
-#  - diff test31.json $PYPACT/reference/test31.json
 # run examples (no plotting)
   - cd $PYPACT/examples
   - python changefilesfile.py

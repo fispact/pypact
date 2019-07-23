@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-from pypact.reader import Reader
+from pypact.reader import InventoryReader as Reader
 from pypact.input.serialization import to_file
 from pypact.util.file import file_remove, file_exists
 from pypact.util.exceptions import PypactFispactExecutableNotFoundException

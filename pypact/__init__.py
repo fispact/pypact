@@ -15,6 +15,7 @@ from pypact.output.timestep import TimeStep
 
 # printlib data structures
 from pypact.printlib.printlib5 import PrintLib5, PrintLib5FileRecord, PrintLib5Reader
+from pypact.printlib.printlib4 import PrintLib4, PrintLib4FileRecord, PrintLib4Reader
 
 # input
 from pypact.input.fispactinput import FispactInput

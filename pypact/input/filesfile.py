@@ -4,7 +4,7 @@ from pypact.util.decorators import freeze_it
 from pypact.util.jsonserializable import JSONSerializable
 from pypact.util.exceptions import PypactDeserializeException
 from pypact.util.file import file_exists, dir_exists
-from pypact.input.projectiles import *
+from pypact.library.projectiles import *
 
 # represents a null entry string
 NULL_ENTRY = "null"

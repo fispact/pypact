@@ -6,6 +6,7 @@ from pypact.util.numerical import get_float
 from pypact.printlib.tags import PRINTLIB4_HEADER, \
     PRINTLIB4_START_HEADER, \
     PRINTLIB4_END_HEADER
+from pypact.library.reactionlib import getmt
 from pypact.filerecord import FileRecord
 from pypact.reader import Reader
 
@@ -46,6 +47,10 @@ class CollapsedXSData(JSONSerializable):
         self.daughter = daughter
         self.xs = xs
         self.delta_xs = delta_xs
+
+    @property
+    def findmt(self):
+        return getmt(self.reaction[3:-1].strip())
 
     def fispact_deserialize(self, line):
         self.nuclide = "".join(line[4:11].split()).strip()

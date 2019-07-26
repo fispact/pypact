@@ -16,6 +16,7 @@
   - [Command line tool](#command-line-tool)
   - [Importing package](#importing-package)
   - [Input Creation](#input-creation)
+  - [Print Libs](#print-libs)
 - [Examples](#examples)
   - [Print the run name](#print-run-name)
   - [Loop over time steps](#loop-time-steps)
@@ -216,6 +217,23 @@ id.validate()
 pp.to_file(id, '{}.i'.format(id.name))
 ...
 ```
+##### <a name="print-libs"></a>Reading printlib files
+Typically PRINTLIB options in FISPACT-II provide the user with complementary information
+that is not available in conventional output files. Whilst the format is more straightforward
+to parse than the standard .out file, it can still be cumbersome to automate.
+Pypact now provides readers for various PRINTLIB options.
+Currently supported formats are:
+- [ ] PRINTLIB 0 (redundant)
+- [ ] PRINTLIB 1
+- [ ] PRINTLIB 2
+- [ ] PRINTLIB 3
+- [x] PRINTLIB 4 - collapsed cross section (see example/printlib4.py)
+- [x] PRINTLIB 5 - spectral lines (see example/printlib5.py)
+- [ ] PRINTLIB 6
+- [ ] PRINTLIB 7
+- [ ] PRINTLIB 8
+- [ ] PRINTLIB 9
+
 #### <a name="examples"></a>Examples
 Some basic examples are given on how to intergoate the output.
 

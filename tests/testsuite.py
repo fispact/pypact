@@ -24,6 +24,7 @@ from tests.input.groupstructurestest import GroupStructuresUnitTest
 from tests.input.projectilestest import ProjectilesUnitTest
 
 from tests.library.nuclidelibtest import NuclideLibUnitTest
+from tests.library.reactionlibtest import ReactionLibUnitTest
 
 
 def main():

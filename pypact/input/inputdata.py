@@ -6,8 +6,8 @@ from pypact.util.exceptions import PypactInvalidOptionException
 from pypact.util.exceptions import PypactIncompatibleOptionException
 from pypact.util.jsonserializable import JSONSerializable
 from pypact.util.loglevels import *
+from pypact.library.projectiles import PROJECTILE_NEUTRON, VALID_PROJECTILES
 from pypact.input.keywords import CONTROL_KEYWORDS, INIT_KEYWORDS, INVENTORY_KEYWORDS
-from pypact.input.projectiles import PROJECTILE_NEUTRON, VALID_PROJECTILES
 
 COMMENT_START = '<<'
 COMMENT_END   = '>>'

@@ -28,5 +28,8 @@ class PypactTypeException(PypactException):
 class PypactUnphysicalValueException(PypactException):
     pass
 
+class PypactNotPrintLib4FileException(PypactException):
+    pass
+
 class PypactNotPrintLib5FileException(PypactException):
     pass

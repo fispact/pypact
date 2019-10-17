@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 
 filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                             '..', 'reference', 'test31')
+                             '..', '..', 'reference', 'test31')
 
 SECS_TO_YEAR = 1.0/(60.*60.*24.*365.)
 

@@ -5,7 +5,7 @@ import pyfispact as pf
 import pypact as pp
 
 filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-    '..', 'reference', 'printlib5.out')
+    '..', '..', 'reference', 'printlib5.out')
 
 monitor = pf.Monitor()
 pf.initialise(monitor)

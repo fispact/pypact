@@ -4,7 +4,8 @@ import os
 import pypact as pp
 
 # change the filename here
-runname = os.path.join('..', 'reference', 'test121.out')
+runname = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                        '..', '..', 'reference', 'test121.out')
 
 # if you change this you must also
 # change the list at the bottom!

@@ -4,7 +4,7 @@ import os
 import pypact as pp
 
 filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-    '..', 'reference', 'printlib4.out')
+    '..', '..', 'reference', 'printlib4.out')
 
 with pp.PrintLib4Reader(filename) as output:
     # sort by ascending MT (warning sort is a bit slow!)

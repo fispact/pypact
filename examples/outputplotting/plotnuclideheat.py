@@ -5,7 +5,7 @@ import pypact as pp
 import pypact.analysis as ppa
 
 filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                        '..', 'reference', 'test127.out')
+                        '..', '..', 'reference', 'test127.out')
 
 tz = ppa.TimeZone.COOL
 properties = ['heat', 'grams', 'ingestion']

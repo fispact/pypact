@@ -20,15 +20,15 @@ script:
   - fispactconverter.py $PYPACT/reference/test31.out test31.json
 # run examples (no plotting)
   - cd $PYPACT/examples
-  - python simple/doserates.py
-  - python simple/outputjson.py
-  - python simple/rundatajson.py
-  - python simple/readfilesfile.py
-  - python inputcreation/changefilesfile.py
+  - python simple/doserates.py > dose.json
+  - python simple/rundatajson.py > rundata.json
+  - python simple/outputjson.py > output.json
+  - python simple/readfilesfile.py > filesfile.out
+  - python printlib/printlib5.py > printlib5.json
+  - python inputcreation/changefilesfile.py > filesfile2.out
   - python inputcreation/writefilesfile.py
   - python inputcreation/writefluxesfile.py
   - python inputcreation/writeinputfile.py
-  - python printlib/printlib5.py
   - python csv/tocsv.py
   - cd $PYPACT
 after_success:

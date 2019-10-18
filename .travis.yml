@@ -18,16 +18,16 @@ script:
   - fispactconverter.py $PYPACT/reference/test31.out test31.json
 # run examples (no plotting)
   - cd $PYPACT/examples
-  - python changefilesfile.py
-  - python doserates.py
-  - python outputjson.py
-  - python readfilesfile.py
-  - python rundatajson.py
-  - python printlib5.py
-  - python tocsv.py
-  - python writefilesfile.py
-  - python writefluxesfile.py
-  - python writeinputfile.py
+  - python simple/doserates.py
+  - python simple/outputjson.py
+  - python simple/rundatajson.py
+  - python simple/readfilesfile.py
+  - python inputcreation/changefilesfile.py
+  - python inputcreation/writefilesfile.py
+  - python inputcreation/writefluxesfile.py
+  - python inputcreation/writeinputfile.py
+  - python printlib/printlib5.py
+  - python csv/tocsv.py
   - cd $PYPACT
 after_success:
   - codecov

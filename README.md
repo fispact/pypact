@@ -29,7 +29,9 @@
 - [Executing unit tests](#executing-unit-tests)
 - [Contact](#contact)
 
-![Alt Text](https://github.com/fispact/pypact/blob/master/examples/figures/gs_animation.gif)
+![Gamma spec](https://github.com/fispact/pypact/blob/master/examples/figures/gs_animation.gif)
+
+![Chart of Nuclides](https://github.com/fispact/pypact/blob/master/examples/figures/chartofnuclidesanimation.gif)
 
 #### <a name="design-goals"></a>Design Goals
 The aim of Pypact is to make the FISPACT-II output file easy to parse so that more time can be spent on analysis, and much less time on interrogating the output file. No more convoluted scripts, just one simple to use package!

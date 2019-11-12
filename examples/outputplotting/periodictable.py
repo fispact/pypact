@@ -25,7 +25,7 @@ def makeperiodictable():
     def addelement(Z, row, column):
         # Create a Rectangle patch
         # and add the patch to the Axes
-        rect = patches.Rectangle((column+0.5, row+0.5), 1, 1, linewidth=1, edgecolor='k', facecolor='none')
+        rect = patches.Rectangle((column+0.5, row+0.5), 0.95, 0.9, linewidth=1, edgecolor='k', facecolor='none')
         rx, ry = rect.get_xy()
         cx = rx + rect.get_width()/2.0
         cy = ry + rect.get_height()/2.0
@@ -111,7 +111,6 @@ def animate(tindx):
 
     time = times[tindx]
     unit = "secs"
-    """
     if time > 60:
         time = time/60
         unit = "mins"
@@ -127,7 +126,6 @@ def animate(tindx):
     if time > 365.25:
         time = time/365.25
         unit = "years"
-    """
     time_text.set_text("{:.2f} {} - activity={:.3e} Bq".format(
         time, unit, activities[tindx]))
     return [time_text]

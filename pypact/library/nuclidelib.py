@@ -1,3 +1,6 @@
+import re
+import math
+
 NUCLIDE_DICTIONARY = [
     {"element": "H", "Z": 1, "isotopes": [1, 2, 3, 4, 5, 6, 7]},
     {"element": "He", "Z": 2, "isotopes": [3, 4, 5, 6, 7, 8, 9, 10]},
@@ -119,6 +122,19 @@ NUCLIDE_DICTIONARY = [
     {"element": "Og", "Z": 118, "isotopes": [293, 294, 295]}
 ]
 
+STATE_MAPPINGS = {
+    0: "",
+    1: 'm',
+    2: 'n',
+    3: 'o',
+    4: 'p',
+    5: 'q',
+    6: 'r',
+    7: 's',
+    8: 't',
+    9: 'u'
+}
+
 NUMBER_OF_ELEMENTS = len(NUCLIDE_DICTIONARY)
 NUMBER_OF_ISOTOPES = sum([len(e['isotopes']) for e in NUCLIDE_DICTIONARY])
 
@@ -129,21 +145,48 @@ ATOMIC_NUMBER_KEY = 'Z'
 
 def find_isotopes(element):
     for i in NUCLIDE_DICTIONARY:
-        if ELEMENT_KEY in i and ISOTOPES_KEY in i and i[ELEMENT_KEY] == element:
+        if ELEMENT_KEY in i and ISOTOPES_KEY in i and i[ELEMENT_KEY].lower() == element.lower():
             return i[ISOTOPES_KEY]
-
+    return None
 
 def find_element(Z):
     for i in NUCLIDE_DICTIONARY:
         if ELEMENT_KEY in i and ATOMIC_NUMBER_KEY in i and i[ATOMIC_NUMBER_KEY] == Z:
             return i[ELEMENT_KEY]
+    return None
 
 
 def find_z(element):
     for i in NUCLIDE_DICTIONARY:
-        if ELEMENT_KEY in i and ATOMIC_NUMBER_KEY in i and i[ELEMENT_KEY] == element:
+        if ELEMENT_KEY in i and ATOMIC_NUMBER_KEY in i and i[ELEMENT_KEY].lower() == element.lower():
             return i[ATOMIC_NUMBER_KEY]
+    return None
 
+def get_zai(name):
+    match = re.match(r"([a-z]+)([0-9]+)([a-z]?)", name, re.I)
+    if not match:
+        return None
+
+    items = match.groups()
+    Z, A, strI = int(find_z(items[0])), int(items[1]), items[2]
+    I = -1
+    for k, v in STATE_MAPPINGS.items():
+        if v == strI:
+            I = k
+    if I == -1:
+        return None
+    return (10000*Z) + (10*A) + I
+
+def get_name(zai):
+    Z, A, I = get_zai_props(zai)
+    element = find_element(Z)
+    if I not in STATE_MAPPINGS:
+        return None
+    return "{}{}{}".format(element, A, STATE_MAPPINGS[I])
+
+def get_zai_props(zai):
+    # Z, A, I
+    return math.floor(zai/10000), math.floor(zai/10) % 1000, zai % 10
 
 def get_all_isotopes():
     all_list = [('', 0)] * NUMBER_OF_ISOTOPES

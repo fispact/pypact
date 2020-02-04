@@ -6,6 +6,11 @@
 [![PyPI](https://img.shields.io/pypi/format/pypact.svg)](https://pypi.python.org/pypi/pypact)
 [![License](https://img.shields.io/pypi/l/pypact.svg)](https://github.com/fispact/pypact/blob/master/LICENSE)
 
+[![HitCount](http://hits.dwyl.io/fispact/pypact.svg)](http://hits.dwyl.io/fispact/pypact)
+[![GitHub issues](https://img.shields.io/github/issues/fispact/pypact)](https://github.com/fispact/pypact/issues)
+[![GitHub stars](https://img.shields.io/github/stars/fispact/pypact)](https://github.com/fispact/pypact/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/fispact/pypact)](https://github.com/fispact/pypact/network)
+
 # Pypact
 ### Making FISPACT-II output easier to parse, with Python 3
 

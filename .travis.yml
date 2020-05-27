@@ -14,9 +14,10 @@ script:
   - pip3 install -e $PYPACT
   - python $PYPACT/setup.py test
   - bash scripts/run_coverage
-  - python scripts/run_pylint.py -j4 --rcfile=.pylintrc --output-format=text --score-threshold=4 pypact &> pylint.txt
-  - score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt)
-  - echo "Pylint score:" $score
+# problem with pylint script - just ignore for now
+#  - python scripts/run_pylint.py -j4 --rcfile=.pylintrc --output-format=text --score-threshold=4 pypact &> pylint.txt
+#  - score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt)
+#  - echo "Pylint score:" $score
   - fispactconverter.py $PYPACT/reference/test31.out test31.json
 # run examples (no plotting)
   - cd $PYPACT/examples

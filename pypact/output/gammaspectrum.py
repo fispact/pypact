@@ -6,7 +6,7 @@ from pypact.util.jsonserializable import JSONSerializable
 
 FLOAT_NUMBER = r"[0-9]+(?:\.(?:[0-9]+))?(?:e?(?:[-+]?[0-9]+)?)?"
 GAMMA_SPECTRUM_LINE = \
-    r"[^(]*\(\s*(?P<lb>{FN})\s*-\s*(?P<ub>{FN})\s*MeV\)\s*(?P<value>{FN}).*".format(
+    r"[^(]*\(\s*(?P<lb>{FN})\s*-\s*(?P<ub>{FN})\s*MeV\)\s*(?P<value>{FN})\D*(?P<vr>{FN}).*".format(
         FN=FLOAT_NUMBER,
     )
 GAMMA_SPECTRUM_LINE_MATCHER = re.compile(GAMMA_SPECTRUM_LINE, re.IGNORECASE)
@@ -21,6 +21,7 @@ class GammaSpectrum(JSONSerializable):
     def __init__(self):
         self.boundaries = []  # TODO dvp: should be numpy arrays (or even better xarrays)
         self.values = []
+        self.volumetric_rates = []
 
     def fispact_deserialize(self, file_record, interval):
         self.__init__()
@@ -40,17 +41,21 @@ class GammaSpectrum(JSONSerializable):
                     lower_boundary = float(match.group("lb"))
                     upper_boundary = float(match.group("ub"))
                     value = float(match.group("value"))
-                    yield lower_boundary, upper_boundary, value
+                    volumetric_rate = float(match.group("vr"))
+                    yield lower_boundary, upper_boundary, value, volumetric_rate
 
         boundaries = []
         values = []
+        volumetric_rates = []
 
-        for lb, ub, v in extract_boundaries_and_values(lines):
+        for lb, ub, v, vr in extract_boundaries_and_values(lines):
             if not boundaries:
                 boundaries.append(lb)
             boundaries.append(ub)
             values.append(v)
+            volumetric_rates.append(vr)
 
         if values:
             self.boundaries = boundaries
             self.values = values
+            self.volumetric_rates = volumetric_rates

@@ -6,7 +6,7 @@ from tests.output.baseoutputtest import BaseOutputUnitTest
 class GammaSpectrumUnitTest(BaseOutputUnitTest):
 
     def test_file91_first_timestep(self):
-        self._assertGS(1, self.filerecord91, [], [])
+        self._assertGS(1, self.filerecord91, [], [], [])
 
     def test_file91_second_timestep(self):
         expectedBoundaries = [
@@ -62,7 +62,33 @@ class GammaSpectrumUnitTest(BaseOutputUnitTest):
                             0.00000E+00,
                             0.00000E+00
         ]
-        self._assertGS(2, self.filerecord91, expectedBoundaries, expectedValues)
+        expectedRates = [
+                            7.60957E+03,
+                            3.70512E+04,
+                            2.84834E+03,
+                            1.35519E+04,
+                            2.34304E+04,
+                            1.44222E+03,
+                            3.48245E+01,
+                            3.72878E+01,
+                            4.35245E+02,
+                            1.39765E+02,
+                            5.61286E+02,
+                            2.14442E+01,
+                            2.59519E+01,
+                            6.58877E+01,
+                            3.17819E-03,
+                            0.00000E+00,
+                            0.00000E+00,
+                            0.00000E+00,
+                            0.00000E+00,
+                            0.00000E+00,
+                            0.00000E+00,
+                            0.00000E+00,
+                            0.00000E+00,
+                            0.00000E+00
+        ]
+        self._assertGS(2, self.filerecord91, expectedBoundaries, expectedValues, expectedRates)
     
     def test_file91_last_timestep(self):
         expectedBoundaries = [
@@ -118,15 +144,43 @@ class GammaSpectrumUnitTest(BaseOutputUnitTest):
                             0.00000E+00,
                             0.00000E+00
         ]
-        self._assertGS(15, self.filerecord91, expectedBoundaries, expectedValues)
+        expectedRates = [
+                            8.41715E+03,
+                            4.13620E+04,
+                            2.85420E+03,
+                            1.88702E+04,
+                            2.36221E+04,
+                            1.49854E+03,
+                            4.22229E+01,
+                            6.34767E+01,
+                            7.44836E+02,
+                            2.40214E+02,
+                            9.59896E+02,
+                            3.67490E+01,
+                            4.44169E+01,
+                            1.12729E+02,
+                            5.48101E-03,
+                            0.00000E+00,
+                            0.00000E+00,
+                            0.00000E+00,
+                            0.00000E+00,
+                            0.00000E+00,
+                            0.00000E+00,
+                            0.00000E+00,
+                            0.00000E+00,
+                            0.00000E+00
+        ]
+        self._assertGS(15, self.filerecord91, expectedBoundaries, expectedValues, expectedRates)
 
-    def _assertGS(self, timestep, filerecord, boundaries, values):
+    def _assertGS(self, timestep, filerecord, boundaries, values, rates):
         gs = pp.GammaSpectrum()
         
         self.assertEqual([], gs.boundaries, "Assert gamma spectrum boundary defaults")
         self.assertEqual([], gs.values, "Assert gamma spectrum value defaults")
+        self.assertEqual([], gs.volumetric_rates, "Assert gamma spectrum rate defaults")
         
         gs.fispact_deserialize(filerecord, timestep)
         self.assertEqual(boundaries, gs.boundaries, "Assert gamma spectrum boundary")
         self.assertEqual(values, gs.values, "Assert gamma spectrum value")
+        self.assertEqual(rates, gs.volumetric_rates, "Assert gamma spectrum rate")
 

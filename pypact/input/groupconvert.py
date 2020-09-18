@@ -23,16 +23,16 @@ def by_energy(input_bounds, input_values, output_bounds):
         return overlapping_width*input_value/input_width
 
     def find_overlap_and_compute_output_value(output_lower, output_upper, last_overlap_index=0):
-        is_lower = True
-        is_upper = not is_lower
+        IS_LOWER = True
+        IS_UPPER = not IS_LOWER
         output_value = 0.0
         prev_has_overlap = False
         for i, (input_lower, input_upper) in enumerate(input_bounds_tuples):
-            points = sorted([(input_lower, is_lower), (input_upper, is_upper),
-                             (output_lower, is_lower), (output_upper, is_upper)], key=lambda x: x[0])
+            points = sorted([(input_lower, IS_LOWER), (input_upper, IS_UPPER),
+                             (output_lower, IS_LOWER), (output_upper, IS_UPPER)], key=lambda x: x[0])
             # the second item must be a lower point and the third item must be an upper point
             # for overlap
-            has_overlap = points[1][1] == is_lower and points[2][1] == is_upper
+            has_overlap = points[1][1] == IS_LOWER and points[2][1] == IS_UPPER
             if has_overlap:
                 # keep track of last overlap index for to avoid starting at 0 each time
                 last_overlap_index = i

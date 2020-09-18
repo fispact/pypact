@@ -23,6 +23,7 @@ from pypact.input.fluxesfile import FluxesFile, ArbFluxesFile
 from pypact.input.filesfile import FilesFile
 from pypact.input.inputdata import InputData
 from pypact.input.serialization import to_file, from_file, to_string
+import pypact.input.groupconvert as groupconvert
 from pypact.input.groupstructures import ALL_GROUPS
 from pypact.input.keywords import CONTROL_KEYWORDS, \
     INIT_KEYWORDS, \

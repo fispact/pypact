@@ -1,22 +1,28 @@
-from collections import namedtuple
+class Edge:
+    def __init__(self, lower, upper):
+        assert upper >= lower
+        self.lower = lower
+        self.upper = upper
 
-Edge = namedtuple('Edge', ['lower', 'upper'])
+    def get_overlap(self, edge):
+        IS_LOWER, IS_UPPER = True, False
+        points = sorted([(self.lower, IS_LOWER), (self.upper, IS_UPPER),
+                         (edge.lower, IS_LOWER), (edge.upper, IS_UPPER)], key=lambda x: x[0])
+        # the second item must be a lower point and the third item must be an upper point
+        # for overlap
+        overlap = points[1][1] == IS_LOWER and points[2][1] == IS_UPPER
+        overlap_width = points[2][0] - points[1][0]
+
+        return overlap, overlap_width
+
+    @property
+    def length(self):
+        return (self.upper - self.lower)
 
 
 def _get_edges_from_bounds(bounds):
     return [Edge(bound, bounds[i+1])
             for i, bound in enumerate(bounds[:-1])]
-
-
-def _find_overlap(edge1, edge2):
-    IS_LOWER, IS_UPPER = True, False
-    points = sorted([(edge1.lower, IS_LOWER), (edge1.upper, IS_UPPER),
-                     (edge2.lower, IS_LOWER), (edge2.upper, IS_UPPER)], key=lambda x: x[0])
-    # the second item must be a lower point and the third item must be an upper point
-    # for overlap
-    overlap = points[1][1] == IS_LOWER and points[2][1] == IS_UPPER
-    overlap_width = points[2][0] - points[1][0]
-    return overlap, overlap_width
 
 
 def by_energy(input_bounds, input_values, output_bounds):
@@ -44,16 +50,16 @@ def by_energy(input_bounds, input_values, output_bounds):
     def compute(input_width, input_value, overlapping_width):
         return overlapping_width*input_value/input_width
 
-    def find_overlap_and_compute_output_value(oedge, last_overlap_index=0):
+    def overlaps_and_compute(oedge, last_overlap_index=0):
         output_value = 0.0
         prev_has_overlap = False
         for i, iedge in enumerate(input_edges):
-            has_overlap, overlap_width = _find_overlap(iedge, oedge)
+            has_overlap, overlap_width = iedge.get_overlap(oedge)
             if has_overlap:
                 # keep track of last overlap index for to avoid starting at 0 each time
                 last_overlap_index = i
-                output_value += compute(
-                    iedge.upper - iedge.lower, input_values[i], overlap_width)
+                output_value += compute(iedge.length,
+                                        input_values[i], overlap_width)
 
             # break early to avoid continuing iteration
             if not has_overlap and prev_has_overlap:
@@ -68,7 +74,7 @@ def by_energy(input_bounds, input_values, output_bounds):
     last_index = 0
     output_values = []
     for edge in output_edges:
-        output_value, last_index = find_overlap_and_compute_output_value(
+        output_value, last_index = overlaps_and_compute(
             edge, last_overlap_index=last_index)
         output_values.append(output_value)
 

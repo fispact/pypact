@@ -1,3 +1,24 @@
+from collections import namedtuple
+
+Edge = namedtuple('Edge', ['lower', 'upper'])
+
+
+def _get_edges_from_bounds(bounds):
+    return [Edge(bound, bounds[i+1])
+            for i, bound in enumerate(bounds[:-1])]
+
+
+def _find_overlap(edge1, edge2):
+    IS_LOWER, IS_UPPER = True, False
+    points = sorted([(edge1.lower, IS_LOWER), (edge1.upper, IS_UPPER),
+                     (edge2.lower, IS_LOWER), (edge2.upper, IS_UPPER)], key=lambda x: x[0])
+    # the second item must be a lower point and the third item must be an upper point
+    # for overlap
+    overlap = points[1][1] == IS_LOWER and points[2][1] == IS_UPPER
+    overlap_width = points[2][0] - points[1][0]
+    return overlap, overlap_width
+
+
 def by_energy(input_bounds, input_values, output_bounds):
     """
         Returns the output_values by simple weighting and sharing
@@ -11,34 +32,28 @@ def by_energy(input_bounds, input_values, output_bounds):
         Assumes that input and output bounds are in ascending energy. If not
         then it will go unchecked and will produce odd results
     """
+
     assert len(output_bounds) > 1
     assert len(input_bounds) > 1
 
-    input_bounds_tuples = list(zip(input_bounds, input_bounds[1:]))
-    output_bounds_tuples = list(zip(output_bounds, output_bounds[1:]))
+    input_edges = _get_edges_from_bounds(input_bounds)
+    output_edges = _get_edges_from_bounds(output_bounds)
 
     # this should be exposed as a function arg to allow custom metrics
     # by lethargy for example
     def compute(input_width, input_value, overlapping_width):
         return overlapping_width*input_value/input_width
 
-    def find_overlap_and_compute_output_value(output_lower, output_upper, last_overlap_index=0):
-        IS_LOWER = True
-        IS_UPPER = not IS_LOWER
+    def find_overlap_and_compute_output_value(oedge, last_overlap_index=0):
         output_value = 0.0
         prev_has_overlap = False
-        for i, (input_lower, input_upper) in enumerate(input_bounds_tuples):
-            points = sorted([(input_lower, IS_LOWER), (input_upper, IS_UPPER),
-                             (output_lower, IS_LOWER), (output_upper, IS_UPPER)], key=lambda x: x[0])
-            # the second item must be a lower point and the third item must be an upper point
-            # for overlap
-            has_overlap = points[1][1] == IS_LOWER and points[2][1] == IS_UPPER
+        for i, iedge in enumerate(input_edges):
+            has_overlap, overlap_width = _find_overlap(iedge, oedge)
             if has_overlap:
                 # keep track of last overlap index for to avoid starting at 0 each time
                 last_overlap_index = i
-                overlap_width = points[2][0] - points[1][0]
                 output_value += compute(
-                    input_upper - input_lower, input_values[i], overlap_width)
+                    iedge.upper - iedge.lower, input_values[i], overlap_width)
 
             # break early to avoid continuing iteration
             if not has_overlap and prev_has_overlap:
@@ -52,9 +67,9 @@ def by_energy(input_bounds, input_values, output_bounds):
 
     last_index = 0
     output_values = []
-    for lower, upper in output_bounds_tuples:
+    for edge in output_edges:
         output_value, last_index = find_overlap_and_compute_output_value(
-            lower, upper, last_overlap_index=last_index)
+            edge, last_overlap_index=last_index)
         output_values.append(output_value)
 
     return output_values

@@ -57,6 +57,8 @@ from pypact.library.reactionlib import REACTION_DICTIONARY, \
     getreaction, \
     getmt
 
+from pypact.library.spectrumlib import SpectrumLibJSONReader, SpectrumLibManager
+
 # utilities
 from pypact.util.exceptions import PypactException
 from pypact.util.loglevels import *

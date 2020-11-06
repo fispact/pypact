@@ -5,12 +5,13 @@ from ..util.exceptions import PypactSpectrumDoesNotExistException
 
 
 _this_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)))
-SPECTRUM_JSON_LIB_FILE = os.path.join(_this_dir, 'spectrumlib.min.json')
+__SPECTRUM_JSON_LIB_FILE__ = os.path.join(
+    _this_dir, 'data', 'spectrumlib.min.json')
 
 
 class SpectrumLibJSONReader:
 
-    def __init__(self, filename=SPECTRUM_JSON_LIB_FILE):
+    def __init__(self, filename=__SPECTRUM_JSON_LIB_FILE__):
         self.filename = filename
 
     def __enter__(self):

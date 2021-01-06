@@ -2,7 +2,7 @@
 import sys
 import argparse
 
-from pypact.reader import Reader
+from pypact.reader import InventoryReader as Reader
 from pypact.util.exceptions import PypactException
 
 

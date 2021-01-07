@@ -11,7 +11,7 @@ setup(name='pypact',
       description='The package for reading and manipulating the fispact output text file.',
       url='https://github.com/fispact/pypact',
       author='UKAEA',
-      author_email='thomas.stainer@ukaea.uk',
+      author_email='me@physicstom.com',
       license='Apache License 2.0',
       packages=[
           'pypact',

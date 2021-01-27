@@ -39,10 +39,9 @@ class FuelInventory(InventoryType):
         super().__init__()
 
     def __str__(self):
-        strrep = "{} {}".format('FUEL', len(self.entries))
+        strrep = f"FUEL {len(self.entries)}"
         for i in self.entries:
-            strrep += "\n{} {}".format(i[0], i[1])
-
+            strrep += f"\n{i[0]} {i[1]:.10E}")
         return strrep   
 
 @freeze_it

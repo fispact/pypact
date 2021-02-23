@@ -49,3 +49,37 @@ class InputDataUnitTest(Tester):
 
         filename = '_PYPACT_TEST_writeinputfile_alloptions'
         pp.to_file(id, filename)
+
+    def test_alloptions_tofile_lowprecision(self):
+        id = pp.InputData(name="test_default", precision=4)
+        
+        id.overwriteExisting(True)
+        id.enableJSON(True)
+        id.enableInitialInventoryInOutput(True)
+        id.enableHalflifeInOutput(True)
+        id.enableHazardsInOutput(True)
+        id.readXSData(709, binary=True)
+        id.useEAFLibraries(False)
+        id.useCumulativeFissionYieldData(True)
+        id.includeClearanceData(True)
+        id.readDecayData(True)
+        id.approxGammaSpectrum(True)
+        id.ignoreUncertainties()
+        id.setXSThreshold(1e-14)
+        id.setProjectile(pp.PROJECTILE_PROTON)
+        id.readGammaGroup()
+        id.enableSystemMonitor()
+        id.setAtomsThreshold(3.4e-8)
+        id.addIrradiation(5.4, 1.14678324e12)
+        id.addIrradiation(10.4, 1.3432525435e12)
+        id.addCooling(6.22)
+        id.addCooling(12.22)
+        id.addCooling(4.5)
+        id.setLogLevel(pp.LOG_SEVERITY_TRACE)
+        id.setDensity(1.3)
+        id.setMass(45.7)
+        id.addElement("He", 0.94324324)
+        id.addElement("Fe", 0.14)
+
+        filename = '_PYPACT_TEST_writeinputfile_alloptions_lowprecision'
+        pp.to_file(id, filename)

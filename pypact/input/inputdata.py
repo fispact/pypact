@@ -13,15 +13,17 @@ COMMENT_START = '<<'
 COMMENT_END   = '>>'
 
 class InventoryType(JSONSerializable):
-    def __init__(self):
+    def __init__(self, precision=10):
         # a list of tuples, the first entry is the element/nuclide symbol
         # the second is the value
         self.entries = []
+        self._prec = precision
+
 
 @freeze_it
 class MassInventory(InventoryType):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__( *args, **kwargs)
 
         # the total mass in kg
         self.totalMass = 0.0
@@ -29,31 +31,31 @@ class MassInventory(InventoryType):
     def __str__(self):
         strrep = "{} {} {}".format('MASS', self.totalMass, len(self.entries))
         for e in self.entries:
-            strrep += "\n{} {}".format(e[0], e[1])
+            strrep += f"\n{e[0]} {e[1]:.{self._prec}E}".format(e[0], e[1])
 
         return strrep
 
+
 @freeze_it
 class FuelInventory(InventoryType):
-    def __init__(self):
-        super().__init__()
-
     def __str__(self):
         strrep = f"FUEL {len(self.entries)}"
         for i in self.entries:
-            strrep += f"\n{i[0]} {i[1]:.10E}"
+            strrep += f"\n{i[0]} {i[1]:.{self._prec}E}"
         return strrep   
+
 
 @freeze_it
 class InputData(JSONSerializable):
 
-    def __init__(self, name: str = "run"):
+    def __init__(self, name: str = "run", precision = 10):
         """
             Constructor
             
             Initialises all input data
         """
         self.name= name
+        self._prec = precision
         
         self._overwrite             = False
         self._json                  = False
@@ -88,8 +90,8 @@ class InputData(JSONSerializable):
         self._inventoryismass      = False
         self._inventoryisfuel      = False 
         
-        self._inventorymass        = MassInventory()
-        self._inventoryfuel        = FuelInventory()
+        self._inventorymass        = MassInventory(precision=precision)
+        self._inventoryfuel        = FuelInventory(precision=precision)
     
         # irradiation schedule
         # a list of tuples of (time interval in seconds, flux amplitude)
@@ -282,11 +284,11 @@ class InputData(JSONSerializable):
             inputdata.append("")
         
         def addcomment(comment):
-            inputdata.append("{} {} {}".format(COMMENT_START, comment, COMMENT_END))
+            inputdata.append(f"{COMMENT_START} {comment} {COMMENT_END}")
         
         def addkeyword(keyword, args=[]):
             strargs = ' '.join([str(a) for a in args])
-            inputdata.append("{} {}".format(keyword, strargs))
+            inputdata.append(f"{keyword} {strargs}")
         
         # control keywords
         addcomment("CONTROL PHASE")
@@ -397,15 +399,15 @@ class InputData(JSONSerializable):
         if len(self._irradschedule) > 0:
             addcomment("irradiation schedule")
             for time, fluxamp in self._irradschedule:
-                addkeyword('FLUX', args=[fluxamp])
-                addkeyword('TIME', args=[time, 'SECS'])
+                addkeyword('FLUX', args=[f"{fluxamp:.{self._prec}E}"])
+                addkeyword('TIME', args=[f"{time:.{self._prec}E}", 'SECS'])
                 addkeyword('ATOMS')
             addcomment("end of irradiation")
 
             addkeyword('FLUX', args=[0.0])
             addkeyword('ZERO')
             for time in self._coolingschedule:
-                addkeyword('TIME', args=[time, 'SECS'])
+                addkeyword('TIME', args=[f"{time:.{self._prec}E}", 'SECS'])
                 addkeyword('ATOMS')
             addcomment("end of cooling")
 

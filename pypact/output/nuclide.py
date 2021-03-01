@@ -1,6 +1,7 @@
 from pypact.util.decorators import freeze_it
 from pypact.util.numerical import is_float, get_float
 from pypact.util.jsonserializable import JSONSerializable
+from pypact.library.nuclidelib import get_zai
 
 NUCLIDE_IGNORES = ['\n', '|', '>', '&', '?', '#']
 
@@ -25,6 +26,14 @@ class Nuclide(JSONSerializable):
         self.dose = 0.0
         self.ingestion = 0.0
         self.inhalation = 0.0
+
+    @property
+    def name(self):
+        return f"{self.element}{self.isotope}{self.state}" 
+
+    @property
+    def zai(self):
+        return get_zai(self.name) 
 
     def fispact_deserialize(self, linedump, column_headers):
 

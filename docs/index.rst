@@ -57,9 +57,10 @@ nuclides at the first timestep.
    import pypact as pp
 
    # the standard output file from FISPACT-II
+   # test files exist in 'references' directory
    filename = 'myfispactrun.out'
 
    with pp.Reader(filename) as output:
       nuclides = output[0].nuclides
       for nuc in nuclides:
-         print(f"{nuc.element}{nuc.isotope}{nuc.state} = {nuc.atoms:.3e} atoms")
+         print(f"{nuc.name} = {nuc.atoms:.3e} atoms")

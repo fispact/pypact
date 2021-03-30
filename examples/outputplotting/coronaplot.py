@@ -40,18 +40,18 @@ def get_time_unit(time):
     if time < SECS_IN_HOUR:
         return f"{time:.1f} s"
     if time < SECS_IN_DAY:
-        return f"{time/SECS_IN_HOUR:.1f} hours"
+        return f"{time/SECS_IN_HOUR:.1f} ho"
     if time < SECS_IN_WEEK:
-        return f"{time/SECS_IN_DAY:.1f} days"
+        return f"{time/SECS_IN_DAY:.1f} da"
     if time < SECS_IN_MONTH:
-        return f"{time/SECS_IN_WEEK:.1f} weeks"
+        return f"{time/SECS_IN_WEEK:.1f} we"
     if time < SECS_IN_YEAR:
-        return f"{time/SECS_IN_MONTH:.1f} months"
+        return f"{time/SECS_IN_MONTH:.1f} mo"
     if time < SECS_IN_DECADE:
-        return f"{time/SECS_IN_YEAR:.1f} years"
+        return f"{time/SECS_IN_YEAR:.1f} ye"
     if time < SECS_IN_MILLENIUM:
-        return f"{time/SECS_IN_DECADE:.1f} decades"
-    return f"{time/SECS_IN_DECADE:.1f} millenia"
+        return f"{time/SECS_IN_DECADE:.1f} de"
+    return f"{time/SECS_IN_DECADE:.1f} mi"
 
 
 def highlight_cell(x, y, ax=None, **kwargs):
@@ -122,13 +122,13 @@ with pp.Reader(runname) as output:
 
 titlestr = "log" if LOG else ""
 plt.title(f"Top {TOP_NUCLIDES} ranked by {titlestr} {PROP}")
-plt.xlabel("time index", fontsize=18)
+plt.xlabel("time", fontsize=18)
 plt.ylabel("nuclide", fontsize=18)
 
 # show only every nth tick
-ticktimes = [time if i % 25 == 0 else "" for i, time in enumerate(times)]
+ticktimes = [time if i % 5 == 0 else "" for i, time in enumerate(times)]
 ax.set_xticks(np.arange(len(ticktimes)))
-ax.set_xticklabels(ticktimes, ha="right", fontsize=8)
+ax.set_xticklabels(ticktimes, ha="right", fontsize=8, rotation = -90)
 ax.set_yticks(np.arange(TOP_NUCLIDES))
 ax.set_yticklabels([f"{n}" for n in nuclides], ha="right", fontsize=8)
 # ax.set_ylim(-1, TOP_NUCLIDES)

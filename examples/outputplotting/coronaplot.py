@@ -7,16 +7,19 @@
 
 import os
 import math
+import numpy as np
 from collections import defaultdict
+
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm, Normalize
 from mpl_toolkits.axes_grid1 import make_axes_locatable
-import numpy as np
+
 import pypact as pp
+from pypact.util.time import get_time_string
 
 # change the filename here
 runname = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", "..", "reference", "Ti.out"
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", "reference", "test31.out"
 )
 
 MAX_TIMESTEPS = 200
@@ -25,34 +28,6 @@ PROP = "activity"
 LOG = True
 CMAP = "gnuplot2_r"
 SHOW_STABLE = False
-
-SECS_IN_HOUR = 60 * 60
-SECS_IN_DAY = 24 * SECS_IN_HOUR
-SECS_IN_WEEK = 7 * SECS_IN_DAY
-SECS_IN_MONTH = 30 * SECS_IN_DAY
-SECS_IN_YEAR = 365.25 * SECS_IN_DAY
-SECS_IN_DECADE = 10 * SECS_IN_YEAR
-SECS_IN_MILLENIUM = 100 * SECS_IN_DECADE
-
-
-def get_time_unit(time):
-    # very dumb code...
-    if time < SECS_IN_HOUR:
-        return f"{time:.1f} s"
-    if time < SECS_IN_DAY:
-        return f"{time/SECS_IN_HOUR:.1f} ho"
-    if time < SECS_IN_WEEK:
-        return f"{time/SECS_IN_DAY:.1f} da"
-    if time < SECS_IN_MONTH:
-        return f"{time/SECS_IN_WEEK:.1f} we"
-    if time < SECS_IN_YEAR:
-        return f"{time/SECS_IN_MONTH:.1f} mo"
-    if time < SECS_IN_DECADE:
-        return f"{time/SECS_IN_YEAR:.1f} ye"
-    if time < SECS_IN_MILLENIUM:
-        return f"{time/SECS_IN_DECADE:.1f} de"
-    return f"{time/SECS_IN_DECADE:.1f} mi"
-
 
 def highlight_cell(x, y, ax=None, **kwargs):
     rect = plt.Rectangle((x - 0.5, y - 0.5), 1, 1, fill=False, **kwargs)
@@ -68,7 +43,7 @@ def make_mat(output, ax=None, prop="atoms"):
     mat = np.zeros((ntimesteps, TOP_NUCLIDES + 1))
     times = []
     for i, timestamp in enumerate(output[:ntimesteps]):
-        times.append(get_time_unit(timestamp.currenttime))
+        times.append(get_time_string(timestamp.currenttime))
         for j, nuclide in enumerate(timestamp.nuclides):
             # find index of nuclide in sorted nuclides
             index = next(
@@ -82,7 +57,7 @@ def make_mat(output, ax=None, prop="atoms"):
             min_value = min(min_value, mat_value)
             max_value = max(max_value, mat_value)
             mat[i, index] = mat_value
-            highlight_cell(i, index, ax=ax, color="k", linewidth=1)
+            highlight_cell(i, index, ax=ax, color="k", linewidth=0.2)
     return mat.T, nuclides, times, min_value, max_value
 
 
@@ -105,7 +80,8 @@ def sorted_top_nuclides(output, ntop=100, prop="atoms"):
     return sortednuclides[:ntop]
 
 
-fig, ax = plt.subplots(figsize=(10, 8))
+my_dpi = 200
+fig, ax = plt.subplots(figsize=(1500/my_dpi, 800/my_dpi), dpi=my_dpi)
 
 with pp.Reader(runname) as output:
     mat, nuclides, times, min_value, max_value = make_mat(output, prop=PROP, ax=ax)
@@ -121,16 +97,16 @@ with pp.Reader(runname) as output:
 
 
 titlestr = "log" if LOG else ""
-plt.title(f"Top {TOP_NUCLIDES} ranked by {titlestr} {PROP}")
-plt.xlabel("time", fontsize=18)
-plt.ylabel("nuclide", fontsize=18)
+plt.title(f"Top {TOP_NUCLIDES} ranked by {titlestr} {PROP}", fontsize=12)
+plt.xlabel("time", fontsize=10)
+plt.ylabel("nuclide", fontsize=10)
 
 # show only every nth tick
 ticktimes = [time if i % 5 == 0 else "" for i, time in enumerate(times)]
 ax.set_xticks(np.arange(len(ticktimes)))
-ax.set_xticklabels(ticktimes, ha="right", fontsize=8, rotation = -90)
+ax.set_xticklabels(ticktimes, ha="right", fontsize=4, rotation = -90)
 ax.set_yticks(np.arange(TOP_NUCLIDES))
-ax.set_yticklabels([f"{n}" for n in nuclides], ha="right", fontsize=8)
+ax.set_yticklabels([f"{n}" for n in nuclides], ha="right", fontsize=4)
 # ax.set_ylim(-1, TOP_NUCLIDES)
 ax.set_ylim(TOP_NUCLIDES, -1)
 
@@ -139,5 +115,7 @@ ax.set_ylim(TOP_NUCLIDES, -1)
 divider = make_axes_locatable(ax)
 cax = divider.append_axes("right", size="5%", pad=0.05)
 plt.colorbar(im, cax=cax, fraction=0.046, pad=0.04)
+plt.tight_layout()
 
-plt.show()
+# plt.show()
+plt.savefig('coronaplot.png', dpi=my_dpi)

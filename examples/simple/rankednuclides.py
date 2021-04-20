@@ -7,9 +7,6 @@ filename = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "..", "..", "reference", "test31.out"
 )
 
-# get dominants at third (0-based) timestep
-TIMESTEP = 2
-
 # sort by this property
 # atoms, heat, activity, grams, ingestion, etc...
 PROPERTY = "atoms"
@@ -17,12 +14,13 @@ PROPERTY = "atoms"
 # take top 10 (dominants)
 NDOMINANTS = 10
 
-
 with pp.Reader(filename) as output:
-    assert len(output) > TIMESTEP
+    # over all times - not just dominants for one timestep!
+    sorted_nuclides = pp.ranked_nuclides(output, ntop=NDOMINANTS, prop=PROPERTY)
 
-    sorted_nuclides = pp.dominants(output[TIMESTEP].nuclides, ntop=NDOMINANTS, prop=PROPERTY)
+    print(sorted_nuclides)
 
+    # todo: need to finish
     print(f"==== TOP {NDOMINANTS} NUCLIDES BY {PROPERTY} ====")
     for n in sorted_nuclides:
         print(n.name, getattr(n, PROPERTY))

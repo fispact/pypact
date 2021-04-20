@@ -35,6 +35,10 @@ class Nuclide(JSONSerializable):
     def zai(self):
         return get_zai(self.name) 
 
+    @property
+    def isstable(self):
+        return self.half_life == 0.0
+
     def fispact_deserialize(self, linedump, column_headers):
 
         self.__init__()

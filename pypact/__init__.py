@@ -8,8 +8,8 @@ from pypact.runner import compute
 from pypact.output.rundata import RunData
 from pypact.output.doserate import DoseRate
 from pypact.output.nuclide import Nuclide
-from pypact.output.nuclides import Nuclides
-from pypact.output.output import Output
+from pypact.output.nuclides import Nuclides, dominants
+from pypact.output.output import Output, ranked_nuclides
 from pypact.output.gammaspectrum import GammaSpectrum
 from pypact.output.timestep import TimeStep
 

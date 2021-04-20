@@ -64,3 +64,16 @@ class Nuclides(JSONSerializable):
             nuclide.fispact_deserialize(substring[n:],
                                         column_headers=get_header(i - nr_of_nuclides()-3))
             self.nuclides.append(nuclide)
+
+
+def dominants(nuclides: Nuclides, ntop=20, prop="atoms", show_stable=True):
+    """
+        todo
+    """
+    sorted_nuclides = sorted(
+        nuclides,
+        key=lambda x: getattr(x, prop),
+        # descending for top ranked - use False for bottom ranked
+        reverse=True,
+    )
+    return sorted_nuclides[:ntop]

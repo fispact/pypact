@@ -17,10 +17,6 @@ NDOMINANTS = 10
 with pp.Reader(filename) as output:
     # over all times - not just dominants for one timestep!
     sorted_nuclides = pp.ranked_nuclides(output, ntop=NDOMINANTS, prop=PROPERTY)
-
-    print(sorted_nuclides)
-
-    # todo: need to finish
     print(f"==== TOP {NDOMINANTS} NUCLIDES BY {PROPERTY} ====")
-    for n in sorted_nuclides:
-        print(n.name, getattr(n, PROPERTY))
+    for name, value in sorted_nuclides:
+        print(name, value)

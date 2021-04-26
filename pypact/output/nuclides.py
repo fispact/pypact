@@ -68,8 +68,11 @@ class Nuclides(JSONSerializable):
 
 def dominants(nuclides: Nuclides, ntop=20, prop="atoms", show_stable=True):
     """
-        todo
+        Return the nuclides sorted by the given property
     """
+    if not show_stable:
+        nuclides = [nuc for nuc in nuclides if not nuc.isstable]
+    
     sorted_nuclides = sorted(
         nuclides,
         key=lambda x: getattr(x, prop),

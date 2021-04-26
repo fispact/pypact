@@ -45,7 +45,7 @@ def ranked_nuclides(output: Output, ntop=20, prop="atoms", show_stable=True):
         given property i.e. atoms or heat over all times in
         the output.
 
-        Returns a dict of key, values sorted by the property with
+        Returns a list of tuples (name, value) sorted by the property with
         the values representing those associated with the
         property.
     """
@@ -58,5 +58,5 @@ def ranked_nuclides(output: Output, ntop=20, prop="atoms", show_stable=True):
             if (not nuclide.isstable or show_stable) and value > 0:
                 allnuclides[name] = max(allnuclides.get(name, 0), value)
 
-    sortednuclides = sorted(allnuclides, key=allnuclides.get, reverse=True)
+    sortednuclides = sorted(allnuclides.items(), key=lambda x: x[1], reverse=True)
     return sortednuclides[:ntop]

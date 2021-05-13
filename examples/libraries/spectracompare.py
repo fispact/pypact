@@ -8,7 +8,8 @@ name_spectrum2 = '616_HCLL-FW'
 
 # convert to a common group
 compare_group = 709
-common_energies = list(reversed(pp.ALL_GROUPS[compare_group]))
+# negative group for ascending order (legacy reasons)
+common_energies = pp.ALL_GROUPS[-compare_group]
 
 energies1, values1 = None, None
 energies2, values2 = None, None

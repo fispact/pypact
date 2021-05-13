@@ -23,8 +23,6 @@ from pypact.input.fluxesfile import FluxesFile, ArbFluxesFile
 from pypact.input.filesfile import FilesFile
 from pypact.input.inputdata import InputData
 from pypact.input.serialization import to_file, from_file, to_string
-import pypact.input.groupconvert as groupconvert
-from pypact.input.groupstructures import ALL_GROUPS
 from pypact.input.keywords import CONTROL_KEYWORDS, \
     INIT_KEYWORDS, \
     INVENTORY_KEYWORDS, \
@@ -58,6 +56,8 @@ from pypact.library.reactionlib import REACTION_DICTIONARY, \
     getmt
 
 from pypact.library.spectrumlib import SpectrumLibJSONReader, SpectrumLibManager
+import pypact.library.groupconvert as groupconvert
+from pypact.library.groupstructures import ALL_GROUPS
 
 # utilities
 from pypact.util.exceptions import PypactException

@@ -18,7 +18,8 @@ class FluxesFileUnitTest(Tester):
         ff = pp.FluxesFile(name="test_set_1102group_only", norm=0.56)
         
         group = 1102
-        g = list(reversed(pp.ALL_GROUPS[group]))
+        # negative sign means ascending energies (legacy reasons)
+        g = pp.ALL_GROUPS[-group]
         
         ff.setGroup(group)
         self.assertEqual(group, len(ff), "Assert group")
@@ -35,7 +36,8 @@ class FluxesFileUnitTest(Tester):
         ff = pp.FluxesFile(name="test_set_709group_setValid", norm=1.0)
 
         group = 709
-        g = list(reversed(pp.ALL_GROUPS[group]))
+        # negative sign means ascending energies (legacy reasons)
+        g = pp.ALL_GROUPS[-group]
         
         ff.setGroup(group)
         self.assertEqual(group, len(ff), "Assert group")

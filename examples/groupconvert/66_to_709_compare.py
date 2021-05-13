@@ -3,7 +3,9 @@ import math
 import matplotlib.pyplot as plt
 import pypact as pp
 
-iflux = 'fluxes66.in'
+iflux = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), 'fluxes66.in'
+)
 
 # convert to group 709 via energy
 OUTPUT_GROUP = 709
@@ -13,7 +15,7 @@ pp.from_file(iff, iflux)
 
 
 def convert_flux(input_flux, group, by_energy=False):
-    output_group_bounds = list(reversed(pp.ALL_GROUPS[group]))
+    output_group_bounds = pp.ALL_GROUPS[-group]
     values = getattr(pp.groupconvert, "by_energy" if by_energy else "by_lethargy")(
         input_flux.boundaries, input_flux.values, output_group_bounds)
     output_flux = pp.FluxesFile()

@@ -1,6 +1,6 @@
 import os
 
-from pypact.input.groupstructures import ALL_GROUPS
+from pypact.library.groupstructures import ALL_GROUPS
 from pypact.util.decorators import freeze_it
 from pypact.util.jsonserializable import JSONSerializable
 from pypact.util.numerical import get_float, is_float

@@ -16,4 +16,4 @@ ff.setDecay('DECAY2020')
 ff.setRegulatory('DECAY')
 ff.setGammaAbsorb('DECAY')
 
-pp.to_file(ff, 'files')
+pp.to_file(ff, os.path.join('files', 'newfilesfile'))

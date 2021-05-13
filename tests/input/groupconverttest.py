@@ -98,6 +98,7 @@ class GroupConvertUnitTest(Tester):
                        [2.5, 7.833333333333331, 2.6666666666666687, 0.0], almost=True)
 
     def test_byenergy_709_to_single(self):
-        g_709 = list(reversed(pp.ALL_GROUPS[709]))
+        # negative sign means ascending energies (legacy reasons)
+        g_709 = pp.ALL_GROUPS[-709]
         self._test_imp(g_709, [1.0]*709, [1e6, 2e6],
                        [15.050386030584683], almost=True)

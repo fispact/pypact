@@ -5,7 +5,8 @@ import pypact as pp
 
 # convert to a common group
 compare_group = 709
-common_energies = list(reversed(pp.ALL_GROUPS[compare_group]))
+# negative sign measn in ascending order (legacy reasons)
+common_energies = pp.ALL_GROUPS[-compare_group]
 
 
 def plotbylethargy(energies, values, common_group=common_energies):

@@ -13,7 +13,8 @@ if logX:
 # cumulative plot    
 COLORS = ['k:', 'r:', 'b:', 'm:', 'c:', 'y:', 'g:', 'm', 'c', 'y','k', 'r', 'b', 'g' ]
 _ = plt.figure()
-for i, (group, renergies) in enumerate(pp.ALL_GROUPS.items()):
+ascendinggroups = [(-k, v) for k, v in pp.ALL_GROUPS.items() if k < 0]
+for i, (group, renergies) in enumerate(ascendinggroups):
     cumulative = []
     energies = list(reversed(renergies))
     for x in erange:

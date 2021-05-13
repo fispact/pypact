@@ -9,8 +9,9 @@ from pypact.output.timestep import TimeStep
 @freeze_it
 class Output(JSONSerializable):
     """
-        An object to represent the output
+    An object to represent the output
     """
+
     def __init__(self, ignorenuclides=False):
         self.run_data = RunData()
         self.inventory_data = []
@@ -25,7 +26,7 @@ class Output(JSONSerializable):
 
     def json_deserialize(self, j, objtype=object):
         super(Output, self).json_deserialize(j)
-        self.json_deserialize_list(j, 'inventory_data', TimeStep)
+        self.json_deserialize_list(j, "inventory_data", TimeStep)
 
     def fispact_deserialize(self, filerecord):
 
@@ -41,20 +42,20 @@ class Output(JSONSerializable):
 
 def ranked_nuclides(output: Output, ntop=20, prop="atoms", show_stable=True):
     """
-        Convenience function to sort the whole output by a
-        given property i.e. atoms or heat over all times in
-        the output.
+    Convenience function to sort the whole output by a
+    given property i.e. atoms or heat over all times in
+    the output.
 
-        Returns a list of tuples (name, value) sorted by the property with
-        the values representing those associated with the
-        property.
+    Returns a list of tuples (name, value) sorted by the property with
+    the values representing those associated with the
+    property.
     """
     allnuclides = defaultdict()
     for timestamp in output:
         for nuclide in timestamp.nuclides:
             name = nuclide.name
             value = getattr(nuclide, prop)
-            
+
             if (not nuclide.isstable or show_stable) and value > 0:
                 allnuclides[name] = max(allnuclides.get(name, 0), value)
 

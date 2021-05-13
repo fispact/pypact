@@ -3,14 +3,15 @@ from pypact.util.numerical import is_float, get_float
 from pypact.util.jsonserializable import JSONSerializable
 from pypact.library.nuclidelib import get_zai
 
-NUCLIDE_IGNORES = ['\n', '|', '>', '&', '?', '#']
+NUCLIDE_IGNORES = ["\n", "|", ">", "&", "?", "#"]
 
 
 @freeze_it
 class Nuclide(JSONSerializable):
     """
-        The nuclide type from the output
+    The nuclide type from the output
     """
+
     def __init__(self):
         self.element = ""
         self.isotope = 0
@@ -29,11 +30,11 @@ class Nuclide(JSONSerializable):
 
     @property
     def name(self):
-        return f"{self.element}{self.isotope}{self.state}" 
+        return f"{self.element}{self.isotope}{self.state}"
 
     @property
     def zai(self):
-        return get_zai(self.name) 
+        return get_zai(self.name)
 
     @property
     def isstable(self):
@@ -47,7 +48,7 @@ class Nuclide(JSONSerializable):
         # strip of the markers and ignores
         line = linedump[0]
         for i in NUCLIDE_IGNORES:
-            line = line.replace(i, '')
+            line = line.replace(i, "")
 
         # turn the line into a list
         strings = line.split()
@@ -72,7 +73,7 @@ class Nuclide(JSONSerializable):
         # Remove the isotope entry so that the entries now match with the header
         strings.pop(1)
 
-        assert(len(column_headers) == len(strings))
+        assert len(column_headers) == len(strings)
 
         def get_entry(header_name):
             column_index = index_containing_substring(column_headers, header_name)
@@ -83,20 +84,22 @@ class Nuclide(JSONSerializable):
 
             return 0.0
 
-        self.atoms = get_entry('ATOMS')
-        self.grams = get_entry('GRAMS')
-        self.activity = get_entry('Bq')
-        self.half_life = get_entry('HALF LIFE')
-        self.alpha_heat = get_entry('a-Energy')
-        self.beta_heat = get_entry('b-Energy')
-        self.gamma_heat = get_entry('g-Energy')
+        self.atoms = get_entry("ATOMS")
+        self.grams = get_entry("GRAMS")
+        self.activity = get_entry("Bq")
+        self.half_life = get_entry("HALF LIFE")
+        self.alpha_heat = get_entry("a-Energy")
+        self.beta_heat = get_entry("b-Energy")
+        self.gamma_heat = get_entry("g-Energy")
         # since the precision in the output file is to 4 significant figures of beta and gamma heats
         # we must set the precision to 4 significant figures for the total heat,
         # otherwise it is misleading to the user if they get 13.45999999999999999e-5 instead of 1.346e-4
-        self.heat = float("{0:.4g}".format(self.alpha_heat + self.beta_heat + self.gamma_heat))
-        self.dose = get_entry('DOSE RATE')
-        self.ingestion = get_entry('INGESTION')
-        self.inhalation = get_entry('INHALATION')
+        self.heat = float(
+            "{0:.4g}".format(self.alpha_heat + self.beta_heat + self.gamma_heat)
+        )
+        self.dose = get_entry("DOSE RATE")
+        self.ingestion = get_entry("INGESTION")
+        self.inhalation = get_entry("INHALATION")
 
 
 def index_containing_substring(the_list, substring):

@@ -23,37 +23,41 @@ from pypact.input.fluxesfile import FluxesFile, ArbFluxesFile
 from pypact.input.filesfile import FilesFile
 from pypact.input.inputdata import InputData
 from pypact.input.serialization import to_file, from_file, to_string
-from pypact.input.keywords import CONTROL_KEYWORDS, \
-    INIT_KEYWORDS, \
-    INVENTORY_KEYWORDS, \
-    OVER_SUBKEYWORDS, \
-    DEPRECATED_KEYWORDS
+from pypact.input.keywords import (
+    CONTROL_KEYWORDS,
+    INIT_KEYWORDS,
+    INVENTORY_KEYWORDS,
+    OVER_SUBKEYWORDS,
+    DEPRECATED_KEYWORDS,
+)
 
 # projectiles
-from pypact.library.projectiles import PROJECTILE_NEUTRON, \
-    PROJECTILE_DEUTERON, \
-    PROJECTILE_PROTON, \
-    PROJECTILE_ALPHA, \
-    PROJECTILE_GAMMA, \
-    get_projectile_name, \
-    get_projectile_symbol, \
-    get_projectile_value, \
-    VALID_PROJECTILE_NAMES, \
-    VALID_PROJECTILE_SYMBOLS, \
-    VALID_PROJECTILES
+from pypact.library.projectiles import (
+    PROJECTILE_NEUTRON,
+    PROJECTILE_DEUTERON,
+    PROJECTILE_PROTON,
+    PROJECTILE_ALPHA,
+    PROJECTILE_GAMMA,
+    get_projectile_name,
+    get_projectile_symbol,
+    get_projectile_value,
+    VALID_PROJECTILE_NAMES,
+    VALID_PROJECTILE_SYMBOLS,
+    VALID_PROJECTILES,
+)
 
 # library
-from pypact.library.nuclidelib import NUCLIDE_DICTIONARY, \
-    NUMBER_OF_ELEMENTS, \
-    NUMBER_OF_ISOTOPES, \
-    find_isotopes, \
-    find_element, \
-    find_z, \
-    get_all_isotopes
+from pypact.library.nuclidelib import (
+    NUCLIDE_DICTIONARY,
+    NUMBER_OF_ELEMENTS,
+    NUMBER_OF_ISOTOPES,
+    find_isotopes,
+    find_element,
+    find_z,
+    get_all_isotopes,
+)
 
-from pypact.library.reactionlib import REACTION_DICTIONARY, \
-    getreaction, \
-    getmt
+from pypact.library.reactionlib import REACTION_DICTIONARY, getreaction, getmt
 
 from pypact.library.spectrumlib import SpectrumLibJSONReader, SpectrumLibManager
 import pypact.library.groupconvert as groupconvert
@@ -65,4 +69,4 @@ from pypact.util.loglevels import *
 
 
 # This makes importing slow, keep it seperate
-#import pypact.analysis
+# import pypact.analysis

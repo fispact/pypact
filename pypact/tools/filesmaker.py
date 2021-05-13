@@ -10,29 +10,31 @@ from pypact.input.serialization import serialize, deserialize
 
 def main():
     # Command line argument support
-    parser = argparse.ArgumentParser(description='Files File Maker')
-    parser.add_argument('filesfile', type=argparse.FileType('w'),
-                        help='The fispact files file to create (files)')
-    parser.add_argument("-d", "--basedir", type=str,
-                        help='The base directory')
+    parser = argparse.ArgumentParser(description="Files File Maker")
+    parser.add_argument(
+        "filesfile",
+        type=argparse.FileType("w"),
+        help="The fispact files file to create (files)",
+    )
+    parser.add_argument("-d", "--basedir", type=str, help="The base directory")
     args = parser.parse_args()
 
     if args.basedir is None:
         args.basedir = os.sep
-    
+
     filename = args.filesfile.name
 
     try:
         ff = FilesFile(base_dir=args.basedir)
 
         # set paths here, example only now
-        ff.setXS('TENDL2017')
-        ff.setFissionYield('GEFY52')
-        ff.setProbTab('TENDL2015')
-        ff.setDecay('JEFF33')
-        ff.setRegulatory('DECAY')
-        ff.setGammaAbsorb('DECAY')
-        
+        ff.setXS("TENDL2017")
+        ff.setFissionYield("GEFY52")
+        ff.setProbTab("TENDL2015")
+        ff.setDecay("JEFF33")
+        ff.setRegulatory("DECAY")
+        ff.setGammaAbsorb("DECAY")
+
         invalids = ff.validate()
         if invalids:
             print("Warning: Invalid paths in files file!")

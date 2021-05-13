@@ -6,13 +6,13 @@ import pypact.util.propertyfinder as pf
 
 
 class FileRecord:
-    def __init__(self, filename, asstring=''):
+    def __init__(self, filename, asstring=""):
         """
         Cache the file content as a list of strings and process the timesteps
         :param filename:
         """
 
-        self.cachedlines = (asstring if asstring else content_as_str(filename))
+        self.cachedlines = asstring if asstring else content_as_str(filename)
         self._setup()
         self._process()
 
@@ -24,7 +24,6 @@ class FileRecord:
 
 
 class InventoryFileRecord(FileRecord):
-
     def _setup(self):
         self.lineindices = line_indices(self.cachedlines, TIME_STEP_HEADER)
         self.timesteps = []
@@ -46,7 +45,7 @@ class InventoryFileRecord(FileRecord):
         if len(l) == 1:
             return l[0]
 
-        return ''
+        return ""
 
     def cumulirradiationtime(self, interval):
         """
@@ -74,26 +73,34 @@ class InventoryFileRecord(FileRecord):
             if i < len(self.lineindices) - 1:
                 nt = self.lineindices[i + 1]
 
-            interval = int(pf.first(datadump=self.cachedlines[t:nt],
-                                    headertag=TIME_STEP_HEADER,
-                                    starttag=TIME_STEP_HEADER,
-                                    endtag='',
-                                    ignores=[],
-                                    asstring=False))
+            interval = int(
+                pf.first(
+                    datadump=self.cachedlines[t:nt],
+                    headertag=TIME_STEP_HEADER,
+                    starttag=TIME_STEP_HEADER,
+                    endtag="",
+                    ignores=[],
+                    asstring=False,
+                )
+            )
 
-            irrad_time = pf.first(datadump=self.cachedlines[t:nt],
-                                  headertag=TIME_STEP_HEADER,
-                                  starttag=IRRAD_TIME_TAG,
-                                  endtag='SECS',
-                                  ignores=[],
-                                  asstring=False)
+            irrad_time = pf.first(
+                datadump=self.cachedlines[t:nt],
+                headertag=TIME_STEP_HEADER,
+                starttag=IRRAD_TIME_TAG,
+                endtag="SECS",
+                ignores=[],
+                asstring=False,
+            )
 
-            cool_time = pf.first(datadump=self.cachedlines[t:nt],
-                                 headertag=TIME_STEP_HEADER,
-                                 starttag=COOLING_TIME_TAG,
-                                 endtag='SECS',
-                                 ignores=[],
-                                 asstring=False)
+            cool_time = pf.first(
+                datadump=self.cachedlines[t:nt],
+                headertag=TIME_STEP_HEADER,
+                starttag=COOLING_TIME_TAG,
+                endtag="SECS",
+                ignores=[],
+                asstring=False,
+            )
 
             self.timesteps.append((interval, self.cachedlines[t:nt]))
             self.irradiation_times.append(irrad_time)

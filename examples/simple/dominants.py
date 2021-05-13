@@ -19,7 +19,9 @@ NDOMINANTS = 10
 
 
 with pp.Reader(filename) as output:
-    doms = pp.dominants(output[TIMESTEP].nuclides, ntop=NDOMINANTS, prop=PROPERTY, show_stable=False)
+    doms = pp.dominants(
+        output[TIMESTEP].nuclides, ntop=NDOMINANTS, prop=PROPERTY, show_stable=False
+    )
 
     print(f"==== TOP {NDOMINANTS} NUCLIDES BY {PROPERTY} ====")
     for nuclide in doms:

@@ -12,7 +12,7 @@ def line_indices(lines, tag):
     return [l for l in range(len(lines)) if tag in lines[l]]
 
 
-def strings_from_line(line, linetag, ignoretags=[], endtag=''):
+def strings_from_line(line, linetag, ignoretags=[], endtag=""):
     """
 
     :param line: The string representing a line
@@ -32,7 +32,7 @@ def strings_from_line(line, linetag, ignoretags=[], endtag=''):
         if endindex < 0:
             endindex = len(line)
 
-    strings = (line[startindex + len(linetag):endindex]).split()
+    strings = (line[startindex + len(linetag) : endindex]).split()
 
     # trim
     for tag in ignoretags:
@@ -42,7 +42,7 @@ def strings_from_line(line, linetag, ignoretags=[], endtag=''):
     return strings
 
 
-def join_strings_from_line(line, linetag, ignoretags=[], endtag=''):
+def join_strings_from_line(line, linetag, ignoretags=[], endtag=""):
     """
 
     :param line: The string representing a line
@@ -54,7 +54,7 @@ def join_strings_from_line(line, linetag, ignoretags=[], endtag=''):
     """
     strings = strings_from_line(line, linetag, ignoretags, endtag)
 
-    return ' '.join(strings)
+    return " ".join(strings)
 
 
 def first_value_from_line(line, linetag, ignoretags=[]):
@@ -74,7 +74,7 @@ def first_value_from_line(line, linetag, ignoretags=[]):
 
     for s in strings:
         # strip off any common tags around numbers
-        s = s.replace(',', '').replace('*', '')
+        s = s.replace(",", "").replace("*", "")
         if is_float(s):
             return get_float(s)
 
@@ -106,7 +106,7 @@ def last_occurrence(lines, tag):
         line = lines[index]
         return index, line.strip()
     else:
-        return -1, ''
+        return -1, ""
 
 
 def next_occurrence(lines, tag, startindex=0):
@@ -119,9 +119,8 @@ def next_occurrence(lines, tag, startindex=0):
     """
     lineindices = line_indices(lines[startindex:], tag)
     if len(lineindices) > 0:
-        index = lineindices[0]+startindex
+        index = lineindices[0] + startindex
         line = lines[index]
         return index, line.strip()
     else:
-        return -1, ''
-
+        return -1, ""

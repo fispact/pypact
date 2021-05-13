@@ -4,13 +4,13 @@ import json
 # TODO[dvp] JSON serialization implementation is awfull
 #
 
-class JSONSerializable(object):
 
+class JSONSerializable(object):
     def json_serialize(self):
         def obj_dict(obj):
             new_dict = {}
             for k, v in obj.__dict__.items():
-                if '__' not in k:
+                if "__" not in k:
                     new_dict[k] = v
             return new_dict
 

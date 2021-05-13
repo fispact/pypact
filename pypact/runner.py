@@ -7,19 +7,25 @@ from pypact.util.file import file_remove, file_exists
 from pypact.util.exceptions import PypactFispactExecutableNotFoundException
 from pypact.util.decorators import time_it
 
-FISPACT_EXE_PATH = os.getenv('FISPACT', os.path.join(os.sep, 'opt', 'fispact', 'bin', 'fispact'))
+FISPACT_EXE_PATH = os.getenv(
+    "FISPACT", os.path.join(os.sep, "opt", "fispact", "bin", "fispact")
+)
 
 
 @time_it
-def compute(input, files, fluxes,
-            input_filename="fispacttemp.i",
-            files_filename="fispacttemp.files",
-            fluxes_filename="fispacttemp.fluxes",
-            cleanup=True):
+def compute(
+    input,
+    files,
+    fluxes,
+    input_filename="fispacttemp.i",
+    files_filename="fispacttemp.files",
+    fluxes_filename="fispacttemp.fluxes",
+    cleanup=True,
+):
 
     files.fluxes = fluxes_filename
-    runname = input_filename.strip('.i')
-    
+    runname = input_filename.strip(".i")
+
     # write all files
     to_file(input, input_filename)
     to_file(files, files_filename)
@@ -27,17 +33,21 @@ def compute(input, files, fluxes,
 
     # run fispact
     if not file_exists(FISPACT_EXE_PATH):
-        raise PypactFispactExecutableNotFoundException("Cannot find FISPACT-II binary. Instead got {}".format(FISPACT_EXE_PATH))
+        raise PypactFispactExecutableNotFoundException(
+            "Cannot find FISPACT-II binary. Instead got {}".format(FISPACT_EXE_PATH)
+        )
 
     print("* Running FISPACT-II...")
-    proc = subprocess.check_call("{} {} {}".format(FISPACT_EXE_PATH, runname, files_filename), shell=True)
+    proc = subprocess.check_call(
+        "{} {} {}".format(FISPACT_EXE_PATH, runname, files_filename), shell=True
+    )
     print("* Computation complete")
 
     # check for log file
-    logfile = "{}.log".format(runname)
+    logfile = f"{runname}.log"
     if not os.path.isfile(logfile):
         raise RuntimeError("No log file produced.")
-    
+
     # clean up input and log files - keep output file
     if cleanup:
         file_remove(input_filename)
@@ -45,7 +55,6 @@ def compute(input, files, fluxes,
         file_remove(fluxes_filename)
         file_remove(logfile)
 
-    outfile = "{}.out".format(runname)
+    outfile = f"{runname}.out"
     with Reader(outfile) as output:
         return output
-

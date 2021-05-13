@@ -4,7 +4,7 @@ import os
 import pypact as pp
 
 
-name_spectrum = '1102_PWR-MOX-40'
+name_spectrum = "1102_PWR-MOX-40"
 newgroup = 709
 
 with pp.SpectrumLibJSONReader() as lib:
@@ -16,6 +16,4 @@ with pp.SpectrumLibJSONReader() as lib:
     ff.values = newvalues
     ff.validate()
 
-    pp.to_file(ff, os.path.join('files', 'newfilesfile'))
-
-
+    pp.to_file(ff, os.path.join("files", "newfilesfile"))

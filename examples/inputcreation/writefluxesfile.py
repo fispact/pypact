@@ -17,6 +17,4 @@ flux.setValue(14.0e6, 1.0)
 # validate the data
 flux.validate()
 
-pp.to_file(flux, os.path.join('files', 'fluxes'))
-
-
+pp.to_file(flux, os.path.join("files", "fluxes"))

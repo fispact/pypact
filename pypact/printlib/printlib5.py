@@ -10,31 +10,33 @@ from pypact.reader import Reader
 
 @freeze_it
 class PrintLib5FileRecord(FileRecord):
-
     def _setup(self):
         indx = line_indices(self.cachedlines, PRINTLIB5_HEADER)
         assert len(indx) == 2
-        
+
         # remove title and next empty line
-        self.mean_start_index = indx[0]+ 2
+        self.mean_start_index = indx[0] + 2
         self.line_start_index = indx[1]
         self.nr_of_entries = 0
 
     def _process(self):
         if not line_indices(self.cachedlines, "Nuclide Nuclide Nuclide"):
             raise PypactNotPrintLib5FileException(
-                "Not a valid printlib5 file or SAVELINES was not used, as no spectral data exists.")
+                "Not a valid printlib5 file or SAVELINES was not used, as no spectral data exists."
+            )
 
         # off set start index to remove header (column titles are 2 lines)
         self.mean_start_index = self.mean_start_index + 2
         self.nr_of_entries = self.line_start_index - self.mean_start_index
 
+
 @freeze_it
 class SpectralLineData(JSONSerializable):
     """
-        Spectral line data
+    Spectral line data
     """
-    def __init__(self):    
+
+    def __init__(self):
         self.energies = []
         self.energies_unc = []
         self.intensities = []
@@ -46,12 +48,14 @@ class SpectralLineData(JSONSerializable):
         return len(self.energies)
 
     def __getitem__(self, index):
-        return (self.energies[index],
-                self.energies_unc[index],
-                self.intensities[index],
-                self.intensities_unc[index],
-                self.norms[index],
-                self.norms_unc[index])
+        return (
+            self.energies[index],
+            self.energies_unc[index],
+            self.intensities[index],
+            self.intensities_unc[index],
+            self.norms[index],
+            self.norms_unc[index],
+        )
 
     def addline(self, energy, energy_unc, intensity, intensity_unc, norm, norm_unc):
         self.energies.append(energy)
@@ -61,11 +65,13 @@ class SpectralLineData(JSONSerializable):
         self.norms.append(norm)
         self.norms_unc.append(norm_unc)
 
+
 @freeze_it
 class SpectralData(JSONSerializable):
     """
-        Spectral data
+    Spectral data
     """
+
     def __init__(self):
         self.name = ""
         self.zai = 0
@@ -81,7 +87,7 @@ class SpectralData(JSONSerializable):
     def fispact_deserialize(self, linedump):
         self.__init__()
 
-        line = linedump[0].strip('\n')
+        line = linedump[0].strip("\n")
 
         # fortran format is:
         # format(2x,a6,i8,i6,3x,a9,6x,i8,2x,es13.5,' +-',es12.5,es13.5,' +-',es12.5)
@@ -107,11 +113,13 @@ class SpectralData(JSONSerializable):
         self.mean_normalisation = get_float(line[78:91])
         self.mean_normalisation_unc = get_float(line[94:106])
 
+
 @freeze_it
 class PrintLib5(JSONSerializable):
     """
-        An object to represent the Printlib5 output
+    An object to represent the Printlib5 output
     """
+
     def __init__(self):
         self.spectral_data = []
         self.nr_of_zais = 0
@@ -124,7 +132,7 @@ class PrintLib5(JSONSerializable):
 
     def json_deserialize(self, j, objtype=object):
         super().json_deserialize(j)
-        self.json_deserialize_list(j, 'spectral_data', SpectralData)
+        self.json_deserialize_list(j, "spectral_data", SpectralData)
 
     def fispact_deserialize(self, filerecord):
         self.__init__()
@@ -135,35 +143,41 @@ class PrintLib5(JSONSerializable):
         # printlib file loops over ZAIs then loops over decay types
         for i in range(filerecord.nr_of_entries):
             spectral_data = SpectralData()
-            indx = filerecord.mean_start_index+i
-            spectral_data.fispact_deserialize(filerecord.cachedlines[indx:indx+1])
+            indx = filerecord.mean_start_index + i
+            spectral_data.fispact_deserialize(filerecord.cachedlines[indx : indx + 1])
             self.nr_of_zais = max(self.nr_of_zais, spectral_data.number)
 
             # due to a bug in FISPACT-II or nuclear data
             # the number of spectral_data.nr_of_lines can be 0 sometimes
             # with type not equal to "no spectral data"
-            # need to account for this 
-            if (spectral_data.nr_of_lines == 0) and (spectral_data.type != "no spectral data"):
+            # need to account for this
+            if (spectral_data.nr_of_lines == 0) and (
+                spectral_data.type != "no spectral data"
+            ):
                 self.spectral_data.append(spectral_data)
                 continue
 
-            if spectral_data.nr_of_lines > 0:            
+            if spectral_data.nr_of_lines > 0:
                 # next find the line data for that ZAI
                 # we know that FISPACT-II writes it in the same order as averages
-                line_data = filerecord.cachedlines[current_line_index:current_line_index+spectral_data.nr_of_lines]
+                line_data = filerecord.cachedlines[
+                    current_line_index : current_line_index + spectral_data.nr_of_lines
+                ]
                 current_line_index += spectral_data.nr_of_lines
                 # loop over decay types
                 for line in line_data:
                     # first 41 characters are redundant - information is same as in mean data section
-                    # format after is then 
+                    # format after is then
                     # (3(es13.5,' +-',es12.5))
                     d = line[41:]
-                    spectral_data.lines.addline(energy=float(d[:13]),
-                                                energy_unc=float(d[16:28]),
-                                                intensity=float(d[28:41]),
-                                                intensity_unc=float(d[44:56]),
-                                                norm=float(d[56:69]),
-                                                norm_unc=float(d[72:84]))
+                    spectral_data.lines.addline(
+                        energy=float(d[:13]),
+                        energy_unc=float(d[16:28]),
+                        intensity=float(d[28:41]),
+                        intensity_unc=float(d[44:56]),
+                        norm=float(d[56:69]),
+                        norm_unc=float(d[72:84]),
+                    )
                 assert spectral_data.nr_of_lines == len(spectral_data.lines)
             else:
                 current_line_index += 1
@@ -171,10 +185,12 @@ class PrintLib5(JSONSerializable):
             # append to data
             self.spectral_data.append(spectral_data)
 
+
 class PrintLib5Reader(Reader):
     """
-        It can read fispact printlib 5 file formats
+    It can read fispact printlib 5 file formats
     """
+
     def __init__(self, filename):
         super().__init__(filename)
         self.record = PrintLib5FileRecord(filename)

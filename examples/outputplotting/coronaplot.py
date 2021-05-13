@@ -80,7 +80,7 @@ def process_and_plot(
     cmap="gnuplot2_r",
     cell_border=True,
     vmin=None,
-    vmax=None
+    vmax=None,
 ):
     fig, ax = plt.subplots(figsize=(1500 / dpi, 800 / dpi), dpi=dpi)
 
@@ -144,5 +144,5 @@ with rdr(runname) as output:
         cmap="gnuplot2_r",
         cell_border=False,
         vmin=1,
-        vmax=1e18
+        vmax=1e18,
     )

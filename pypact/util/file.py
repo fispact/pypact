@@ -3,7 +3,7 @@ import os.path
 
 # Returns the content of the file as a string
 def content_as_str(filename):
-    with open(filename, 'r') as file:
+    with open(filename, "r") as file:
         data = file.readlines()
 
     return data
@@ -11,8 +11,8 @@ def content_as_str(filename):
 
 # Returns the content of the file as a string, and removes new lines.
 def content_as_str_noreturn(filename):
-    with open(filename, 'r') as file:
-        data = file.read().replace('\n', '')
+    with open(filename, "r") as file:
+        data = file.read().replace("\n", "")
 
     return data
 

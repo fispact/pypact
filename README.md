@@ -256,7 +256,7 @@ id.addCooling(100000.0)
 # validate data
 id.validate()
 # write to file
-pp.to_file(id, '{}.i'.format(id.name))
+pp.to_file(id, f'{id.name}.i')
 ...
 ```
 

@@ -23,10 +23,10 @@ headers = [
 
 
 def fmt(items):
-    str = "{:>20}".format(items[0])
+    str = f"{items[0]:>20}"
     for i in items:
-        str += ", {:>20}".format(i)
-    return "{}\n".format(str)
+        str += f", {i:>20}"
+    return f"{str}\n"
 
 
 with pp.Reader(runname) as output:

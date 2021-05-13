@@ -10,8 +10,8 @@ def freeze_it(cls):
     def frozensetattr(self, key, value):
         if self.__frozen and not hasattr(self, key):
             raise PypactFrozenException(
-                "Class {} is frozen. Cannot set {} = {}" .format(
-                    cls.__name__, key, value))
+                f"Class {cls.__name__} is frozen. Cannot set {key} = {value}"
+            )
         else:
             object.__setattr__(self, key, value)
 
@@ -35,13 +35,16 @@ def time_it(method):
         result = method(*args, **kwargs)
         te = time.time()
 
-        if 'runtime' in kwargs:
-            name = kwargs.get('runname', method.__name__.upper())
-            kwargs['runtime'][name] = int((te - ts))
-            kwargs['runtimeunit'][name] = "seconds"
+        if "runtime" in kwargs:
+            name = kwargs.get("runname", method.__name__.upper())
+            kwargs["runtime"][name] = int((te - ts))
+            kwargs["runtimeunit"][name] = "seconds"
         else:
             print(
-                ' *** Time taken for {0}:  {1:.4g} seconds'.format(method.__name__, (te - ts)))
+                " *** Time taken for {0}:  {1:.4g} seconds".format(
+                    method.__name__, (te - ts)
+                )
+            )
         return result
 
     return timed

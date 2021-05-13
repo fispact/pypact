@@ -6,7 +6,7 @@ from pypact.output.output import Output
 
 class Reader(object):
     """
-        It can read fispact out file formats
+    It can read fispact out file formats
     """
 
     def __init__(self, filename):
@@ -21,7 +21,7 @@ class Reader(object):
 
 class InventoryReader(Reader):
     """
-        It can read fispact out file formats
+    It can read fispact out file formats
     """
 
     def __init__(self, filename, ignorenuclides=False):
@@ -36,11 +36,11 @@ class InventoryReader(Reader):
 
 class JSONReader(InventoryReader):
     """
-        It can read JSON fispact file formats
+    It can read JSON fispact file formats
     """
 
     def __enter__(self):
-        with open(self.filename, 'rt') as f:
+        with open(self.filename, "rt") as f:
             self.output.json_deserialize(f.read())
 
         return self.output

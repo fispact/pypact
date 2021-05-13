@@ -5,14 +5,15 @@ from pypact.output.nuclide import Nuclide
 from pypact.output.tags import NUCLIDES_HEADER
 import pypact.util.propertyfinder as pf
 
-NUCLIDES_IGNORES = ['\n', '|']
+NUCLIDES_IGNORES = ["\n", "|"]
 
 
 @freeze_it
 class Nuclides(JSONSerializable):
     """
-        The nuclides type from the output
+    The nuclides type from the output
     """
+
     def __init__(self):
         self.nuclides = []
 
@@ -24,7 +25,7 @@ class Nuclides(JSONSerializable):
 
     def json_deserialize(self, j, objtype=object):
         super(Nuclides, self).json_deserialize(j)
-        self.json_deserialize_list(j, 'nuclides', Nuclide)
+        self.json_deserialize_list(j, "nuclides", Nuclide)
 
     def fispact_deserialize(self, filerecord, interval):
 
@@ -32,21 +33,23 @@ class Nuclides(JSONSerializable):
 
         substring = filerecord[interval]
 
-        nuclidetag = 'TOTAL NUMBER OF NUCLIDES PRINTED IN INVENTORY'
+        nuclidetag = "TOTAL NUMBER OF NUCLIDES PRINTED IN INVENTORY"
 
         def nr_of_nuclides():
-            number = pf.first(datadump=substring,
-                              headertag=NUCLIDES_HEADER,
-                              starttag=nuclidetag,
-                              endtag='',
-                              ignores=NUCLIDES_IGNORES,
-                              asstring=False)
+            number = pf.first(
+                datadump=substring,
+                headertag=NUCLIDES_HEADER,
+                starttag=nuclidetag,
+                endtag="",
+                ignores=NUCLIDES_IGNORES,
+                asstring=False,
+            )
             return int(number)
 
         # The column headers line is after the main nuclide header
         def get_header(index):
-            raw = substring[index].split('  ')
-            header = list(filter(''.__ne__, raw))
+            raw = substring[index].split("  ")
+            header = list(filter("".__ne__, raw))
             for ignore in NUCLIDES_IGNORES:
                 if ignore in header:
                     header = list(filter(ignore.__ne__, header))
@@ -61,18 +64,19 @@ class Nuclides(JSONSerializable):
 
         for n in range(i - nr_of_nuclides(), i):
             nuclide = Nuclide()
-            nuclide.fispact_deserialize(substring[n:],
-                                        column_headers=get_header(i - nr_of_nuclides()-3))
+            nuclide.fispact_deserialize(
+                substring[n:], column_headers=get_header(i - nr_of_nuclides() - 3)
+            )
             self.nuclides.append(nuclide)
 
 
 def dominants(nuclides: Nuclides, ntop=20, prop="atoms", show_stable=True):
     """
-        Return the nuclides sorted by the given property
+    Return the nuclides sorted by the given property
     """
     if not show_stable:
         nuclides = [nuc for nuc in nuclides if not nuc.isstable]
-    
+
     sorted_nuclides = sorted(
         nuclides,
         key=lambda x: getattr(x, prop),

@@ -9,19 +9,26 @@ class Edge:
 
     @property
     def width(self):
-        return (self.upper - self.lower)
+        return self.upper - self.lower
 
     @property
     def log_ratio(self):
         if self.lower <= 0:
             return 1
-        return math.log(self.upper/self.lower)
+        return math.log(self.upper / self.lower)
 
 
 def get_overlap(edge1, edge2):
     IS_LOWER, IS_UPPER = True, False
-    points = sorted([(edge1.lower, IS_LOWER), (edge1.upper, IS_UPPER),
-                     (edge2.lower, IS_LOWER), (edge2.upper, IS_UPPER)], key=lambda x: x[0])
+    points = sorted(
+        [
+            (edge1.lower, IS_LOWER),
+            (edge1.upper, IS_UPPER),
+            (edge2.lower, IS_LOWER),
+            (edge2.upper, IS_UPPER),
+        ],
+        key=lambda x: x[0],
+    )
     # the second item must be a lower point and the third item must be an upper point
     # for overlap
     overlap = points[1][1] == IS_LOWER and points[2][1] == IS_UPPER
@@ -31,21 +38,20 @@ def get_overlap(edge1, edge2):
 
 
 def _get_edges_from_bounds(bounds):
-    return [Edge(bound, bounds[i+1])
-            for i, bound in enumerate(bounds[:-1])]
+    return [Edge(bound, bounds[i + 1]) for i, bound in enumerate(bounds[:-1])]
 
 
 def _convert_imp(input_bounds, input_values, output_bounds, cfunc):
     """
-        Returns the output_values depending on the cfunc.
+    Returns the output_values depending on the cfunc.
 
-        output_bounds is a list of energies, units are irrelevant,
-        as long as it matches the units of the input_bounds.
+    output_bounds is a list of energies, units are irrelevant,
+    as long as it matches the units of the input_bounds.
 
-        Asserts both input and output bounds are of length greater than 1
+    Asserts both input and output bounds are of length greater than 1
 
-        Assumes that input and output bounds are in ascending energy. If not
-        then it will go unchecked and will produce odd results
+    Assumes that input and output bounds are in ascending energy. If not
+    then it will go unchecked and will produce odd results
     """
 
     assert len(output_bounds) > 1
@@ -61,9 +67,7 @@ def _convert_imp(input_bounds, input_values, output_bounds, cfunc):
             has_overlap, overlap_edge = get_overlap(iedge, oedge)
             if has_overlap:
                 last_overlap_index = i
-                output_value += cfunc(iedge,
-                                      input_values[i],
-                                      overlap_edge)
+                output_value += cfunc(iedge, input_values[i], overlap_edge)
 
             if not has_overlap and prev_has_overlap:
                 break
@@ -75,8 +79,7 @@ def _convert_imp(input_bounds, input_values, output_bounds, cfunc):
     last_index = 0
     output_values = []
     for edge in output_edges:
-        output_value, last_index = compute_overlap(
-            edge, last_overlap_index=last_index)
+        output_value, last_index = compute_overlap(edge, last_overlap_index=last_index)
         output_values.append(output_value)
 
     return output_values
@@ -84,13 +87,13 @@ def _convert_imp(input_bounds, input_values, output_bounds, cfunc):
 
 def by_energy(input_bounds, input_values, output_bounds):
     def cfunc(input_edge, input_value, overlapping_edge):
-        return overlapping_edge.width*input_value/input_edge.width
+        return overlapping_edge.width * input_value / input_edge.width
 
     return _convert_imp(input_bounds, input_values, output_bounds, cfunc)
 
 
 def by_lethargy(input_bounds, input_values, output_bounds):
     def cfunc(input_edge, input_value, overlapping_edge):
-        return overlapping_edge.log_ratio*input_value/input_edge.log_ratio
+        return overlapping_edge.log_ratio * input_value / input_edge.log_ratio
 
     return _convert_imp(input_bounds, input_values, output_bounds, cfunc)

@@ -11,23 +11,21 @@ common_energies = pp.ALL_GROUPS[-compare_group]
 
 def plotbylethargy(energies, values, common_group=common_energies):
     # scale the values by lethargy
-    newvalues = pp.groupconvert.by_lethargy(
-        energies, values, common_group)
+    newvalues = pp.groupconvert.by_lethargy(energies, values, common_group)
     x = []
     y = []
     for i, value in enumerate(newvalues):
-        scaledValue = lethargy = value / \
-            math.log(common_group[i+1]/common_group[i])
+        scaledValue = lethargy = value / math.log(common_group[i + 1] / common_group[i])
         x.append(common_group[i])
         y.append(scaledValue)
-        x.append(common_group[i+1])
+        x.append(common_group[i + 1])
         y.append(scaledValue)
     return x, y
 
 
-def get_cmap(n, name='hsv'):
-    '''Returns a function that maps each index in 0, 1, ..., n-1 to a distinct 
-    RGB color; the keyword argument name must be a standard mpl colormap name.'''
+def get_cmap(n, name="hsv"):
+    """Returns a function that maps each index in 0, 1, ..., n-1 to a distinct
+    RGB color; the keyword argument name must be a standard mpl colormap name."""
     return plt.cm.get_cmap(name, n)
 
 

@@ -7,24 +7,32 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 
-class ColouredChartOfNuclidesPlot():
+class ColouredChartOfNuclidesPlot:
     """
-        A simple object that produces a chart of the nuclides
-        plot.
+    A simple object that produces a chart of the nuclides
+    plot.
 
-        TODO: Currently builds on matplotlib, but need to allow for
-        other plotting libraries.
+    TODO: Currently builds on matplotlib, but need to allow for
+    other plotting libraries.
     """
 
     color_engine = colors
     plt_engine = plt
 
-    def __init__(self, data_matrix=None, figsize=(12, 8), cmap='gnuplot_r',
-                 vmin=1e10, vmax=1e20, prop='atoms', colourbar=True):
+    def __init__(
+        self,
+        data_matrix=None,
+        figsize=(12, 8),
+        cmap="gnuplot_r",
+        vmin=1e10,
+        vmax=1e20,
+        prop="atoms",
+        colourbar=True,
+    ):
 
         # must contain white
         self._cmap = mpl.cm.get_cmap(cmap)
-        self._cmap.set_under('w')
+        self._cmap.set_under("w")
 
         self.property = prop
 
@@ -64,82 +72,182 @@ class ColouredChartOfNuclidesPlot():
     @classmethod
     def _mappingfunc(cls, Z, A):
         """
-            Return X, Y position where A is on X
-            and Z is on Y.
+        Return X, Y position where A is on X
+        and Z is on Y.
 
-            Note different to input!        
+        Note different to input!
         """
         # split chart into four pieces
         if Z <= 24:
-            return int(A+15), int(Z+58)
+            return int(A + 15), int(Z + 58)
         elif Z <= 64:
-            return int(A-40), int(Z+8)
+            return int(A - 40), int(Z + 8)
         elif Z <= 94:
-            return int(A-125), int(Z-52)
+            return int(A - 125), int(Z - 52)
         else:
-            return int(A-178), int(Z-90)
+            return int(A - 178), int(Z - 90)
 
     def _makelabels(self):
         X, Y = self._mappingfunc(1, 1)
-        self.plt_engine.text(X-4, Y, r'Z', fontsize=18)
-        self.plt_engine.text(X, Y-4, r'N', fontsize=18)
+        self.plt_engine.text(X - 4, Y, r"Z", fontsize=18)
+        self.plt_engine.text(X, Y - 4, r"N", fontsize=18)
 
         # Z arrow
-        self.plt_engine.arrow(X-3, Y+3, 0, 4, fc='k', ec='k', alpha=1.0, width=0.1,
-                              head_width=1, head_length=None)
+        self.plt_engine.arrow(
+            X - 3,
+            Y + 3,
+            0,
+            4,
+            fc="k",
+            ec="k",
+            alpha=1.0,
+            width=0.1,
+            head_width=1,
+            head_length=None,
+        )
 
         # N arrow
-        self.plt_engine.arrow(X+3, Y-3, 4, 0, fc='k', ec='k', alpha=1.0, width=0.1,
-                              head_width=1, head_length=None)
+        self.plt_engine.arrow(
+            X + 3,
+            Y - 3,
+            4,
+            0,
+            fc="k",
+            ec="k",
+            alpha=1.0,
+            width=0.1,
+            head_width=1,
+            head_length=None,
+        )
 
         # identify key elements
         # Hydrogen
         X, Y = self._mappingfunc(1, 5)
-        self.plt_engine.text(X-0.5+10, Y-0.5, r'Hydrogen', fontsize=10)
-        self.plt_engine.arrow(X-0.5, Y-0.5, 10, 0, fc='k', ec='k', alpha=0.5, width=0.05,
-                              head_width=0, head_length=0)
+        self.plt_engine.text(X - 0.5 + 10, Y - 0.5, r"Hydrogen", fontsize=10)
+        self.plt_engine.arrow(
+            X - 0.5,
+            Y - 0.5,
+            10,
+            0,
+            fc="k",
+            ec="k",
+            alpha=0.5,
+            width=0.05,
+            head_width=0,
+            head_length=0,
+        )
 
         # Chromium
         X, Y = self._mappingfunc(24, 54)
-        self.plt_engine.text(X-0.5+20, Y-0.5, r'Chromium', fontsize=10)
-        self.plt_engine.arrow(X-0.5, Y-0.5, 20, 0, fc='k', ec='k', alpha=0.5, width=0.05,
-                              head_width=0, head_length=0)
+        self.plt_engine.text(X - 0.5 + 20, Y - 0.5, r"Chromium", fontsize=10)
+        self.plt_engine.arrow(
+            X - 0.5,
+            Y - 0.5,
+            20,
+            0,
+            fc="k",
+            ec="k",
+            alpha=0.5,
+            width=0.05,
+            head_width=0,
+            head_length=0,
+        )
 
         # Manganese
         X, Y = self._mappingfunc(25, 60)
-        self.plt_engine.text(X-0.5+20, Y-0.5, r'Manganese', fontsize=10)
-        self.plt_engine.arrow(X-0.5, Y-0.5, 20, 0, fc='k', ec='k', alpha=0.5, width=0.05,
-                              head_width=0, head_length=0)
+        self.plt_engine.text(X - 0.5 + 20, Y - 0.5, r"Manganese", fontsize=10)
+        self.plt_engine.arrow(
+            X - 0.5,
+            Y - 0.5,
+            20,
+            0,
+            fc="k",
+            ec="k",
+            alpha=0.5,
+            width=0.05,
+            head_width=0,
+            head_length=0,
+        )
 
         # Gadolinium
         X, Y = self._mappingfunc(64, 160)
-        self.plt_engine.text(X-0.5+10, Y-0.5, r'Gadolinium', fontsize=10)
-        self.plt_engine.arrow(X-0.5, Y-0.5, 10, 0, fc='k', ec='k', alpha=0.5, width=0.05,
-                              head_width=0, head_length=0)
+        self.plt_engine.text(X - 0.5 + 10, Y - 0.5, r"Gadolinium", fontsize=10)
+        self.plt_engine.arrow(
+            X - 0.5,
+            Y - 0.5,
+            10,
+            0,
+            fc="k",
+            ec="k",
+            alpha=0.5,
+            width=0.05,
+            head_width=0,
+            head_length=0,
+        )
 
         # Terbium
         X, Y = self._mappingfunc(65, 160)
-        self.plt_engine.text(X-0.5+20, Y-0.5, r'Terbium', fontsize=10)
-        self.plt_engine.arrow(X-0.5, Y-0.5, 20, 0, fc='k', ec='k', alpha=0.5, width=0.05,
-                              head_width=0, head_length=0)
+        self.plt_engine.text(X - 0.5 + 20, Y - 0.5, r"Terbium", fontsize=10)
+        self.plt_engine.arrow(
+            X - 0.5,
+            Y - 0.5,
+            20,
+            0,
+            fc="k",
+            ec="k",
+            alpha=0.5,
+            width=0.05,
+            head_width=0,
+            head_length=0,
+        )
 
         # Plutonium
         X, Y = self._mappingfunc(94, 235)
-        self.plt_engine.text(X-0.5+15, Y-0.5, r'Plutonium', fontsize=10)
-        self.plt_engine.arrow(X-0.5, Y-0.5, 15, 0, fc='k', ec='k', alpha=0.5, width=0.05,
-                              head_width=0, head_length=0)
+        self.plt_engine.text(X - 0.5 + 15, Y - 0.5, r"Plutonium", fontsize=10)
+        self.plt_engine.arrow(
+            X - 0.5,
+            Y - 0.5,
+            15,
+            0,
+            fc="k",
+            ec="k",
+            alpha=0.5,
+            width=0.05,
+            head_width=0,
+            head_length=0,
+        )
 
         # Americium
         X, Y = self._mappingfunc(95, 240)
-        self.plt_engine.text(X-0.5+20, Y-0.5, r'Americium', fontsize=10)
-        self.plt_engine.arrow(X-0.5, Y-0.5, 20, 0, fc='k', ec='k', alpha=0.5, width=0.05,
-                              head_width=0, head_length=0)
+        self.plt_engine.text(X - 0.5 + 20, Y - 0.5, r"Americium", fontsize=10)
+        self.plt_engine.arrow(
+            X - 0.5,
+            Y - 0.5,
+            20,
+            0,
+            fc="k",
+            ec="k",
+            alpha=0.5,
+            width=0.05,
+            head_width=0,
+            head_length=0,
+        )
 
         # Oganesson
         X, Y = self._mappingfunc(118, 294)
-        self.plt_engine.text(X-0.5+5, Y-0.5, r'Oganesson', fontsize=10)
-        self.plt_engine.arrow(X-0.5, Y-0.5, 5, 0, fc='k', ec='k', alpha=0.5, width=0.05,
-                              head_width=0, head_length=0)
+        self.plt_engine.text(X - 0.5 + 5, Y - 0.5, r"Oganesson", fontsize=10)
+        self.plt_engine.arrow(
+            X - 0.5,
+            Y - 0.5,
+            5,
+            0,
+            fc="k",
+            ec="k",
+            alpha=0.5,
+            width=0.05,
+            head_width=0,
+            head_length=0,
+        )
 
     def _makechart(self):
         import matplotlib.patches as patches
@@ -149,21 +257,28 @@ class ColouredChartOfNuclidesPlot():
         mZ = -1
         mA = -1
         for d in pp.NUCLIDE_DICTIONARY:
-            for i in d['isotopes']:
-                mZ = max(mZ, d['Z'])
+            for i in d["isotopes"]:
+                mZ = max(mZ, d["Z"])
                 mA = max(mA, i)
 
-                X, Y = self._mappingfunc(d['Z'], i)
+                X, Y = self._mappingfunc(d["Z"], i)
                 self.all_isotopes.append((X, Y))
-                self.ax.add_patch(patches.Rectangle((X-0.5, Y-0.5), 1, 1,
-                                                    linewidth=2, edgecolor='k',
-                                                    facecolor='none'))
+                self.ax.add_patch(
+                    patches.Rectangle(
+                        (X - 0.5, Y - 0.5),
+                        1,
+                        1,
+                        linewidth=2,
+                        edgecolor="k",
+                        facecolor="none",
+                    )
+                )
 
     def _setbackground(self):
         """
-            Since we make use of imshow and the whole figure
-            is a matrix, we need to change the background colour 
-            to white to hide the fact we are using imshow
+        Since we make use of imshow and the whole figure
+        is a matrix, we need to change the background colour
+        to white to hide the fact we are using imshow
         """
         # set everything that is not in the nuclide chart to white
         for x in range(self.__XSIZE):
@@ -192,8 +307,9 @@ class ColouredChartOfNuclidesPlot():
             self._makelabels()
 
         self.im = self.plt_engine.imshow(
-            self.data_matrix, cmap=self._cmap, norm=self.norm)
-        self.ax.axis('off')
+            self.data_matrix, cmap=self._cmap, norm=self.norm
+        )
+        self.ax.axis("off")
         self.plt_engine.xlabel("A", fontsize=16)
         self.plt_engine.ylabel("Z", fontsize=16)
         self.plt_engine.xlim([0, self.__XSIZE])
@@ -205,8 +321,9 @@ class ColouredChartOfNuclidesPlot():
             right = 0.95
             top = 0.95
             bottom = 0.05
-        self.plt_engine.subplots_adjust(left=0.01, bottom=bottom, right=right,
-                                        top=top, wspace=None, hspace=None)
+        self.plt_engine.subplots_adjust(
+            left=0.01, bottom=bottom, right=right, top=top, wspace=None, hspace=None
+        )
         # fig.colorbar(im, cax = fig.add_axes([0.91, 0.2, 0.03, 0.6]))
 
         return self.im
@@ -222,16 +339,18 @@ class ColouredChartOfNuclidesPlot():
 """
     Main script 
 """
-FILENAME = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                        '..', '..', 'reference', 'AlVC.json')
+FILENAME = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", "reference", "AlVC.json"
+)
 
-PROPERTY = 'activity'
+PROPERTY = "activity"
 THRESHOLD = 1e1
 
 data_matrices = []
 
 chart = ColouredChartOfNuclidesPlot(
-    cmap='gnuplot_r', vmin=THRESHOLD, vmax=1e11, prop=PROPERTY)
+    cmap="gnuplot_r", vmin=THRESHOLD, vmax=1e11, prop=PROPERTY
+)
 # chart.setcolourallnuclides('grey')
 chart.setupplot(includelabels=True)
 
@@ -250,11 +369,12 @@ with pp.JSONReader(FILENAME) as output:
 
 
 def animate(matrix):
-    return chart.update(matrix),
+    return (chart.update(matrix),)
 
 
 anim = animation.FuncAnimation(
-    chart.fig, animate, data_matrices, interval=1, blit=False)
+    chart.fig, animate, data_matrices, interval=1, blit=False
+)
 
 # anim.save('anim.gif', writer='imagemagick', fps=10)
 chart.show()

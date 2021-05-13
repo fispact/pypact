@@ -10,8 +10,9 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 import pypact as pp
 
-filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-    '..', '..', 'reference', 'printlib5.out')
+filename = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", "reference", "printlib5.out"
+)
 
 logX = True
 
@@ -34,9 +35,9 @@ for x in tqdm(X):
     cumulative.append(count)
 
 if logX:
-    plt.loglog(X, cumulative, color='k', linewidth=3, alpha=1.0)
+    plt.loglog(X, cumulative, color="k", linewidth=3, alpha=1.0)
 else:
-    plt.semilogy(X, cumulative, color='k', linewidth=3, alpha=1.0)
+    plt.semilogy(X, cumulative, color="k", linewidth=3, alpha=1.0)
 plt.xlabel("Energy (eV)")
 plt.ylabel("Cumulative number of lines")
 plt.show()

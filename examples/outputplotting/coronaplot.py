@@ -6,7 +6,6 @@
 """
 
 import os
-import math
 import numpy as np
 from collections import defaultdict
 
@@ -17,17 +16,6 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 import pypact as pp
 from pypact.util.time import get_time_string
 
-# change the filename here
-runname = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", "..", "reference", "test31.out"
-)
-
-MAX_TIMESTEPS = 200
-TOP_NUCLIDES = 40
-PROP = "activity"
-LOG = True
-CMAP = "gnuplot2_r"
-SHOW_STABLE = False
 
 def highlight_cell(x, y, ax=None, **kwargs):
     rect = plt.Rectangle((x - 0.5, y - 0.5), 1, 1, fill=False, **kwargs)
@@ -36,11 +24,30 @@ def highlight_cell(x, y, ax=None, **kwargs):
     return rect
 
 
-def make_mat(output, ax=None, prop="atoms"):
+def sorted_top_nuclides(output, ntop=100, prop="atoms", show_stable=False):
+    allnuclides = defaultdict()
+    for timestamp in output:
+        for nuclide in timestamp.nuclides:
+            name = nuclide.name
+            value = getattr(nuclide, prop)
+            # ignore unstable nuclides which have short halflives
+            # compared to the timestep - take 10% of timestep here as cutoff
+            ss = show_stable and nuclide.half_life == 0.0
+            if value > 0 and ((nuclide.half_life > timestamp.duration * 0.1) or ss):
+                allnuclides[name] = max(allnuclides.get(name, 0), value)
+
+    # sort nuclides based on the property
+    sortednuclides = sorted(allnuclides, key=allnuclides.get, reverse=True)
+    return sortednuclides[:ntop]
+
+
+def make_mat(
+    output, ax=None, prop="atoms", ntop=40, max_timesteps=200, cell_border=True
+):
     min_value, max_value = 0.0, 0.0
-    nuclides = sorted_top_nuclides(output, ntop=TOP_NUCLIDES, prop=prop)
-    ntimesteps = min(MAX_TIMESTEPS, len(output))
-    mat = np.zeros((ntimesteps, TOP_NUCLIDES + 1))
+    nuclides = sorted_top_nuclides(output, ntop=ntop, prop=prop)
+    ntimesteps = min(max_timesteps, len(output))
+    mat = np.zeros((ntimesteps, ntop + 1))
     times = []
     for i, timestamp in enumerate(output[:ntimesteps]):
         times.append(get_time_string(timestamp.currenttime))
@@ -57,65 +64,85 @@ def make_mat(output, ax=None, prop="atoms"):
             min_value = min(min_value, mat_value)
             max_value = max(max_value, mat_value)
             mat[i, index] = mat_value
-            highlight_cell(i, index, ax=ax, color="k", linewidth=0.2)
+            if cell_border:
+                highlight_cell(i, index, ax=ax, color="k", linewidth=0.2)
     return mat.T, nuclides, times, min_value, max_value
 
 
-def sorted_top_nuclides(output, ntop=100, prop="atoms"):
-    allnuclides = defaultdict()
-    for timestamp in output:
-        for nuclide in timestamp.nuclides:
-            name = nuclide.name
-            value = getattr(nuclide, prop)
-            # ignore unstable nuclides which have short halflives
-            # compared to the timestep - take 10% of timestep here as cutoff
-            show_stable = SHOW_STABLE and nuclide.half_life == 0.0
-            if value > 0 and (
-                (nuclide.half_life > timestamp.duration * 0.1) or show_stable
-            ):
-                allnuclides[name] = max(allnuclides.get(name, 0), value)
+def process_and_plot(
+    output,
+    prop="activity",
+    log_norm=True,
+    ntop=40,
+    max_timesteps=200,
+    save_plot="coronaplot.png",
+    dpi=200,
+    cmap="gnuplot2_r",
+    cell_border=True,
+    vmin=None,
+    vmax=None
+):
+    fig, ax = plt.subplots(figsize=(1500 / dpi, 800 / dpi), dpi=dpi)
 
-    # sort nuclides based on the property
-    sortednuclides = sorted(allnuclides, key=allnuclides.get, reverse=True)
-    return sortednuclides[:ntop]
-
-
-my_dpi = 200
-fig, ax = plt.subplots(figsize=(1500/my_dpi, 800/my_dpi), dpi=my_dpi)
-
-with pp.Reader(runname) as output:
-    mat, nuclides, times, min_value, max_value = make_mat(output, prop=PROP, ax=ax)
-    # if LOG and max_value > 0:
-    #     max_value = math.log10(max_value)
+    mat, nuclides, times, min_value, max_value = make_mat(
+        output,
+        prop=prop,
+        ax=ax,
+        ntop=ntop,
+        max_timesteps=max_timesteps,
+        cell_border=cell_border,
+    )
+    vmin = max(1, min_value) if vmin is None else vmin
+    vmax = max_value if vmin is None else vmax
     norm = (
-        LogNorm(vmin=max(1, min_value), vmax=max_value)
-        if LOG
-        else Normalize(vmin=max(0, min_value), vmax=max_value)
+        LogNorm(vmin=vmin, vmax=vmax)
+        if log_norm
+        else Normalize(vmin=max(0, vmin), vmax=vmax)
     )
 
-    im = ax.imshow(mat, cmap=CMAP, norm=norm, aspect="auto")
+    im = ax.imshow(mat, cmap=cmap, norm=norm, aspect="auto")
+
+    plt.title(f"Top {len(nuclides)} ranked by {prop}", fontsize=12)
+    plt.xlabel("time", fontsize=10)
+    plt.ylabel("nuclide", fontsize=10)
+
+    # show only every nth tick
+    ticktimes = [time if i % 5 == 0 else "" for i, time in enumerate(times)]
+    ax.set_xticks(np.arange(len(ticktimes)))
+    ax.set_xticklabels(ticktimes, ha="right", fontsize=4, rotation=-90)
+    ax.set_yticks(np.arange(len(nuclides)))
+    ax.set_yticklabels([f"{n}" for n in nuclides], ha="right", fontsize=4)
+    ax.set_ylim(len(nuclides), -1)
+
+    # create an axes on the right side of ax. The width of cax will be 5%
+    # of ax and the padding between cax and ax will be fixed at 0.05 inch.
+    divider = make_axes_locatable(ax)
+    cax = divider.append_axes("right", size="5%", pad=0.05)
+    plt.colorbar(im, cax=cax, fraction=0.046, pad=0.04)
+    plt.tight_layout()
+
+    if save_plot is not None:
+        plt.savefig(save_plot, dpi=dpi)
+    else:
+        plt.show()
 
 
-titlestr = "log" if LOG else ""
-plt.title(f"Top {TOP_NUCLIDES} ranked by {titlestr} {PROP}", fontsize=12)
-plt.xlabel("time", fontsize=10)
-plt.ylabel("nuclide", fontsize=10)
+# main
+runname = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", "reference", "AlVC.json"
+)
 
-# show only every nth tick
-ticktimes = [time if i % 5 == 0 else "" for i, time in enumerate(times)]
-ax.set_xticks(np.arange(len(ticktimes)))
-ax.set_xticklabels(ticktimes, ha="right", fontsize=4, rotation = -90)
-ax.set_yticks(np.arange(TOP_NUCLIDES))
-ax.set_yticklabels([f"{n}" for n in nuclides], ha="right", fontsize=4)
-# ax.set_ylim(-1, TOP_NUCLIDES)
-ax.set_ylim(TOP_NUCLIDES, -1)
-
-# create an axes on the right side of ax. The width of cax will be 5%
-# of ax and the padding between cax and ax will be fixed at 0.05 inch.
-divider = make_axes_locatable(ax)
-cax = divider.append_axes("right", size="5%", pad=0.05)
-plt.colorbar(im, cax=cax, fraction=0.046, pad=0.04)
-plt.tight_layout()
-
-# plt.show()
-plt.savefig('coronaplot.png', dpi=my_dpi)
+rdr = pp.JSONReader if runname.endswith(".json") else pp.Reader
+with rdr(runname) as output:
+    process_and_plot(
+        output,
+        prop="activity",
+        ntop=100,
+        max_timesteps=600,
+        save_plot="coronaplot.png",
+        dpi=200,
+        cmap="gnuplot2_r",
+        cell_border=False,
+        vmin=1,
+        vmax=1e18
+    )

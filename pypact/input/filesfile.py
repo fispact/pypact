@@ -126,6 +126,15 @@ NUCLEAR_LIBS = {
                 'a2data'  : os.path.join('decay', 'a2_2012'),
                 'absorp'  : os.path.join('decay', 'abs_2012'),
             },
+            'DECAY2020':
+            {
+                'ind_nuc' : os.path.join('decay', 'decay_2020_index.txt'),
+                'dk_endf' : os.path.join('decay', 'decay_2020'),
+                'hazards' : os.path.join('decay', 'hazards_2012'),
+                'clear'   : os.path.join('decay', 'clear_2012'),
+                'a2data'  : os.path.join('decay', 'a2_2012'),
+                'absorp'  : os.path.join('decay', 'abs_2012'),
+            },
 }
 
 @freeze_it

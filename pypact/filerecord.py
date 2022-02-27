@@ -1,8 +1,10 @@
 from itertools import accumulate
+
+import pypact.util.propertyfinder as pf
+from pypact.output.tags import (COOLING_TIME_TAG, IRRAD_TIME_TAG,
+                                TIME_STEP_HEADER)
 from pypact.util.file import content_as_str
 from pypact.util.lines import line_indices
-from pypact.output.tags import TIME_STEP_HEADER, IRRAD_TIME_TAG, COOLING_TIME_TAG
-import pypact.util.propertyfinder as pf
 
 
 class FileRecord:

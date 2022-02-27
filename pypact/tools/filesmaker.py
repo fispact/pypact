@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-import sys
 import argparse
 import os
+import sys
 
-from pypact.util.exceptions import PypactException
 from pypact.input.filesfile import FilesFile
-from pypact.input.serialization import serialize, deserialize
+from pypact.input.serialization import deserialize, serialize
+from pypact.util.exceptions import PypactException
 
 
 def main():

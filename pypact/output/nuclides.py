@@ -1,9 +1,9 @@
-from pypact.util.decorators import freeze_it
-from pypact.util.lines import first_occurrence
-from pypact.util.jsonserializable import JSONSerializable
+import pypact.util.propertyfinder as pf
 from pypact.output.nuclide import Nuclide
 from pypact.output.tags import NUCLIDES_HEADER
-import pypact.util.propertyfinder as pf
+from pypact.util.decorators import freeze_it
+from pypact.util.jsonserializable import JSONSerializable
+from pypact.util.lines import first_occurrence
 
 NUCLIDES_IGNORES = ["\n", "|"]
 

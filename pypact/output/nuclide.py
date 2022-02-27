@@ -1,7 +1,7 @@
-from pypact.util.decorators import freeze_it
-from pypact.util.numerical import is_float, get_float
-from pypact.util.jsonserializable import JSONSerializable
 from pypact.library.nuclidelib import get_zai
+from pypact.util.decorators import freeze_it
+from pypact.util.jsonserializable import JSONSerializable
+from pypact.util.numerical import get_float, is_float
 
 NUCLIDE_IGNORES = ["\n", "|", ">", "&", "?", "#"]
 

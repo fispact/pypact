@@ -20,12 +20,12 @@ from tests.input.inputdatatest import InputDataUnitTest
 from tests.input.filesfiletest import FilesFileUnitTest
 from tests.input.fluxesfiletest import FluxesFileUnitTest
 from tests.input.keywordstest import KeywordsUnitTest
-from tests.input.groupconverttest import GroupConvertUnitTest
-from tests.input.groupstructurestest import GroupStructuresUnitTest
-from tests.input.projectilestest import ProjectilesUnitTest
 
 from tests.library.nuclidelibtest import NuclideLibUnitTest
 from tests.library.reactionlibtest import ReactionLibUnitTest
+from tests.library.groupconverttest import GroupConvertUnitTest
+from tests.library.groupstructurestest import GroupStructuresUnitTest
+from tests.library.projectilestest import ProjectilesUnitTest
 
 
 def main():

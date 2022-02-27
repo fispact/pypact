@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-import sys
 import argparse
+import sys
 
 from pypact.reader import InventoryReader as Reader
 from pypact.util.exceptions import PypactException

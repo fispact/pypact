@@ -1,9 +1,9 @@
-from pypact.util.decorators import freeze_it
-from pypact.util.numerical import get_float
-from pypact.util.lines import first_value_from_line, strings_from_line
-from pypact.util.jsonserializable import JSONSerializable
-from pypact.output.tags import DOSE_RATE_HEADER
 import pypact.util.propertyfinder as pf
+from pypact.output.tags import DOSE_RATE_HEADER
+from pypact.util.decorators import freeze_it
+from pypact.util.jsonserializable import JSONSerializable
+from pypact.util.lines import first_value_from_line, strings_from_line
+from pypact.util.numerical import get_float
 
 DOSE_RATE_IGNORES = ["\n", "|"]
 

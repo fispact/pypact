@@ -2,13 +2,10 @@ import os
 
 from pypact.library.groupstructures import ALL_GROUPS
 from pypact.util.decorators import freeze_it
+from pypact.util.exceptions import (PypactDeserializeException,
+                                    PypactException, PypactOutOfRangeException)
 from pypact.util.jsonserializable import JSONSerializable
 from pypact.util.numerical import get_float, is_float
-from pypact.util.exceptions import (
-    PypactException,
-    PypactOutOfRangeException,
-    PypactDeserializeException,
-)
 
 
 @freeze_it

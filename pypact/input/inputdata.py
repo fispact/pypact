@@ -1,13 +1,12 @@
 import os
 
+from pypact.library.projectiles import PROJECTILE_NEUTRON, VALID_PROJECTILES
 from pypact.util.decorators import freeze_it
-from pypact.util.exceptions import PypactOutOfRangeException
-from pypact.util.exceptions import PypactInvalidOptionException
-from pypact.util.exceptions import PypactIncompatibleOptionException
+from pypact.util.exceptions import (PypactIncompatibleOptionException,
+                                    PypactInvalidOptionException,
+                                    PypactOutOfRangeException)
 from pypact.util.jsonserializable import JSONSerializable
 from pypact.util.loglevels import *
-from pypact.library.projectiles import PROJECTILE_NEUTRON, VALID_PROJECTILES
-from pypact.input.keywords import CONTROL_KEYWORDS, INIT_KEYWORDS, INVENTORY_KEYWORDS
 
 COMMENT_START = "<<"
 COMMENT_END = ">>"

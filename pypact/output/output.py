@@ -1,9 +1,9 @@
 from collections import defaultdict
 
-from pypact.util.decorators import freeze_it
-from pypact.util.jsonserializable import JSONSerializable
 from pypact.output.rundata import RunData
 from pypact.output.timestep import TimeStep
+from pypact.util.decorators import freeze_it
+from pypact.util.jsonserializable import JSONSerializable
 
 
 @freeze_it

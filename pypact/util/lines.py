@@ -1,4 +1,4 @@
-from pypact.util.numerical import is_float, get_float
+from pypact.util.numerical import get_float, is_float
 
 
 def line_indices(lines, tag):

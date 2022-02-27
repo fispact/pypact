@@ -1,16 +1,13 @@
+from pypact.filerecord import FileRecord
+from pypact.library.reactionlib import getmt
+from pypact.printlib.tags import (PRINTLIB4_END_HEADER, PRINTLIB4_HEADER,
+                                  PRINTLIB4_START_HEADER)
+from pypact.reader import Reader
 from pypact.util.decorators import freeze_it
+from pypact.util.exceptions import PypactNotPrintLib4FileException
 from pypact.util.jsonserializable import JSONSerializable
 from pypact.util.lines import line_indices
-from pypact.util.exceptions import PypactNotPrintLib4FileException
 from pypact.util.numerical import get_float
-from pypact.printlib.tags import (
-    PRINTLIB4_HEADER,
-    PRINTLIB4_START_HEADER,
-    PRINTLIB4_END_HEADER,
-)
-from pypact.library.reactionlib import getmt
-from pypact.filerecord import FileRecord
-from pypact.reader import Reader
 
 
 @freeze_it

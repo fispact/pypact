@@ -1,9 +1,9 @@
 import json
 import os
 
-from pypact.util.exceptions import PypactSpectrumDoesNotExistException
-from pypact.library.groupstructures import ALL_GROUPS
 import pypact.library.groupconvert as gc
+from pypact.library.groupstructures import ALL_GROUPS
+from pypact.util.exceptions import PypactSpectrumDoesNotExistException
 
 _this_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)))
 __SPECTRUM_JSON_LIB_FILE__ = os.path.join(_this_dir, "data", "spectrumlib.min.json")

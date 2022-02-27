@@ -1,11 +1,11 @@
 import os
 import subprocess
 
-from pypact.reader import InventoryReader as Reader
 from pypact.input.serialization import to_file
-from pypact.util.file import file_remove, file_exists
-from pypact.util.exceptions import PypactFispactExecutableNotFoundException
+from pypact.reader import InventoryReader as Reader
 from pypact.util.decorators import time_it
+from pypact.util.exceptions import PypactFispactExecutableNotFoundException
+from pypact.util.file import file_exists, file_remove
 
 FISPACT_EXE_PATH = os.getenv(
     "FISPACT", os.path.join(os.sep, "opt", "fispact", "bin", "fispact")

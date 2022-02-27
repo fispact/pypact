@@ -1,10 +1,10 @@
 try:
+    import matplotlib.animation as animation
     import matplotlib.pyplot
     from matplotlib import cm
-    from matplotlib.colors import LogNorm
-    import matplotlib.animation as animation
-    from matplotlib.patches import Rectangle
     from matplotlib.collections import PatchCollection
+    from matplotlib.colors import LogNorm
+    from matplotlib.patches import Rectangle
 except:
     raise ImportError("Matplotlib cannot be found. It is required for plotting.")
 

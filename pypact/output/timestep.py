@@ -1,13 +1,13 @@
 import json
 
+import pypact.util.propertyfinder as pf
+from pypact.output.doserate import DoseRate
+from pypact.output.gammaspectrum import GammaSpectrum
+from pypact.output.nuclide import Nuclide
+from pypact.output.nuclides import Nuclides
+from pypact.output.tags import TIME_STEP_HEADER
 from pypact.util.decorators import freeze_it
 from pypact.util.jsonserializable import JSONSerializable
-from pypact.output.doserate import DoseRate
-from pypact.output.nuclides import Nuclides
-from pypact.output.nuclide import Nuclide
-from pypact.output.gammaspectrum import GammaSpectrum
-from pypact.output.tags import TIME_STEP_HEADER
-import pypact.util.propertyfinder as pf
 
 TIME_STEP_IGNORES = []
 

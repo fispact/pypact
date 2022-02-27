@@ -1,10 +1,10 @@
 import os
 
-from pypact.util.decorators import freeze_it
-from pypact.util.jsonserializable import JSONSerializable
-from pypact.util.exceptions import PypactDeserializeException
-from pypact.util.file import file_exists, dir_exists
 from pypact.library.projectiles import *
+from pypact.util.decorators import freeze_it
+from pypact.util.exceptions import PypactDeserializeException
+from pypact.util.file import dir_exists, file_exists
+from pypact.util.jsonserializable import JSONSerializable
 
 # represents a null entry string
 NULL_ENTRY = "null"

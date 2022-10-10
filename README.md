@@ -56,7 +56,7 @@ The aim of Pypact is to make the FISPACT-II output file easy to parse so that mo
 
 #### <a name="accuracy"></a>Notes on accuracy
 
-Before we get into how to install and use pypact, a small detail regarding accuracy should be noted!
+Before we get into how to install and use pypact, a small detail regarding accuracy should be noted.
 
 It is important to realise that the precision of some values in the FISPACT-II output file can be limited and hence parsing with pypact will give the same precision. It cannot give a more accurate result than the output file.
 

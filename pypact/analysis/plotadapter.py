@@ -51,7 +51,9 @@ class PlotAdapter(object):
         self._figure = self.engine.figure(*args, **kwargs)
         return self._figure
 
-
+    def custom(self, *args, **kwargs):
+        pass
+    
 class LinePlotAdapter(PlotAdapter):
     def lineplot(self, x, y, datalabel="", xlabel="", ylabel="",
                  logx=False, logy=False, overlay=True):
@@ -68,6 +70,9 @@ class LinePlotAdapter(PlotAdapter):
             self.engine.yscale('log')
 
         self.engine.plot(x, y, label=datalabel)
+
+    def custom(self, attr, *args, **kwargs):
+        getattr(self.engine, attr)(*args,**kwargs)
 
 
 class MatrixPlotAdapter(PlotAdapter):

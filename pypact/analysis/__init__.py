@@ -11,3 +11,4 @@ from pypact.library.nuclidelib import find_isotopes
 from pypact.library.nuclidelib import find_element
 from pypact.library.nuclidelib import find_z
 from pypact.library.nuclidelib import get_all_isotopes
+from pypact.library.nuclidelib import get_all_isotopes_states

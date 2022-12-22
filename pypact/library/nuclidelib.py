@@ -3961,3 +3961,15 @@ def get_all_isotopes():
                 all_list[count] = (n[ELEMENT_KEY], i)
                 count += 1
     return all_list
+
+
+def get_all_isotopes_states():
+    all_list_2 = [("", 0, "")] * NUMBER_OF_ISOTOPES * len(STATE_MAPPINGS)
+    count = 0
+    for n in NUCLIDE_DICTIONARY:
+        if ELEMENT_KEY in n and ISOTOPES_KEY in n:
+            for i in n[ISOTOPES_KEY]:
+                for k in STATE_MAPPINGS:
+                    all_list_2[count] = (n[ELEMENT_KEY], i, STATE_MAPPINGS[k])
+                    count += 1
+    return all_list_2

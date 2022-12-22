@@ -7,17 +7,21 @@ class NuclideDataEntry(object):
     def __init__(self, nuclide):
         self.element = nuclide[0]
         self.isotope = nuclide[1]
-
+        try:
+            self.state = nuclide[2]
+        except IndexError:
+            self.state   = ""
+      
         self.reset()
 
     def reset(self):
         self.times = []
         self.values = []
+        
 
     def __str__(self):
-        return str.format(
-            "Isotope {0}-{1} values: {2}", self.element, self.isotope, self.values
-        )
+        return str.format("Isotope {0}-{1}-{2} values: {3}",
+                          self.element, self.isotope, self.state, self.values)
 
 
 def plotproperty(
@@ -39,7 +43,7 @@ def plotproperty(
             value = getattr(n, property)
             total += value
             for i in isotopes:
-                if n.element == i.element and n.isotope == i.isotope:
+                if n.element == i.element and n.isotope == i.isotope and n.state == i.state:
                     i.times.append(t.irradiation_time + t.cooling_time)
                     i.values.append(value)
 
@@ -57,16 +61,14 @@ def plotproperty(
         if fractional:
             yaxislabel = str.format("fractional {0}", property)
 
-        f = plotter.lineplot(
-            x=i.times,
-            y=i.values,
-            datalabel=str.format("{0}-{1}", i.element, i.isotope),
-            xlabel="time [s]",
-            ylabel=yaxislabel,
-            logx=(timeperiod != TimeZone.IRRAD),
-            logy=True,
-            overlay=True,
-        )
+        f = plotter.lineplot(x=i.times,
+                            y=i.values,
+                            datalabel=str.format('{0}-{1}{2}', i.element, i.isotope, i.state),
+                            xlabel="time [s]",
+                            ylabel=yaxislabel,
+                            logx=(timeperiod != TimeZone.IRRAD),
+                            logy=True,
+                            overlay=True)
 
     if timeperiod == TimeZone.BOTH:
         plotter.custom(

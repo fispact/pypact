@@ -389,7 +389,7 @@ The output would then look like
 ##### <a name="plotting"></a>Plotting
 
 An example script and some helper functions are included to show how some plots can be constructed using pypact.
-A nuclide library (in JSON format) exists containing the list of all isotopes, that is containing 118 elements from H to Og, and totaling to 3352 isotopes. These can be used in their entirety as a complete list using 'getallisotopes()' or can be filtered as the example below shows. Some plotting functions are added in the 'pypact.analysis' module and are also used in the script below.
+A nuclide library (in JSON format) exists containing the list of all isotopes, that is containing 118 elements from H to Og, and totaling to 3352 isotopes. These can be used in their entirety as a complete list using `get_all_isotopes()` or can be filtered as the example below shows. Some plotting functions are added in the 'pypact.analysis' module and are also used in the script below.
 
 This example script is based on that in the package at 'pypact/examples/plotnuclideheat.py'. Note that this is an example only and is to show how pypact can be used to help perform certain analyses.
 
@@ -405,7 +405,7 @@ filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 
 tz = ppa.TimeZone.COOL
 properties = ['heat', 'grams', 'ingestion']
-isotopes = [ ppa.NuclideDataEntry(i) for i in ppa.getallisotopes() if ppa.findZ(i[0]) <= 10]
+isotopes = [ ppa.NuclideDataEntry(i) for i in ppa.get_all_isotopes() if ppa.find_z(i[0]) <= 10]
 
 plt = ppa.LinePlotAdapter()
 

@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/fispact/pypact.svg?branch=master)](https://travis-ci.org/fispact/pypact)
 ![Build Status](https://github.com/fispact/pypact/actions/workflows/python-package.yml/badge.svg?branch=master)
 ![Python package](https://github.com/fispact/pypact/workflows/Python%20package/badge.svg?branch=master)
 [![Code Coverage](https://codecov.io/gh/fispact/pypact/branch/master/graph/badge.svg)](https://codecov.io/gh/fispact/pypact)

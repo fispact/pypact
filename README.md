@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/fispact/pypact.svg?branch=master)](https://travis-ci.org/fispact/pypact)
+![Build Status](https://github.com/fispact/pypact/actions/workflows/python-package.yml/badge.svg?branch=master)
 ![Python package](https://github.com/fispact/pypact/workflows/Python%20package/badge.svg?branch=master)
 [![Code Coverage](https://codecov.io/gh/fispact/pypact/branch/master/graph/badge.svg)](https://codecov.io/gh/fispact/pypact)
 
@@ -7,7 +8,7 @@
 [![PyPI](https://img.shields.io/pypi/format/pypact.svg)](https://pypi.python.org/pypi/pypact)
 [![License](https://img.shields.io/pypi/l/pypact.svg)](https://github.com/fispact/pypact/blob/master/LICENSE)
 
-[![HitCount](http://hits.dwyl.io/fispact/pypact.svg)](http://hits.dwyl.io/fispact/pypact)
+[![HitCount](https://hits.dwyl.com/fispact/pypact.svg?style=flat-square&show=unique)](http://hits.dwyl.com/fispact/pypact)
 [![GitHub issues](https://img.shields.io/github/issues/fispact/pypact)](https://github.com/fispact/pypact/issues)
 [![GitHub stars](https://img.shields.io/github/stars/fispact/pypact)](https://github.com/fispact/pypact/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/fispact/pypact)](https://github.com/fispact/pypact/network)

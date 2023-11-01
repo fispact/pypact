@@ -2,5 +2,5 @@
 
 python3 setup.py test
 python3 setup.py sdist
-python3 setup.py bdist_wheel
+pip wheel --no-deps -w dist .
 twine upload dist/*

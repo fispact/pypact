@@ -38,6 +38,6 @@ jobs:
         python -m pip install setuptools
         python -m pip install -r requirements.txt
         python setup.py sdist
-        python setup.py bdist_wheel
+        python -m pip wheel --no-deps -w dist .
     - name: Publish package distributions to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1

@@ -26,6 +26,7 @@ class Nuclide(JSONSerializable):
         self.dose = 0.0
         self.ingestion = 0.0
         self.inhalation = 0.0
+        self.clearance_index = 0.0
 
     @property
     def name(self):
@@ -93,6 +94,7 @@ class Nuclide(JSONSerializable):
         self.dose = get_entry('DOSE RATE')
         self.ingestion = get_entry('INGESTION')
         self.inhalation = get_entry('INHALATION')
+        self.clearance_index = get_entry('CLEARANCE')
 
 
 def index_containing_substring(the_list, substring):

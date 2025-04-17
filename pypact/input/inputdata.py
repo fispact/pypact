@@ -435,9 +435,9 @@ class InputData(JSONSerializable):
             if line.startswith("MASS"):
                 # Parse the MASS line
                 parts = line.split()
-                if len(parts) < 3:
+                if len(parts) != 3:
                     raise PypactInvalidOptionException("Invalid MASS line format.")
-                self._inventoryismass = True
+                self.setMass(float(parts[1]))
                 self._inventorymass.totalMass = float(parts[1])
                 num_elements = int(parts[2])
                 self._inventorymass.entries = []
@@ -448,7 +448,7 @@ class InputData(JSONSerializable):
                 # Parse the elements following the MASS line
                 if len(line.split()) == 2:
                     element, percentage = line.split()
-                    self._inventorymass.entries.append((element, float(percentage)))
+                    self.addElement(element, float(percentage))
                     num_elements -= 1
                     if num_elements == 0:
                         in_mass_section = False

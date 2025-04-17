@@ -23,6 +23,7 @@ from tests.input.keywordstest import KeywordsUnitTest
 from tests.input.groupconverttest import GroupConvertUnitTest
 from tests.input.groupstructurestest import GroupStructuresUnitTest
 from tests.input.projectilestest import ProjectilesUnitTest
+from tests.input.inputfiletest import InputFileTest 
 
 from tests.library.nuclidelibtest import NuclideLibUnitTest
 from tests.library.reactionlibtest import ReactionLibUnitTest

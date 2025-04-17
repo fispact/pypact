@@ -420,11 +420,38 @@ class InputData(JSONSerializable):
         for line in inputdata:
             f.write("{}\n".format(line))
 
+
     def _deserialize(self, f):
         """
             The deserialization method
             f: file object
         """
-        pass
+        self.reset()
 
+        lines = f.readlines()
+        in_mass_section = False
 
+        for line in lines:
+            line = line.strip()
+            if line.startswith("MASS"):
+                # Parse the MASS line
+                parts = line.split()
+                if len(parts) < 3:
+                    raise PypactInvalidOptionException("Invalid MASS line format.")
+                self._inventoryismass = True
+                self._inventorymass.totalMass = float(parts[1])
+                num_elements = int(parts[2])
+                self._inventorymass.entries = []
+                in_mass_section = True
+                continue
+
+            if in_mass_section:
+                # Parse the elements following the MASS line
+                if len(line.split()) == 2:
+                    element, percentage = line.split()
+                    self._inventorymass.entries.append((element, float(percentage)))
+                    num_elements -= 1
+                    if num_elements == 0:
+                        in_mass_section = False
+                else:
+                    raise PypactInvalidOptionException("Invalid element line format in MASS section.")

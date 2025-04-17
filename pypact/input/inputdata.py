@@ -420,7 +420,6 @@ class InputData(JSONSerializable):
         for line in inputdata:
             f.write("{}\n".format(line))
 
-
     def _deserialize(self, f):
         """
             The deserialization method

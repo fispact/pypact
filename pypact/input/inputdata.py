@@ -438,9 +438,7 @@ class InputData(JSONSerializable):
                 if len(parts) != 3:
                     raise PypactInvalidOptionException("Invalid MASS line format.")
                 self.setMass(float(parts[1]))
-                self._inventorymass.totalMass = float(parts[1])
                 num_elements = int(parts[2])
-                self._inventorymass.entries = []
                 in_mass_section = True
                 continue
 

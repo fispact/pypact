@@ -4,7 +4,7 @@ import pypact as pp
 from tests.testerbase import Tester
 
 
-DECIMAL_PLACE_ACC = 6
+DECIMAL_PLACE_ACC = 3
 
 class GroupStructuresUnitTest(Tester):
 

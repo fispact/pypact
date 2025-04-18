@@ -5,7 +5,7 @@ from tests.testerbase import Tester
 
 class InputFileTest(Tester):
 
-    def test_reading_in_mass():
+    def test_reading_in_mass(self):
         ff = pp.InputData()
         pp.from_file(ff, 'reference/test.i')
 

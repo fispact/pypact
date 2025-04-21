@@ -425,6 +425,30 @@ class InputData(JSONSerializable):
             The deserialization method
             f: file object
         """
-        pass
+        self.reset()
 
+        lines = f.readlines()
+        in_mass_section = False
 
+        for line in lines:
+            line = line.strip()
+            if line.startswith("MASS"):
+                # Parse the MASS line
+                parts = line.split()
+                if len(parts) != 3:
+                    raise PypactInvalidOptionException("Invalid MASS line format.")
+                self.setMass(float(parts[1]))
+                num_elements = int(parts[2])
+                in_mass_section = True
+                continue
+
+            if in_mass_section:
+                # Parse the elements following the MASS line
+                if len(line.split()) == 2:
+                    element, percentage = line.split()
+                    self.addElement(element, float(percentage))
+                    num_elements -= 1
+                    if num_elements == 0:
+                        in_mass_section = False
+                else:
+                    raise PypactInvalidOptionException("Invalid element line format in MASS section.")

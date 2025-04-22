@@ -42,6 +42,8 @@ ATOMS
 << irradiation schedule >>
 FLUX 1100000000000000.0
 TIME 300.0 SECS
+FLUX 42.0
+TIME 200.0 SECS
 ATOMS 
 << end of irradiation >>
 FLUX 0.0

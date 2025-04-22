@@ -427,8 +427,18 @@ class InputData(JSONSerializable):
         """
         self.reset()
 
-        lines = f.readlines()
+        lines = iter(f.readlines())  # Convert lines to an iterator
         in_mass_section = False
+        irradiation_active = True  # Flag to track if irradiation schedule is active
+        flux_set = False  # Flag to ensure FLUX is set to a non-zero value before the first irradiation step
+
+        time_unit_to_seconds = {
+            "SECS": 1,
+            "MINS": 60,
+            "HOURS": 3600,
+            "DAYS": 86400,
+            "YEARS": 31536000
+        }
 
         for line in lines:
             line = line.strip()
@@ -458,3 +468,44 @@ class InputData(JSONSerializable):
                 if len(parts) != 2:
                     raise PypactInvalidOptionException("Invalid DENSITY line format.")
                 self.setDensity(float(parts[1]))
+
+            elif line.startswith("FLUX") and irradiation_active:
+                # Parse the FLUX line
+                parts = line.split()
+                if len(parts) != 2:
+                    raise PypactInvalidOptionException("Invalid FLUX line format.")
+                fluxAmp = float(parts[1])
+
+                # Ensure FLUX is set to a non-zero value before the first irradiation step
+                if not flux_set and fluxAmp <= 0.0:
+                    raise PypactInvalidOptionException("FLUX must be set to a non-zero positive value before the first irradiation step.")
+                flux_set = True
+
+                # If FLUX is 0.0, skip TIME parsing
+                if fluxAmp == 0.0:
+                    self.addIrradiation(0.0, fluxAmp)
+                    continue
+
+                # Look ahead for the TIME line
+                next_line = next(lines, None)
+                if next_line and next_line.strip().startswith("TIME"):
+                    time_parts = next_line.strip().split()
+                    if len(time_parts) != 3:
+                        raise PypactInvalidOptionException("Invalid TIME line format.")
+                    time_value = float(time_parts[1])
+                    time_unit = time_parts[2]
+                    if time_unit not in time_unit_to_seconds:
+                        raise PypactInvalidOptionException(f"Unsupported TIME unit: {time_unit}")
+                    # Convert time to seconds
+                    timeInSecs = time_value * time_unit_to_seconds[time_unit]
+                    # Add the irradiation schedule
+                    self.addIrradiation(timeInSecs, fluxAmp)
+                else:
+                    raise PypactInvalidOptionException("TIME line missing after FLUX line.")
+
+            elif line.startswith("ZERO"):
+                # Ensure FLUX is set to zero before using ZERO
+                if not flux_set or self._irradschedule[-1][1] != 0.0:
+                    raise PypactInvalidOptionException("FLUX must be set to zero before using the ZERO keyword.")
+                # Stop processing irradiation schedule
+                irradiation_active = False

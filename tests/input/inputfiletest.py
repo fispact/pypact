@@ -34,3 +34,21 @@ class InputFileTest(Tester):
         pp.from_file(ff, 'reference/test.i')
 
         assert ff._density == 19.5
+
+
+    def test_reading_flux_and_time(self):
+        ff = pp.InputData()
+        pp.from_file(ff, 'reference/test.i')
+
+        # Expected irradiation schedule (time in seconds, flux amplitude)
+        expected_schedule = [
+            (300.0, 1.1e15),
+            (200.0, 42.0),
+            (0.0, 0.0),
+        ]
+
+        # Assert the irradiation schedule matches the expected results
+        assert len(ff._irradschedule) == len(expected_schedule), "Irradiation schedule length mismatch"
+        for i, (time, flux) in enumerate(expected_schedule):
+            assert ff._irradschedule[i][0] == time, f"Time mismatch at index {i}"
+            assert ff._irradschedule[i][1] == flux, f"Flux mismatch at index {i}"

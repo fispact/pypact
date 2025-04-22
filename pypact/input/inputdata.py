@@ -452,3 +452,9 @@ class InputData(JSONSerializable):
                         in_mass_section = False
                 else:
                     raise PypactInvalidOptionException("Invalid element line format in MASS section.")
+
+            elif line.startswith("DENSITY"):
+                parts = line.split()
+                if len(parts) != 2:
+                    raise PypactInvalidOptionException("Invalid DENSITY line format.")
+                self.setDensity(float(parts[1]))

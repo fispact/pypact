@@ -28,3 +28,9 @@ class InputFileTest(Tester):
         for i, (element, percentage) in enumerate(expected_elements):
             assert ff._inventorymass.entries[i][0] == element, f"Element {i} should be {element}"
             assert ff._inventorymass.entries[i][1] == percentage, f"Percentage of {element} should be {percentage}"
+
+    def test_reading_in_density(self):
+        ff = pp.InputData()
+        pp.from_file(ff, 'reference/test.i')
+
+        assert ff._density == 19.5

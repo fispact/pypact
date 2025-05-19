@@ -37,18 +37,25 @@ class InputFileTest(Tester):
 
 
     def test_reading_flux_and_time(self):
-        ff = pp.InputData()
-        pp.from_file(ff, 'reference/test.i')
-
-        # Expected irradiation schedule (time in seconds, flux amplitude)
-        expected_schedule = [
-            (300.0, 1.1e15),
-            (200.0, 42.0),
-            (0.0, 0.0),
-        ]
-
-        # Assert the irradiation schedule matches the expected results
-        assert len(ff._irradschedule) == len(expected_schedule), "Irradiation schedule length mismatch"
-        for i, (time, flux) in enumerate(expected_schedule):
-            assert ff._irradschedule[i][0] == time, f"Time mismatch at index {i}"
-            assert ff._irradschedule[i][1] == flux, f"Flux mismatch at index {i}"
+            test_cases = [
+                ('reference/test.i', [
+                    (300.0, 1.1e15),
+                    (200.0, 42.0),
+                    (0.0, 0.0),
+                ]),
+                ('reference/test2.i', [
+                    (300.0, 1.16e10),
+                    (200.0, 42.0)
+                ])
+                # TODO Add more test cases here
+            ]
+            
+            for input_file, expected_schedule in test_cases:
+                with self.subTest(input_file=input_file):
+                    ff = pp.InputData()
+                    pp.from_file(ff, input_file)
+                    
+                    self.assertEqual(len(ff._irradschedule), len(expected_schedule))
+                    for i, (time, flux) in enumerate(expected_schedule):
+                        self.assertEqual(ff._irradschedule[i][0], time)
+                        self.assertEqual(ff._irradschedule[i][1], flux)

@@ -427,8 +427,18 @@ class InputData(JSONSerializable):
         """
         self.reset()
 
-        lines = f.readlines()
+        lines = iter(f.readlines())  # Convert lines to an iterator
         in_mass_section = False
+        irradiation_active = True  # Flag to track if irradiation schedule is active
+        flux_set = False  # Flag to ensure FLUX is set to a non-zero value before the first irradiation step
+
+        time_unit_to_seconds = {
+            "SECS": 1,
+            "MINS": 60,
+            "HOURS": 3600,
+            "DAYS": 86400,
+            "YEARS": 31536000
+        }
 
         for line in lines:
             line = line.strip()
@@ -451,6 +461,9 @@ class InputData(JSONSerializable):
                     if num_elements == 0:
                         in_mass_section = False
                 else:
+                    if line.startswith(COMMENT_START) and line.endswith(COMMENT_END):
+                        # Ignore comments
+                        continue
                     raise PypactInvalidOptionException("Invalid element line format in MASS section.")
 
             elif line.startswith("DENSITY"):
@@ -458,3 +471,64 @@ class InputData(JSONSerializable):
                 if len(parts) != 2:
                     raise PypactInvalidOptionException("Invalid DENSITY line format.")
                 self.setDensity(float(parts[1]))
+
+            elif line.startswith("FLUX") and irradiation_active:
+                # Parse the FLUX line
+                parts = line.split()
+                if len(parts) != 2:
+                    raise PypactInvalidOptionException("Invalid FLUX line format.")
+                fluxAmp = float(parts[1])
+
+                # Ensure FLUX is set to a non-zero value before the first irradiation step
+                if not flux_set and fluxAmp <= 0.0:
+                    raise PypactInvalidOptionException("FLUX must be set to a non-zero positive value before the first irradiation step.")
+                flux_set = True
+
+                # Store the current flux amplitude - we'll use it when we find a TIME command
+                current_flux_amp = fluxAmp
+
+                # If FLUX is 0.0, we're entering the cooling phase
+                if fluxAmp == 0.0:
+                    self.addIrradiation(0.0, fluxAmp)
+                    continue
+
+            # Handle TIME entries - can appear after any number of intermediate commands following FLUX
+            elif line.startswith("TIME") and flux_set:
+                time_parts = line.split()
+
+                # Ensure we have at least the TIME keyword and a value
+                if len(time_parts) < 2:
+                    raise PypactInvalidOptionException(
+                        "Invalid TIME line format: missing time value."
+                    )
+
+                # Get the time value
+                time_value = float(time_parts[1])
+                timeInSecs = time_value  # Default unit is seconds
+
+                # Handle different TIME formats
+                if len(time_parts) >= 3:
+                    # Check if the third part is a time unit
+                    if time_parts[2] in time_unit_to_seconds:
+                        # Format: TIME 10.0 SECS or TIME 0.1 YEARS ATOMS
+                        timeInSecs = time_value * time_unit_to_seconds[time_parts[2]]
+                    # Otherwise, the third part is likely "ATOMS" or something else
+                    # We keep the default assumption of seconds
+
+                # Add the time to the appropriate schedule based on whether we're in irradiation or cooling phase
+                if irradiation_active:
+                    # Still in irradiation phase
+                    self.addIrradiation(timeInSecs, current_flux_amp)
+                else:
+                    # In cooling phase after ZERO
+                    self.addCooling(timeInSecs)
+
+            elif line.startswith("ZERO"):
+                # Ensure FLUX is set to zero before using ZERO
+                if not flux_set:
+                    raise PypactInvalidOptionException(
+                        "FLUX must be set before using the ZERO keyword."
+                    )
+                # Stop processing irradiation schedule
+                irradiation_active = False
+                current_flux_amp = 0.0

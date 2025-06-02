@@ -42,17 +42,16 @@ class InputFileTest(Tester):
                 [
                     (300.0, 1.1e15),
                     (200.0, 42.0),
-                    (0.0, 0.0),
                 ],
             ),
-            ("reference/test2.i", [(300.0, 1.116e10), (0.0, 0.0)]),
+            ("reference/test2.i", [(300.0, 1.116e10)]),
             (
                 "reference/test3.i",
                 [
                     (300.0, 1.1e14),
                 ],
             ),
-            ("reference/test4.i", [(300.0, 1.116e10), (0.0, 0.0)]),
+            ("reference/test4.i", [(300.0, 1.116e10)]),
             # test case has no ZERO keyword
             (
                 "reference/test5.i",
@@ -60,7 +59,6 @@ class InputFileTest(Tester):
                     (60.0, 1e20),
                     (60.0, 1e20),
                     (60.0, 1e20),
-                    (0, 0),
                     (86400, 0),
                     (86400, 0),
                     (86400, 0),

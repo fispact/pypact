@@ -489,7 +489,6 @@ class InputData(JSONSerializable):
 
                 # If FLUX is 0.0, we're entering the cooling phase
                 if fluxAmp == 0.0:
-                    self.addIrradiation(0.0, fluxAmp)
                     continue
 
             # Handle TIME entries - can appear after any number of intermediate commands following FLUX

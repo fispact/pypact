@@ -2,7 +2,7 @@ import os
 
 from pypact.util.decorators import freeze_it
 from pypact.util.jsonserializable import JSONSerializable
-from pypact.util.exceptions import PypactDeserializeException
+from pypact.util.exceptions import PypactDeserializeException, PypactException
 from pypact.util.file import file_exists, dir_exists
 from pypact.library.projectiles import (
     PROJECTILE_NEUTRON,

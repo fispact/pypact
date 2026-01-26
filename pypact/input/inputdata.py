@@ -4,6 +4,7 @@ from pypact.util.decorators import freeze_it
 from pypact.util.exceptions import PypactOutOfRangeException
 from pypact.util.exceptions import PypactInvalidOptionException
 from pypact.util.exceptions import PypactIncompatibleOptionException
+from pypact.util.exceptions import PypactUnphysicalValueException
 from pypact.util.jsonserializable import JSONSerializable
 from pypact.util.loglevels import (
     LOG_SEVERITY_FATAL,

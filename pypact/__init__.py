@@ -62,7 +62,3 @@ from pypact.library.spectrumlib import SpectrumLibJSONReader, SpectrumLibManager
 # utilities
 from pypact.util.exceptions import PypactException
 from pypact.util.loglevels import *
-
-
-# This makes importing slow, keep it seperate
-#import pypact.analysis

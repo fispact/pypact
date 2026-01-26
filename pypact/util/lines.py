@@ -12,7 +12,7 @@ def line_indices(lines, tag):
     return [l for l in range(len(lines)) if tag in lines[l]]
 
 
-def strings_from_line(line, linetag, ignoretags=[], endtag=''):
+def strings_from_line(line, linetag, ignoretags=None, endtag=''):
     """
 
     :param line: The string representing a line
@@ -22,6 +22,9 @@ def strings_from_line(line, linetag, ignoretags=[], endtag=''):
     :return: A list of strings, without spaces or carriage returns, of string after the linetag
 
     """
+    if ignoretags is None:
+        ignoretags = []
+    
     startindex = line.find(linetag)
     if startindex < 0:
         return []
@@ -42,7 +45,7 @@ def strings_from_line(line, linetag, ignoretags=[], endtag=''):
     return strings
 
 
-def join_strings_from_line(line, linetag, ignoretags=[], endtag=''):
+def join_strings_from_line(line, linetag, ignoretags=None, endtag=''):
     """
 
     :param line: The string representing a line
@@ -57,7 +60,7 @@ def join_strings_from_line(line, linetag, ignoretags=[], endtag=''):
     return ' '.join(strings)
 
 
-def first_value_from_line(line, linetag, ignoretags=[]):
+def first_value_from_line(line, linetag, ignoretags=None):
     """
 
     :param line: The string representing a line

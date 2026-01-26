@@ -1,4 +1,4 @@
-from .projectiles import *
+from .projectiles import PROJECTILE_NEUTRON, get_projectile_symbol
 
 REACTION_DICTIONARY = {
       1: 'total', 

@@ -67,7 +67,7 @@ def first_value_from_line(line: str, linetag: str, ignoretags: Optional[List[str
     :param line: The string representing a line
     :param linetag: The tag to find in the line
     :param ignoretags: The list of strings to ignore
-    :return: The first value, float, after the tag. Returns NaN if no value found.
+    :return: The first value, float, after the tag. Returns 0.0 if no value found.
 
     """
     strings = strings_from_line(line, linetag, ignoretags)

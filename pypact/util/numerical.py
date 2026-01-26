@@ -1,6 +1,8 @@
+from typing import Union, Callable
+
 nan = float('NaN')
 
-def are_values_the_same(value1, value2, rel_tol, abs_tol=0.0):
+def are_values_the_same(value1: float, value2: float, rel_tol: float, abs_tol: float = 0.0) -> bool:
     """
         Use math.isclose algorithm, it is better than numpy.isclose method.
         See https://github.com/numpy/numpy/issues/10161 for more on the discussion
@@ -9,7 +11,7 @@ def are_values_the_same(value1, value2, rel_tol, abs_tol=0.0):
     return abs(value1 - value2) <= max(rel_tol * max(abs(value1), abs(value2)), abs_tol)
 
 
-def get_float(value):
+def get_float(value: Union[str, int, float]) -> Union[float, str]:
     """
         Gets the floating point value from a string
         Will allow for fortran style floats, i.e -2.34321-308
@@ -21,7 +23,7 @@ def get_float(value):
     return _getfortranfloat(value)
 
 
-def _istradiationalfloat(value):
+def _istradiationalfloat(value: Union[str, int, float]) -> bool:
     """
         Checks if the string can be converted to a floating point value
         Does not allow for fortran style floats, i.e -2.34321-308
@@ -33,7 +35,7 @@ def _istradiationalfloat(value):
     except ValueError:
         return False
 
-def is_float(value):
+def is_float(value: Union[str, int, float]) -> bool:
     """
         Checks if the string can be converted to a floating point value
         Will allow for fortran style floats, i.e -2.34321-308
@@ -43,21 +45,21 @@ def is_float(value):
         return _istradiationalfloat(value) or _isfortranfloat(value)
     return False
 
-def _isfortranfloat(value):
+def _isfortranfloat(value: Union[str, int, float]) -> bool:
     passfunc = lambda sign, esign, parts: True
     failfunc = lambda: False
 
     return _fortranfloat(value, passfunc, failfunc)
 
 
-def _getfortranfloat(value):
+def _getfortranfloat(value: Union[str, int, float]) -> Union[float, str]:
     passfunc = lambda sign, esign, parts: float(sign + parts[0] + 'E' + esign + parts[1])
     failfunc = lambda: "nan"
 
     return _fortranfloat(value, passfunc, failfunc)
 
 
-def _fortranfloat(value, passfunc, failfunc):
+def _fortranfloat(value: Union[str, int, float], passfunc: Callable, failfunc: Callable) -> Union[bool, float, str]:
     # could be 2.3
     #          2.3e+10
     #          -2.3e+10

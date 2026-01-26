@@ -1,7 +1,8 @@
+from typing import List, Tuple, Optional
 from pypact.util.numerical import is_float, get_float
 
 
-def line_indices(lines, tag):
+def line_indices(lines: List[str], tag: str) -> List[int]:
     """
 
     :param lines: Must be a list of strings representing each line
@@ -12,7 +13,7 @@ def line_indices(lines, tag):
     return [l for l in range(len(lines)) if tag in lines[l]]
 
 
-def strings_from_line(line, linetag, ignoretags=None, endtag=''):
+def strings_from_line(line: str, linetag: str, ignoretags: Optional[List[str]] = None, endtag: str = '') -> List[str]:
     """
 
     :param line: The string representing a line
@@ -45,7 +46,7 @@ def strings_from_line(line, linetag, ignoretags=None, endtag=''):
     return strings
 
 
-def join_strings_from_line(line, linetag, ignoretags=None, endtag=''):
+def join_strings_from_line(line: str, linetag: str, ignoretags: Optional[List[str]] = None, endtag: str = '') -> str:
     """
 
     :param line: The string representing a line
@@ -60,7 +61,7 @@ def join_strings_from_line(line, linetag, ignoretags=None, endtag=''):
     return ' '.join(strings)
 
 
-def first_value_from_line(line, linetag, ignoretags=None):
+def first_value_from_line(line: str, linetag: str, ignoretags: Optional[List[str]] = None) -> float:
     """
 
     :param line: The string representing a line
@@ -84,7 +85,7 @@ def first_value_from_line(line, linetag, ignoretags=None):
     return nan
 
 
-def first_occurrence(lines, tag):
+def first_occurrence(lines: List[str], tag: str) -> Tuple[int, str]:
     """
 
     :param lines: A list of strings representing each line
@@ -95,7 +96,7 @@ def first_occurrence(lines, tag):
     return next_occurrence(lines, tag, 0)
 
 
-def last_occurrence(lines, tag):
+def last_occurrence(lines: List[str], tag: str) -> Tuple[int, str]:
     """
 
     :param lines: A list of strings representing each line
@@ -112,7 +113,7 @@ def last_occurrence(lines, tag):
         return -1, ''
 
 
-def next_occurrence(lines, tag, startindex=0):
+def next_occurrence(lines: List[str], tag: str, startindex: int = 0) -> Tuple[int, str]:
     """
 
     :param lines: A list of strings representing each line

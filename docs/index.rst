@@ -12,9 +12,11 @@ Welcome to pypact's documentation!
 
    about
    installation
+   quickstart
    parsers
    libraries
    groupconvert
+   examples
 
 Pypact's original aim was to make FISPACT-II output files easy to parse so that more time can be spent on analysis,
 and much less time on interrogating the output file. No more convoluted scripts, just one simple to use package!

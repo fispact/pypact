@@ -22,7 +22,7 @@ copyright = '2021, Thomas Stainer'
 author = 'Thomas Stainer'
 
 # The full version, including alpha/beta/rc tags
-release = '1.3.5'
+release = '1.3.8'
 
 
 # -- General configuration ---------------------------------------------------
@@ -31,6 +31,10 @@ release = '1.3.5'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.githubpages',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -47,9 +51,27 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# Theme options
+html_theme_options = {
+    'navigation_depth': 4,
+    'collapse_navigation': False,
+    'sticky_navigation': True,
+    'includehidden': True,
+    'titles_only': False
+}
+
+# GitHub information
+html_context = {
+    "display_github": True,
+    "github_user": "fispact",
+    "github_repo": "pypact",
+    "github_version": "master",
+    "conf_py_path": "/docs/",
+}

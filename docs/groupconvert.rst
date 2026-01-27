@@ -1,244 +1,276 @@
 Group Conversion
 ================
 
-Pypact provides utilities for converting data between different neutron energy group structures. 
-This is essential when you need to process cross sections or flux data in different formats.
+Pypact provides utilities for converting flux data between different neutron energy group structures. 
+This is essential when you need to process flux spectra in different formats.
 
 Overview
 --------
 
 FISPACT-II uses multi-group neutron cross section libraries with different energy group structures. 
-Common structures include:
+Pypact includes predefined structures in the ``ALL_GROUPS`` dictionary:
 
 - **709 groups**: CCFE 709 group structure (default for fusion applications)
 - **315 groups**: CCFE 315 group structure
 - **175 groups**: VITAMIN-J 175 group structure
-- **Custom structures**: User-defined energy group boundaries
+- **172 groups**: VITAMIN-J 172 group structure
+- **69 groups**: WIMS 69 group structure
+- **66 groups**: WIMS 66 group structure
 
-The group conversion utilities help convert data between these different structures, which is 
-useful when:
+The group conversion utilities help convert flux data between these different structures.
 
-- Comparing results from different libraries
-- Processing flux spectra from different sources
-- Adapting cross section data for different applications
+**Note**: Group boundaries in pypact are stored in **descending energy order** (highest energy first), 
+as per FISPACT-II convention.
 
 Basic Usage
 -----------
 
-Loading Group Structures
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Accessing Group Structures
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
-   import pypact.groupconvert as gc
+   import pypact as pp
 
-   # Load a group structure from file
-   # File format: one energy boundary per line (MeV)
-   group_structure = gc.load_group_structure('mygroups.txt')
+   # Get predefined group structures
+   groups_709 = pp.ALL_GROUPS[709]  # 709 group boundaries (descending)
+   groups_315 = pp.ALL_GROUPS[315]  # 315 group boundaries
+   groups_175 = pp.ALL_GROUPS[175]  # 175 group boundaries
    
-   print(f"Number of groups: {len(group_structure) - 1}")
-   print(f"Energy range: {group_structure[0]} - {group_structure[-1]} MeV")
+   # Note: boundaries are in descending order (highest energy first)
+   print(f"709 groups: {len(groups_709)} boundaries (710 values)")
+   print(f"Highest energy: {groups_709[0]} eV")
+   print(f"Lowest energy: {groups_709[-1]} eV")
+   
+   # To get ascending order, reverse the list
+   groups_709_ascending = list(reversed(groups_709))
 
-Group Structure Format
-~~~~~~~~~~~~~~~~~~~~~~
+Conversion Methods
+~~~~~~~~~~~~~~~~~~
 
-Group structure files contain energy boundaries in MeV, one per line. 
-For n groups, you need n+1 boundaries:
+Pypact provides two conversion methods via ``pypact.groupconvert``:
 
-.. code-block:: text
-
-   1.0e-10
-   1.0e-9
-   1.0e-8
-   ...
-   2.0e1
-
-Converting Between Group Structures
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1. **by_energy**: Converts using energy weighting (width of energy bins)
+2. **by_lethargy**: Converts using lethargy weighting (logarithmic energy bins)
 
 .. code-block:: python
 
-   import pypact.groupconvert as gc
+   import pypact as pp
 
-   # Example: Convert flux spectrum from 709 to 315 groups
-   flux_709 = [...]  # 709 values
-   groups_709 = gc.load_group_structure('ccfe709.txt')
-   groups_315 = gc.load_group_structure('ccfe315.txt')
+   # Input flux data (66 groups)
+   input_boundaries = pp.ALL_GROUPS[66]  # Descending order
+   input_values = [...]  # 66 flux values
    
-   flux_315 = gc.convert_groups(flux_709, groups_709, groups_315)
-
-Interpolation Methods
-~~~~~~~~~~~~~~~~~~~~~~
-
-The group conversion uses various interpolation methods depending on the data type:
-
-.. code-block:: python
-
-   import pypact.groupconvert as gc
-
-   # Linear interpolation (default)
-   converted = gc.convert_groups(data, from_groups, to_groups, 
-                                 method='linear')
+   # Output structure (709 groups)
+   output_boundaries = pp.ALL_GROUPS[709]  # Descending order
    
-   # Logarithmic interpolation (for energy-dependent data)
-   converted = gc.convert_groups(data, from_groups, to_groups, 
-                                 method='log')
+   # Convert using energy weighting
+   output_values_energy = pp.groupconvert.by_energy(
+       input_boundaries, 
+       input_values, 
+       output_boundaries
+   )
+   
+   # Convert using lethargy weighting
+   output_values_lethargy = pp.groupconvert.by_lethargy(
+       input_boundaries,
+       input_values,
+       output_boundaries
+   )
 
-Working with Flux Data
-----------------------
+Working with Flux Files
+-----------------------
 
 Converting Flux Spectra
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Flux spectra often need to be converted between group structures:
+The most common use case is converting flux spectra between group structures:
 
 .. code-block:: python
 
-   import pypact.groupconvert as gc
    import pypact as pp
 
-   # Read flux from FISPACT input file
-   input_data = pp.InputData.from_file('myinput.i')
-   flux_values = input_data.flux_values
+   # Read an arbitrary flux file (e.g., 66 groups)
+   input_flux = pp.ArbFluxesFile()
+   pp.from_file(input_flux, 'fluxes66.in')
    
-   # Convert to different group structure
-   new_groups = gc.load_group_structure('new_structure.txt')
-   converted_flux = gc.convert_groups(flux_values, 
-                                      input_data.group_structure, 
-                                      new_groups)
+   # Convert to 709 groups using lethargy weighting
+   output_group = 709
+   output_boundaries = list(reversed(pp.ALL_GROUPS[output_group]))
+   
+   output_values = pp.groupconvert.by_lethargy(
+       input_flux.boundaries,
+       input_flux.values,
+       output_boundaries
+   )
+   
+   # Create output flux file
+   output_flux = pp.FluxesFile()
+   output_flux.setGroup(output_group)
+   output_flux.values = output_values
 
-Normalizing Flux
-~~~~~~~~~~~~~~~~
+Energy vs Lethargy Weighting
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-After conversion, you may need to normalize the flux:
+The choice between energy and lethargy weighting depends on your application:
+
+- **by_energy**: Uses linear energy bin widths for weighting
+  
+  .. math::
+     
+     w = \Delta E = E_{upper} - E_{lower}
+
+- **by_lethargy**: Uses logarithmic (lethargy) bin widths for weighting
+  
+  .. math::
+     
+     w = \Delta u = \ln(E_{upper}/E_{lower})
+
+For most nuclear applications, **lethargy weighting** is preferred as it better represents 
+the logarithmic nature of neutron energy distributions.
 
 .. code-block:: python
 
-   import numpy as np
+   import pypact as pp
 
-   # Normalize to total flux
-   total_flux = np.sum(converted_flux)
-   normalized_flux = converted_flux / total_flux * target_total
-
-Collapsing Groups
-~~~~~~~~~~~~~~~~~
-
-Sometimes you want to reduce the number of groups by collapsing:
-
-.. code-block:: python
-
-   import pypact.groupconvert as gc
-
-   # Collapse fine groups into coarser structure
-   fine_groups = 709
-   coarse_groups = 175
+   # Example: Compare both methods
+   input_boundaries = pp.ALL_GROUPS[66]
+   input_values = [1.0] * 66  # Flat spectrum
+   output_boundaries = list(reversed(pp.ALL_GROUPS[709]))
    
-   collapsed_data = gc.collapse_groups(fine_data, 
-                                       fine_structure, 
-                                       coarse_structure)
-
-Working with Cross Sections
-----------------------------
-
-Converting Cross Section Data
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Cross sections can be converted between group structures:
-
-.. code-block:: python
-
-   import pypact.groupconvert as gc
-
-   # Load cross section data in 709 groups
-   xs_709 = load_cross_section_data()
+   # Energy weighting
+   values_energy = pp.groupconvert.by_energy(
+       input_boundaries, input_values, output_boundaries
+   )
    
-   # Convert to 315 groups
-   groups_709 = gc.load_group_structure('ccfe709.txt')
-   groups_315 = gc.load_group_structure('ccfe315.txt')
-   
-   xs_315 = gc.convert_groups(xs_709, groups_709, groups_315)
-
-Weighting by Flux
-~~~~~~~~~~~~~~~~~
-
-Cross sections are often weighted by flux during conversion:
-
-.. code-block:: python
-
-   import pypact.groupconvert as gc
-
-   # Flux-weighted cross section conversion
-   xs_converted = gc.convert_groups_weighted(xs_data, 
-                                              from_groups, 
-                                              to_groups,
-                                              flux_spectrum)
+   # Lethargy weighting (recommended)
+   values_lethargy = pp.groupconvert.by_lethargy(
+       input_boundaries, input_values, output_boundaries
+   )
 
 Practical Examples
 ------------------
 
-Example 1: Converting CCFE 709 to 315 Groups
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Example 1: Converting 66 to 709 Groups
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Complete example showing how to convert flux from 66 to 709 groups:
 
 .. code-block:: python
 
-   import pypact.groupconvert as gc
-   import numpy as np
+   import pypact as pp
 
-   # Load group structures
-   groups_709 = gc.load_group_structure('ccfe709.txt')
-   groups_315 = gc.load_group_structure('ccfe315.txt')
+   # Read input flux file (66 groups)
+   input_flux = pp.ArbFluxesFile()
+   pp.from_file(input_flux, 'fluxes66.in')
    
-   # Example flux data (709 groups)
-   flux_709 = np.ones(709)  # Flat spectrum for demonstration
+   # Setup output group structure
+   output_group = 709
+   output_boundaries = list(reversed(pp.ALL_GROUPS[output_group]))
    
-   # Convert
-   flux_315 = gc.convert_groups(flux_709, groups_709, groups_315)
+   # Convert using lethargy (recommended for neutron spectra)
+   output_values = pp.groupconvert.by_lethargy(
+       input_flux.boundaries,
+       input_flux.values,
+       output_boundaries
+   )
    
-   print(f"Original groups: {len(flux_709)}")
-   print(f"Converted groups: {len(flux_315)}")
-   print(f"Total flux preserved: {np.sum(flux_709):.3e} vs {np.sum(flux_315):.3e}")
+   # Create and save output flux file
+   output_flux = pp.FluxesFile()
+   output_flux.setGroup(output_group)
+   output_flux.values = output_values
+   pp.to_file(output_flux, 'fluxes709.in')
+   
+   print(f"Converted {len(input_flux.values)} groups to {len(output_values)} groups")
 
-Example 2: Custom Group Structure
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Example 2: Comparing Conversion Methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Compare energy vs lethargy weighting visually:
 
 .. code-block:: python
 
-   import pypact.groupconvert as gc
-   import numpy as np
-
-   # Define custom group structure (thermal to fast)
-   custom_groups = np.logspace(-10, 1, 51)  # 50 groups
-   
-   # Load standard structure
-   groups_709 = gc.load_group_structure('ccfe709.txt')
-   
-   # Convert data to custom structure
-   custom_data = gc.convert_groups(standard_data, 
-                                    groups_709, 
-                                    custom_groups)
-
-Example 3: Analyzing Group Structure
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   import pypact.groupconvert as gc
+   import pypact as pp
    import matplotlib.pyplot as plt
 
-   # Load group structure
-   groups = gc.load_group_structure('ccfe709.txt')
+   # Load input flux
+   input_flux = pp.ArbFluxesFile()
+   pp.from_file(input_flux, 'fluxes66.in')
    
-   # Calculate group widths
-   widths = [groups[i+1] - groups[i] for i in range(len(groups)-1)]
+   # Convert using both methods
+   output_boundaries = list(reversed(pp.ALL_GROUPS[709]))
    
-   # Plot group structure
+   values_energy = pp.groupconvert.by_energy(
+       input_flux.boundaries, input_flux.values, output_boundaries
+   )
+   
+   values_lethargy = pp.groupconvert.by_lethargy(
+       input_flux.boundaries, input_flux.values, output_boundaries
+   )
+   
+   # Plot comparison
    plt.figure(figsize=(10, 6))
-   plt.semilogx(groups[:-1], widths)
-   plt.xlabel('Energy (MeV)')
-   plt.ylabel('Group Width (MeV)')
-   plt.title('CCFE 709 Group Structure')
+   plt.loglog(output_boundaries[:-1], values_energy, 'r-', label='Energy weighting')
+   plt.loglog(output_boundaries[:-1], values_lethargy, 'b-', label='Lethargy weighting')
+   plt.xlabel('Energy (eV)')
+   plt.ylabel('Flux (normalized)')
+   plt.legend()
    plt.grid(True)
    plt.show()
+
+Example 3: Creating Helper Functions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Create reusable conversion functions:
+
+.. code-block:: python
+
+   import pypact as pp
+
+   def convert_flux_to_group(input_flux, target_group, use_lethargy=True):
+       """
+       Convert a flux file to a target group structure.
+       
+       Parameters
+       ----------
+       input_flux : ArbFluxesFile or FluxesFile
+           Input flux with boundaries and values
+       target_group : int
+           Target group structure (e.g., 709, 315, 175)
+       use_lethargy : bool, optional
+           Use lethargy weighting if True, energy if False
+       
+       Returns
+       -------
+       FluxesFile
+           Converted flux file
+       """
+       # Get target boundaries in ascending order
+       output_boundaries = list(reversed(pp.ALL_GROUPS[target_group]))
+       
+       # Choose conversion method
+       convert_func = pp.groupconvert.by_lethargy if use_lethargy else pp.groupconvert.by_energy
+       
+       # Convert
+       output_values = convert_func(
+           input_flux.boundaries,
+           input_flux.values,
+           output_boundaries
+       )
+       
+       # Create output flux file
+       output_flux = pp.FluxesFile()
+       output_flux.setGroup(target_group)
+       output_flux.values = output_values
+       
+       return output_flux
+
+   # Usage
+   input_flux = pp.ArbFluxesFile()
+   pp.from_file(input_flux, 'myflux.in')
+   
+   flux_709 = convert_flux_to_group(input_flux, 709)
+   flux_315 = convert_flux_to_group(input_flux, 315)
 
 Validation and Checks
 ---------------------
@@ -246,137 +278,145 @@ Validation and Checks
 Checking Conservation
 ~~~~~~~~~~~~~~~~~~~~~
 
-After conversion, verify that important quantities are conserved:
+After conversion, verify that flux is conserved:
 
 .. code-block:: python
 
-   import pypact.groupconvert as gc
+   import pypact as pp
    import numpy as np
 
-   # Convert data
-   converted = gc.convert_groups(original, from_groups, to_groups)
+   # Perform conversion
+   output_values = pp.groupconvert.by_lethargy(
+       input_boundaries, input_values, output_boundaries
+   )
    
-   # Check conservation (e.g., total flux)
-   original_total = np.sum(original)
-   converted_total = np.sum(converted)
+   # Check total flux conservation
+   input_total = sum(input_values)
+   output_total = sum(output_values)
    
-   relative_error = abs(converted_total - original_total) / original_total
+   relative_error = abs(output_total - input_total) / input_total
    print(f"Relative error: {relative_error:.2e}")
    
-   if relative_error > 1e-3:
-       print("WARNING: Significant error in conversion!")
+   if relative_error > 1e-6:
+       print("WARNING: Flux not well conserved!")
 
-Boundary Alignment
-~~~~~~~~~~~~~~~~~~
+Understanding Group Boundaries
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Check if group boundaries are aligned:
+Remember that group boundaries are in descending order:
 
 .. code-block:: python
 
-   import pypact.groupconvert as gc
+   import pypact as pp
 
-   def check_alignment(groups1, groups2, tolerance=1e-6):
-       """Check if group structures have aligned boundaries"""
-       aligned = []
-       for b1 in groups1:
-           for b2 in groups2:
-               if abs(b1 - b2) < tolerance:
-                   aligned.append(b1)
-                   break
-       return aligned
-
-   groups_709 = gc.load_group_structure('ccfe709.txt')
-   groups_315 = gc.load_group_structure('ccfe315.txt')
+   # Get group structure
+   groups_709 = pp.ALL_GROUPS[709]
    
-   aligned = check_alignment(groups_709, groups_315)
-   print(f"Number of aligned boundaries: {len(aligned)}")
-
-Advanced Topics
----------------
-
-Energy Binning
-~~~~~~~~~~~~~~
-
-Understanding how energy bins work in multi-group calculations:
-
-.. code-block:: python
-
-   import numpy as np
-
-   # Group boundaries (n+1 values for n groups)
-   boundaries = [0.0, 1.0, 10.0, 100.0]  # 3 groups
+   print(f"Number of boundaries: {len(groups_709)}")
+   print(f"Number of groups: {len(groups_709) - 1}")
+   print(f"Highest energy: {groups_709[0]} eV ({groups_709[0]/1e6:.2f} MeV)")
+   print(f"Lowest energy: {groups_709[-1]} eV ({groups_709[-1]:.2e} eV)")
    
-   # Group values (n values)
-   values = [1.0, 2.0, 3.0]
+   # Verify descending order
+   assert all(groups_709[i] > groups_709[i+1] for i in range(len(groups_709)-1))
+   print("✓ Boundaries in descending order")
+
+Available Group Structures
+--------------------------
+
+Standard Group Structures
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Pypact includes these predefined group structures in ``ALL_GROUPS``:
+
+.. code-block:: python
+
+   import pypact as pp
+
+   # List all available group structures
+   available_groups = list(pp.ALL_GROUPS.keys())
+   print(f"Available group structures: {available_groups}")
    
-   # Each value corresponds to the interval:
-   # values[0] -> [boundaries[0], boundaries[1]]
-   # values[1] -> [boundaries[1], boundaries[2]]
-   # values[2] -> [boundaries[2], boundaries[3]]
+   # Access specific group structures
+   groups_709 = pp.ALL_GROUPS[709]  # CCFE 709 (fusion)
+   groups_315 = pp.ALL_GROUPS[315]  # CCFE 315 (fusion)
+   groups_175 = pp.ALL_GROUPS[175]  # VITAMIN-J 175 (fission)
+   groups_172 = pp.ALL_GROUPS[172]  # VITAMIN-J 172 (fission)
+   groups_69 = pp.ALL_GROUPS[69]    # WIMS 69 (reactor)
+   groups_66 = pp.ALL_GROUPS[66]    # WIMS 66 (reactor)
 
-Lethargy Representation
-~~~~~~~~~~~~~~~~~~~~~~~
+Each group structure list has n+1 boundaries for n groups, representing the energy bounds 
+for each bin.
 
-Sometimes data is represented in lethargy rather than energy:
+Common Applications
+~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: python
-
-   import numpy as np
-
-   def energy_to_lethargy(energy, e_ref=1.0):
-       """Convert energy to lethargy"""
-       return np.log(e_ref / energy)
-
-   def lethargy_to_energy(lethargy, e_ref=1.0):
-       """Convert lethargy to energy"""
-       return e_ref * np.exp(-lethargy)
-
-   # Convert group structure to lethargy
-   energy_groups = [1e-10, 1e-5, 1e0, 1e1]
-   lethargy_groups = [energy_to_lethargy(e) for e in energy_groups]
-
-Flux Weighting
-~~~~~~~~~~~~~~
-
-Proper flux weighting for cross section conversion:
-
-.. code-block:: python
-
-   import numpy as np
-
-   def flux_weighted_average(xs, flux, boundaries):
-       """Calculate flux-weighted average cross section"""
-       total_flux = np.sum(flux)
-       weighted_xs = np.sum(xs * flux) / total_flux
-       return weighted_xs
+- **CCFE 709/315 groups**: Standard for fusion neutronics calculations
+- **VITAMIN-J 175/172 groups**: Common in fission reactor applications
+- **WIMS 69/66 groups**: Used in reactor physics and fuel cycle calculations
 
 Best Practices
 --------------
 
-1. **Always validate conversions**: Check conservation of important quantities
-2. **Document group structures**: Keep clear records of which structures you're using
-3. **Use appropriate interpolation**: Linear for cross sections, logarithmic for energy-dependent quantities
-4. **Consider flux weighting**: When converting cross sections, flux weighting is usually needed
-5. **Check boundary alignment**: Conversions work better when boundaries are aligned
+1. **Use lethargy weighting**: For neutron flux spectra, lethargy weighting (``by_lethargy``) 
+   is generally more appropriate than energy weighting.
+
+2. **Check energy ordering**: Remember that pypact uses descending energy order (highest first). 
+   Reverse with ``list(reversed(boundaries))`` if you need ascending order.
+
+3. **Validate conversions**: Always check that total flux is conserved after conversion.
+
+4. **Group compatibility**: When converting between very different group structures 
+   (e.g., 66 to 709), expect some interpolation artifacts in regions with rapid flux changes.
+
+5. **Document conversions**: Keep clear records of which conversion method (energy vs lethargy) 
+   you used for reproducibility.
 
 Common Pitfalls
 ---------------
 
-1. **Off-by-one errors**: Remember that n groups require n+1 boundaries
-2. **Energy ordering**: Ensure boundaries are in correct order (usually descending in FISPACT)
-3. **Units**: Keep track of energy units (eV, keV, MeV)
-4. **Normalization**: Check if normalization is preserved after conversion
-5. **Interpolation artifacts**: Fine structure may be lost in coarse conversions
+1. **Wrong energy order**: Not reversing boundaries when needed
+2. **Off-by-one errors**: Forgetting that n groups require n+1 boundaries
+3. **Wrong weighting**: Using energy weighting when lethargy is more appropriate
+4. **Units**: Mixing energy units (eV vs MeV) - pypact uses eV
 
-Resources
----------
+Algorithm Details
+-----------------
 
-Standard Group Structures
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+The conversion algorithms work by calculating the overlap between input and output 
+energy bins and distributing the flux proportionally.
 
-- CCFE 709 groups: Standard for fusion neutronics
-- CCFE 315 groups: Reduced structure for faster calculations
-- VITAMIN-J 175 groups: Common in fission applications
-- WIMS 69 groups: Used in reactor physics
+Energy Weighting
+~~~~~~~~~~~~~~~~
 
-For more information on these structures, consult the FISPACT-II documentation.
+For each output bin, the contribution from each overlapping input bin is weighted 
+by the fractional overlap in energy:
+
+.. code-block:: python
+
+   overlap_contribution = (overlap_width / input_bin_width) * input_value
+
+Lethargy Weighting
+~~~~~~~~~~~~~~~~~~
+
+For lethargy weighting, the overlap is weighted by the logarithmic ratio:
+
+.. code-block:: python
+
+   overlap_contribution = (overlap_lethargy / input_bin_lethargy) * input_value
+   # where lethargy = log(E_upper / E_lower)
+
+This better preserves the flux shape for logarithmically-spaced energy bins, 
+which is typical in neutron physics.
+
+References
+----------
+
+For more information on group structures and their applications:
+
+- FISPACT-II Manual: Documentation on supported group structures
+- VITAMIN-J: Cross section library documentation
+- WIMS: Reactor physics code documentation
+
+See also the example at: ``examples/groupconvert/66_to_709_compare.py`` in the pypact repository.
+

@@ -5,6 +5,10 @@ from pypact.library.nuclidelib import get_zai
 
 NUCLIDE_IGNORES = ['\n', '|', '>', '&', '?', '#']
 
+# Constants for parsing nuclide identifiers
+ELEMENT_SYMBOL_LENGTH = 2
+ISOTOPE_NUMBER_LENGTH = 3
+
 
 @freeze_it
 class Nuclide(JSONSerializable):
@@ -30,10 +34,12 @@ class Nuclide(JSONSerializable):
 
     @property
     def name(self):
+        """Returns the nuclide name as a string (e.g., 'Fe56', 'Co60m')."""
         return f"{self.element}{self.isotope}{self.state}" 
 
     @property
     def zai(self):
+        """Returns the ZAI (Z*10000 + A*10 + I) identifier for this nuclide."""
         return get_zai(self.name) 
 
     def fispact_deserialize(self, linedump, column_headers):
@@ -49,11 +55,11 @@ class Nuclide(JSONSerializable):
         # turn the line into a list
         strings = line.split()
 
-        # first 2 characters are the symbol
-        # next 3 characters are the symbol
-        # last character is the symbol
-        symbollength = 2
-        isotopelength = 3
+        # first 2 characters are the element symbol
+        # next 3 characters are the isotope number
+        # last character (if alpha) is the state
+        symbollength = ELEMENT_SYMBOL_LENGTH
+        isotopelength = ISOTOPE_NUMBER_LENGTH
         if len(strings[0]) > symbollength:
             isotope = strings[0][symbollength:]
             strings[0] = strings[0][:symbollength]
@@ -98,6 +104,13 @@ class Nuclide(JSONSerializable):
 
 
 def index_containing_substring(the_list, substring):
+    """
+    Find the index of the first list element containing a substring.
+    
+    :param the_list: List of strings to search
+    :param substring: Substring to find
+    :return: Index of first matching element, or -1 if not found
+    """
     for i, s in enumerate(the_list):
         if substring in s:
             return i

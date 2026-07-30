@@ -1,4 +1,9 @@
-from pypact.util.lines import *
+from pypact.util.lines import (
+    first_occurrence,
+    last_occurrence,
+    join_strings_from_line,
+    first_value_from_line
+)
 
 
 def get(datadump, headertag, starttag, endtag='', findfirst=True, ignores=[], asstring=True):

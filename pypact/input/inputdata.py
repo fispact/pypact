@@ -4,8 +4,16 @@ from pypact.util.decorators import freeze_it
 from pypact.util.exceptions import PypactOutOfRangeException
 from pypact.util.exceptions import PypactInvalidOptionException
 from pypact.util.exceptions import PypactIncompatibleOptionException
+from pypact.util.exceptions import PypactUnphysicalValueException
 from pypact.util.jsonserializable import JSONSerializable
-from pypact.util.loglevels import *
+from pypact.util.loglevels import (
+    LOG_SEVERITY_FATAL,
+    LOG_SEVERITY_ERROR,
+    LOG_SEVERITY_WARNING,
+    LOG_SEVERITY_INFO,
+    LOG_SEVERITY_DEBUG,
+    LOG_SEVERITY_TRACE
+)
 from pypact.library.projectiles import PROJECTILE_NEUTRON, VALID_PROJECTILES
 from pypact.input.keywords import CONTROL_KEYWORDS, INIT_KEYWORDS, INVENTORY_KEYWORDS
 

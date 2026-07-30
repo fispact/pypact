@@ -2,9 +2,21 @@ import os
 
 from pypact.util.decorators import freeze_it
 from pypact.util.jsonserializable import JSONSerializable
-from pypact.util.exceptions import PypactDeserializeException
+from pypact.util.exceptions import PypactDeserializeException, PypactException
 from pypact.util.file import file_exists, dir_exists
-from pypact.library.projectiles import *
+from pypact.library.projectiles import (
+    PROJECTILE_NEUTRON,
+    PROJECTILE_DEUTERON,
+    PROJECTILE_PROTON,
+    PROJECTILE_ALPHA,
+    PROJECTILE_GAMMA,
+    VALID_PROJECTILES,
+    VALID_PROJECTILE_NAMES,
+    VALID_PROJECTILE_SYMBOLS,
+    get_projectile_name,
+    get_projectile_symbol,
+    get_projectile_value
+)
 
 # represents a null entry string
 NULL_ENTRY = "null"

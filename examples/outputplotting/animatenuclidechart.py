@@ -10,7 +10,7 @@ import pypact as pp
 import pypact.analysis as ppa
 
 filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                        '..', '..', 'reference', 'test127.out')
+                        '..', '..', 'reference', 'second_modif.out')
 
 plt = ppa.AnimatedMatrixPlotAdapter()
 
@@ -42,7 +42,7 @@ anim = plt.animatedchart(matricies,
                          minY=minZ,
                          maxY=maxZ,
                          timeinterval=1)
-anim.save('./animation.gif', writer='imagemagick', fps=3)
+anim.save('./animation2.gif', fps=30)
 #plt.matrixplot(matrix)
 
 # show the plots

@@ -43,16 +43,18 @@ def plotproperty(output,
         total = 0.0
         for n in t.nuclides:
             value = getattr(n, property)
-            total += value
+            total += value 
             for i in isotopes:
                 if n.element == i.element and n.isotope == i.isotope and n.state == i.state:
                     i.times.append(t.irradiation_time + t.cooling_time)
                     i.values.append(value)
-
+        
         if fractional and total > 0:
+
             for i in isotopes:
                 for v in i.values:
                     v = v / total
+
 
     # style the plot
     for i in isotopes:
@@ -68,6 +70,7 @@ def plotproperty(output,
                             datalabel=str.format('{0}-{1}{2}', i.element, i.isotope, i.state),
                             xlabel="time [s]",
                             ylabel=yaxislabel,
+                            #logx=False,
                             logx=(timeperiod != TimeZone.IRRAD),
                             logy=True,
                             overlay=True)
@@ -75,6 +78,8 @@ def plotproperty(output,
     if timeperiod == TimeZone.BOTH:
         plotter.custom('axvline', x=output[-1].irradiation_time,
                       color='k', linestyle='--', label='cooling')
-    plotter.addlegend(location='lower right')
+    plotter.addlegend(location='upper right', legendfontsize=6)
+    plotter.tick_params()
+    plotter.grid(True)
 
     return f

@@ -16,12 +16,12 @@ import pypact as pp
 
 # change the filename here
 runname = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", "..", "reference", "Ti.out"
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", "reference", "second_modif.out"
 )
 
-MAX_TIMESTEPS = 200
-TOP_NUCLIDES = 40
-PROP = "activity"
+MAX_TIMESTEPS = 1000000
+TOP_NUCLIDES = 20
+PROP = "inhalation"
 LOG = True
 CMAP = "gnuplot2_r"
 SHOW_STABLE = False

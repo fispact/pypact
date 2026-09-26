@@ -44,8 +44,11 @@ class PlotAdapter(object):
     def grid(self, show=True):
         self.engine.grid(show)
 
-    def addlegend(self, location):
-        self.engine.legend(loc=location)
+    def addlegend(self, location, legendfontsize: int):
+        self.engine.legend(loc=location, prop={'size': legendfontsize})
+
+    def tick_params(self):
+        self.engine.tick_params(axis='both', which='major', direction='out', length=6, width=1.75, colors='0.1', grid_color='0.1', grid_alpha=0.8)
 
     def newcanvas(self, *args, **kwargs):
         self._figure = self.engine.figure(*args, **kwargs)
@@ -57,10 +60,11 @@ class PlotAdapter(object):
 class LinePlotAdapter(PlotAdapter):
     def lineplot(self, x, y, datalabel="", xlabel="", ylabel="",
                  logx=False, logy=False, overlay=True):
-
+ 
         if not overlay:
             self.newcanvas()
 
+        # can add more here
         self.engine.xlabel(xlabel)
         self.engine.ylabel(ylabel)
 
@@ -69,7 +73,8 @@ class LinePlotAdapter(PlotAdapter):
         if logy:
             self.engine.yscale('log')
 
-        self.engine.plot(x, y, label=datalabel)
+        self.engine.plot(x, y, 'o-', label=datalabel, fillstyle='none')
+
 
     def custom(self, attr, *args, **kwargs):
         getattr(self.engine, attr)(*args,**kwargs)

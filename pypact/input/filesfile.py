@@ -20,6 +20,7 @@ NUCLEAR_LIBS = {
             {
                 'ind_nuc' : os.path.join('TENDL2015data', 'tendl15_decay12_index'),
                 'xs_endf' : os.path.join('TENDL2015data', 'tal2015-n', 'gxs-709'),
+                'xs_endfb' : os.path.join('TENDL2015data', 'tal2015-n', 'tendl15-n-709-300.bin'),
                 'prob_tab' : os.path.join('TENDL2015data', 'tal2015-n', 'tp-709-294')
             },
             'TENDL2017':
@@ -28,6 +29,43 @@ NUCLEAR_LIBS = {
                 'xs_endf' : os.path.join('TENDL2017data', 'tal2017-n', 'gxs-709'),
                 'prob_tab' : os.path.join('TENDL2017data', 'tal2017-n', 'tp-709-294')
             },
+            'TENDL2017-709-600K':
+            {
+                'ind_nuc' : os.path.join('TENDL2017data', 'tendl17_decay12_index'),
+                'xs_endf' : os.path.join('TENDL2017data', 'tal2017-n', 'gxs-709-600'),
+                'xs_endfb' : os.path.join('TENDL2017data', 'tal2017-n', 'tendl17-n-709-600.bin'),
+                'prob_tab' : os.path.join('TENDL2017data', 'tal2017-n', 'tp-709-600')
+            },
+            ### use tendl 17 index whis is just decay 12 index (3875 nuclides = current max)
+            'TENDL2019-1102-300K':
+            {
+                'ind_nuc' : os.path.join('TENDL2017data', 'tendl17_decay12_index'),
+                'xs_endf' : os.path.join('TENDL2019data', 'tal2019-n', 'gxs-1102-294'),
+                'xs_endfb' : os.path.join('TENDL2019data', 'tal2019-n', 'tal2019-n-1102-300.bin'),
+                'prob_tab' : os.path.join('TENDL2019data', 'tal2019-n', 'tp-1102-294')
+            },
+            'TENDL2019-1102-600K':
+            {
+                'ind_nuc' : os.path.join('TENDL2017data', 'tendl17_decay12_index'),
+                'xs_endf' : os.path.join('TENDL2019data', 'tal2019-n', 'gxs-1102-600'),
+                'xs_endfb' : os.path.join('TENDL2019data', 'tal2019-n', 'tal2019-n-1102-600.bin'),
+                'prob_tab' : os.path.join('TENDL2019data', 'tal2019-n', 'tp-1102-600')
+            },
+            'TENDL2019-1102-900K':
+            {
+                'ind_nuc' : os.path.join('TENDL2017data', 'tendl17_decay12_index'),
+                'xs_endf' : os.path.join('TENDL2019data', 'tal2019-n', 'gxs-1102-900'),
+                'xs_endfb' : os.path.join('TENDL2019data', 'tal2019-n', 'tal2019-n-1102-900.bin'),
+                'prob_tab' : os.path.join('TENDL2019data', 'tal2019-n', 'tp-1102-900')
+            },
+             'TENDL2021':
+            {
+                'ind_nuc' : os.path.join('TENDL2021data', 'index_file_dd2012'),
+                'xs_endf' : os.path.join('TENDL2021data', 'gendf-1102'),
+                'xs_endfb': os.path.join('TENDL2021data', 'tendl21-n-1102-300.bin'),
+                'prob_tab': os.path.join('TENDL2021data', 'tp-1102-294'),
+                'dk_endf' : os.path.join('decay', 'decay_2012'),
+            },    
             'EAF2010':
             {
                 'ind_nuc' : os.path.join('EAF2010data', 'eaf_index_20100'),
@@ -50,15 +88,19 @@ NUCLEAR_LIBS = {
             {
                 'ind_nuc' : os.path.join('ENDFB71data', 'endfb71_index'),
                 'xs_endf' : os.path.join('ENDFB71data', 'endfb71-n', 'gxs-709'),
+                'xs_endfb' : os.path.join('ENDFB71data', 'endfb71-n', 'endfb71-n-709-300.bin'),
                 'dk_endf' : os.path.join('ENDFB71data', 'decay'),
-                'fy_endf' : os.path.join('ENDFB71data', 'endfb71nfy'),
-                'sf_endf' : os.path.join('ENDFB71data', 'endfb71sfy')
+                'fy_endf' : os.path.join('ENDFB71data', 'endfb71-n', 'endfb71nfy'),
+                'sf_endf' : os.path.join('ENDFB71data', 'endfb71-n', 'endfb71sfy')
             },
             'ENDFB80':
             {
                 'ind_nuc' : os.path.join('ENDFB80data', 'endfb80_index'),
                 'xs_endf' : os.path.join('ENDFB80data', 'endfb80-n', 'gxs-709'),
-                'dk_endf' : os.path.join('ENDFB80data', 'decay')
+                'xs_endfb' : os.path.join('ENDFB80data', 'endfb80-n', 'endfb80-n-709-300.bin'),
+                'dk_endf' : os.path.join('ENDFB80data', 'decay'),
+                'fy_endf' : os.path.join('ENDFB80data', 'endfb80-n', 'endfb80nfy'),
+                'sf_endf' : os.path.join('ENDFB80data', 'endfb80-n', 'endfb80sfy')
             },
             'GEFY42':
             {
@@ -105,16 +147,64 @@ NUCLEAR_LIBS = {
             {
                 'ind_nuc' : os.path.join('JEFF33data', 'jeff33_decay12_index'),
                 'xs_endf' : os.path.join('JEFF33data', 'jeff33-n', 'gxs-709'),
+                'xs_endfb' : os.path.join('JEFF33data', 'jeff33-n', 'jeff33-n-709-300.bin'),
                 'prob_tab' : os.path.join('JEFF33data', 'jeff33-n', 'tp-709-294'),
                 'dk_endf' : os.path.join('JEFF33data', 'decay'),
                 'fy_endf' : os.path.join('JEFF33data', 'jeff33-n', 'jeff33nfy'),
                 'sf_endf' : os.path.join('JEFF33data', 'jeff33-n', 'jeff33sfy')
             },
+            'JEFF4-1102-300K':
+            {
+                'ind_nuc' : os.path.join('JEFF4data', 'jeff40_index'),
+                'xs_endf' : os.path.join('JEFF4data', 'jeff4-n', 'gxs-1102'),
+                'xs_endfb' : os.path.join('JEFF4data', 'jeff4-n', 'jeff4-n-1102-300.bin'),
+                'prob_tab': os.path.join('JEFF4data', 'jeff4-n', 'tp-1102'),
+                'dk_endf' : os.path.join('JEFF4data', 'decay'),
+                'fy_endf' : os.path.join('JEFF4data', 'jeff4-n', 'jeff40nfy'),
+                'sf_endf' : os.path.join('JEFF4data', 'jeff40sfy')
+            },
+            'JEFF4-1102-600K': {
+                'ind_nuc' : os.path.join('JEFF4data', 'jeff40_index'),
+                'xs_endf' : os.path.join('JEFF4data', 'jeff4-n', 'gxs-600'),
+                'xs_endfb': os.path.join('JEFF4data', 'jeff4-n', 'jeff4-n-1102-600.bin'),
+                'prob_tab': os.path.join('JEFF4data', 'jeff4-n', 'tp-1102-600'),
+                'dk_endf' : os.path.join('JEFF4data', 'decay'),
+                'fy_endf' : os.path.join('JEFF4data', 'jeff4-n', 'jeff40nfy'),
+                'sf_endf' : os.path.join('JEFF4data', 'jeff40sfy')
+            },            
+            'JEFF4-1102-900K': {
+                'ind_nuc' : os.path.join('JEFF4data', 'jeff40_index'),
+                'xs_endf' : os.path.join('JEFF4data', 'jeff4-n', 'gxs-900'),
+                'xs_endfb': os.path.join('JEFF4data', 'jeff4-n', 'jeff4-n-1102-900.bin'),
+                'prob_tab': os.path.join('JEFF4data', 'jeff4-n', 'tp-1102-900'),
+                'dk_endf' : os.path.join('JEFF4data', 'decay'),
+                'fy_endf' : os.path.join('JEFF4data', 'jeff4-n', 'jeff40nfy'),
+                'sf_endf' : os.path.join('JEFF4data', 'jeff40sfy')
+            },            
+            'JEFF4-1102-1200K': {
+                'ind_nuc' : os.path.join('JEFF4data', 'jeff40_index'),
+                'xs_endf' : os.path.join('JEFF4data', 'jeff4-n', 'gxs-1200'),
+                'xs_endfb': os.path.join('JEFF4data', 'jeff4-n', 'jeff4-n-1102-1200.bin'),
+                'prob_tab': os.path.join('JEFF4data', 'jeff4-n', 'tp-1102-1200'),
+                'dk_endf' : os.path.join('JEFF4data', 'decay'),
+                'fy_endf' : os.path.join('JEFF4data', 'jeff4-n', 'jeff40nfy'),
+                'sf_endf' : os.path.join('JEFF4data', 'jeff40sfy')
+            },    
             'JENDL4data':
             {
                 'ind_nuc' : os.path.join('JENDL4data', 'jendl4_decay12_index'),
                 'xs_endf' : os.path.join('JENDL4data', 'jendl4-n', 'gxs-709'),
                 'dk_endf' : os.path.join('JENDL4data', 'decay'),
+                'fy_endf' : os.path.join('JENDL4data', 'jendl4-n', 'jendl4nfy'),
+                'sf_endf' : os.path.join('JENDL4data', 'jendl4-n', 'jendl4sfy')
+            },
+             'jendl5data': #jendl5 xs, 2012 dd, jendl4 yields
+            {
+                'ind_nuc' : os.path.join('jendl5data', 'index_file_dd2012'),
+                'xs_endf' : os.path.join('jendl5data', 'gendf-1102'),
+                'xs_endfb': os.path.join('jendl5data', 'jendl5-n-1102-300.bin'),
+                'prob_tab': os.path.join('jendl5data', 'tp-1102-294'),
+                'dk_endf' : os.path.join('decay', 'decay_2012'),
                 'fy_endf' : os.path.join('JENDL4data', 'jendl4-n', 'jendl4nfy'),
                 'sf_endf' : os.path.join('JENDL4data', 'jendl4-n', 'jendl4sfy')
             },
@@ -130,7 +220,7 @@ NUCLEAR_LIBS = {
 
 @freeze_it
 class FilesFile(JSONSerializable):
-    def __init__(self, base_dir=os.sep, group=709, projectile=PROJECTILE_NEUTRON):
+    def __init__(self, base_dir=os.sep, group=1102, projectile=PROJECTILE_NEUTRON):
         self.reset()
 
         self.__base_dir = base_dir
@@ -198,19 +288,38 @@ class FilesFile(JSONSerializable):
 
         return d
 
-    def setXS(self, type):
+    def setFlux(self, fluxfilename):
+        self.fluxes = fluxfilename
+
+    def setCollapxi(self, collapxifilename):
+        self.collapxi = collapxifilename
+
+    def setCollapxo(self, collapxofilename):
+        self.collapxo = collapxofilename
+    
+    def setArrayx(self, arrayxfilename):
+        self.arrayx = arrayxfilename
+    
+    def setXS(self, type, isbinary:bool):
         self._setVar(type, 'ind_nuc')
         if type == 'EAF2010':
             self._setVar(type, 'crossec')
             self._setVar(type, 'crossunc')
         else:
-            self._setVar(type, 'xs_endf')
+            if isbinary:
+                self._setVar(type, 'xs_endfb')
+
+            else:
+                self._setVar(type, 'xs_endf')
 
     def setProbTab(self, type):
         self._setVar(type, 'prob_tab')
 
     def setFissionYield(self, type):
         self._setVar(type, 'fy_endf')
+        
+    def setSpontaneousFission(self, type):
+        self._setVar(type, 'sf_endf') 
 
     def setDecay(self, type):
         key = 'dk_endf'

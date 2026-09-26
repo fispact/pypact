@@ -4,15 +4,15 @@ import os
 import pypact as pp
 
 filename = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", "..", "reference", "test31.out"
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", "reference", "second_modif.out"
 )
 
 # get dominants at third (0-based) timestep
-TIMESTEP = 2
+TIMESTEP = 72
 
 # sort by this property
 # atoms, heat, activity, grams, ingestion, etc...
-PROPERTY = "atoms"
+PROPERTY = "inhalation"
 
 # take top 10 (dominants)
 NDOMINANTS = 10

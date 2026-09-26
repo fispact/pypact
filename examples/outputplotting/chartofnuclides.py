@@ -8,14 +8,14 @@ import pypact as pp
 
 
 FILENAME = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                        '..', '..', 'reference', 'AlVC.json')
+                        '..', '..', 'reference', 'second_modif.json')
 
 PROPERTY = 'atoms'
 MIN_VALUE = 1e4
 MAX_VALUE = 1e24
-Z_RANGE = [0, 30.5]
-A_RANGE = [0, 60.5]
-ELEMENTS_OF_INTEREST = ['V', 'Al', 'C']
+Z_RANGE = [40.5, 60.5]
+A_RANGE = [89.5, 123.5]
+ELEMENTS_OF_INTEREST = ['U', 'Am', 'Cs']
 
 # make the plot
 fig, ax = plt.subplots(figsize=(14, 8))
@@ -73,6 +73,6 @@ with pp.JSONReader(FILENAME) as output:
         return [im, time_text]
 
     anim = animation.FuncAnimation(fig, animate, output, interval=20, blit=False)
-    # anim.save('./chartofnuclidesanimation.gif', writer='imagemagick', fps=10)
+    anim.save('./chartofnuclidesanimation2.gif', writer='imagemagick', fps=10)
 
 plt.show()

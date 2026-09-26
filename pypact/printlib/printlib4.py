@@ -90,8 +90,11 @@ class PrintLib4(JSONSerializable):
 
         for i in range(filerecord.start_index, filerecord.end_index):
             line = filerecord.cachedlines[i].strip('\n')
-            self.cross_sections.append(CollapsedXSData().fispact_deserialize(line[:60]))
-            self.cross_sections.append(CollapsedXSData().fispact_deserialize(line[61:]))
+            # line can be ""
+            if line[:60]:
+                self.cross_sections.append(CollapsedXSData().fispact_deserialize(line[:60]))
+            if line[61:]:
+                self.cross_sections.append(CollapsedXSData().fispact_deserialize(line[61:]))
 
 
 class PrintLib4Reader(Reader):

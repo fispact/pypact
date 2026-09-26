@@ -5,7 +5,7 @@ import pypact as pp
 
 # change the filename here
 runname = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", "..", "reference", "test121.out"
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", "reference", "second_modif.out"
 )
 
 # if you change this you must also

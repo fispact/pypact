@@ -223,7 +223,7 @@ class ColouredChartOfNuclidesPlot():
     Main script 
 """
 FILENAME = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                        '..', '..', 'reference', 'AlVC.json')
+                        '..', '..', 'reference', 'second_modif.json')
 
 PROPERTY = 'activity'
 THRESHOLD = 1e1
@@ -254,7 +254,7 @@ def animate(matrix):
 
 
 anim = animation.FuncAnimation(
-    chart.fig, animate, data_matrices, interval=1, blit=False)
+    chart.fig, animate, data_matrices, interval=20, blit=False)
 
-# anim.save('anim.gif', writer='imagemagick', fps=10)
+anim.save('anim2.gif', fps=20)
 chart.show()

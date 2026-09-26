@@ -44,6 +44,15 @@ class FuelInventory(InventoryType):
             strrep += f"\n{i[0]} {i[1]:.{self._prec}E}"
         return strrep   
 
+@freeze_it
+class SSFFuelInventory(InventoryType):
+    def __str__(self):
+        strrep = f"SSFFUEL {len(self.entries)}"
+        for i in self.entries:
+            strrep += f"\n{i[0]} {i[1]:.{self._prec}E}"
+        return strrep  
+
+
 
 @freeze_it
 class InputData(JSONSerializable):
@@ -76,6 +85,38 @@ class InputData(JSONSerializable):
         self._usefissyield          = False
         self._clearancedata         = False
         self._loglevel              = LOG_SEVERITY_WARNING
+        self._probtable             = False
+        self._SSFgeometry           = False
+        self._SSFchoose             = False
+        self._SSFnuclides           = []
+        self._FYactinides           = []
+        self._FYactinidesoptions    = -2
+        self._SSFfuel               = False
+        self._usefission            = False
+        self._fisyield              = False
+        self._tolerance             = False
+        self._tolerance_pathway     = False
+        self._itol                  = 0  # inventory
+        self._atol                  = 1E4  # default
+        self._rtol                  = 2E-3 # default
+        self._itol2                 = 1  # pathway
+        self._atol2                 = 1E4  # default
+        self._rtol2                 = 2E-3 # default
+        self._tab1                  = False
+        self._uncertainty           = False
+        self._unctype               = False
+        self._lookahead             = False
+        self._nucgraph              = False
+        self._graph                 = False
+        self._geom_type             = 2 # wire as default for SSFGeometry
+        self._len1                  = 0.0 # default length 1 in cm
+        self._printlib4             = False
+        self._fullxs                = False
+        self._sortdominant          = False
+        self._topcount              = 20 # Default are top 20
+        
+        self._depletion_unc         = False
+        self._depletion_nucs        = []
         
         # default is 1.0E-12 barns
         self._xsthreshold           = 1.0e-12
@@ -93,10 +134,15 @@ class InputData(JSONSerializable):
         
         self._inventorymass        = MassInventory(precision=precision)
         self._inventoryfuel        = FuelInventory(precision=precision)
+        self._inventoryssffuel     = SSFFuelInventory(precision=precision)
     
         # irradiation schedule
         # a list of tuples of (time interval in seconds, flux amplitude)
         self._irradschedule = []
+
+        # power schedule
+        # a list of tuples of (time interval in seconds, power amplitude)
+        self._powerschedule = []
         
         # cooling schedule
         # a list of time interval in seconds
@@ -132,7 +178,15 @@ class InputData(JSONSerializable):
             uses keyword JSON
         """
         self._json = enable
-    
+
+    def enableFullXS(self, enable = True):  
+        """  
+            Enables full cross-section output  
+            uses keyword FULLXS  
+        """  
+        self._fullxs = enable
+
+   
     def enableInitialInventoryInOutput(self, output = True):
         """
             Performs the time = 0, inventory step,
@@ -205,6 +259,88 @@ class InputData(JSONSerializable):
     
     def resetIrradiation(self):
         self._irradschedule = []
+
+    def addPower(self, timeInSecs, powerAmp):
+        self._powerschedule.append((timeInSecs, powerAmp))
+    
+    def resetPower(self):
+        self._powerschedule = []
+
+    def includeProbtable(self):
+        self._probtable = True
+
+    def includeSSFgeometry(self, geom_type, len1): # only for wire geometry
+        self._SSFgeometry = True
+        self._geom_type = geom_type
+        self._len1 = len1
+        
+
+    def includeSSFchoose(self, SSFnuclides:[]):
+        """Sets nuclides for self-shielding.
+
+        Arguments
+        -----------
+
+        SSFnuclides: [str]
+             Only valid nuclides are allowed, format 'U238'
+        """
+        self._SSFchoose = True
+        for x in SSFnuclides:
+            self._SSFnuclides.append(x)
+    
+    def includeSSFfuel(self):
+        self._SSFfuel = True
+
+    def includeSortDominant(self, top_count):
+        self._sortdominant = True
+        self._topcount = top_count
+
+    def includeDepletion(self, depletion_nucs:[]):
+        self._depletion_unc = True
+        for x in depletion_nucs:
+            self._depletion_nucs.append(x)
+
+    def includeFisyield(self, option, FYActinides:[]):
+        self._fisyield = True
+        self._FYactinidesoptions = option
+        for x in FYActinides:
+            self._FYactinides.append(x)
+
+    def includeUsefission(self):
+        self._usefission = True
+
+    def includeTolerance(self, itol, atol, rtol):
+        self._tolerance = True
+        self._itol = itol
+        self._atol = atol
+        self._rtol = rtol
+
+    def includeTolerance_pathway(self, itol2, atol2, rtol2):
+        self._tolerance_pathway = True
+        self._itol2 = itol2
+        self._atol2 = atol2
+        self._rtol2 = rtol2
+    
+    def includeTab1(self):
+        self._tab1 = True
+
+    def includeUncertainty(self):
+        self._uncertainty = True
+
+    def includeUnctype(self):
+        self._unctype = True
+
+    def includeLookahead(self):
+        self._lookahead = True
+
+    def includeNucgraph(self):
+        self._nucgraph = True
+
+    def includeGraph(self):
+        self._graph = True
+
+    def includePrintlib4(self):
+        self._printlib4 = True
     
     def addCooling(self, timeInSecs):
         self._coolingschedule.append(timeInSecs)
@@ -262,6 +398,22 @@ class InputData(JSONSerializable):
 
     def clearIsotopes(self):
         self._inventoryfuel.entries = []
+        
+    def addSSFIsotope(self, isotope: str, numberOfAtoms):
+        """
+            Add an SSF isotope
+            SSF isotope: character symbol of element name, e.g. 'Fe' and the mass number of the isotpe e.g '56'
+            numberOfAtoms: the number of atoms present 
+        """
+        if numberOfAtoms < 0:
+            raise PypactUnphysicalValueException("Number of atoms must be positive")
+        #could check for integer value and raise here PypactTypeException
+        
+        self._inventoryssffuel.entries.append((isotope, numberOfAtoms))
+
+    def clearIsotopes(self):
+        self._inventoryssffuel.entries = []
+
 
     def addElement(self, element, percentage = 100.0):
         """
@@ -299,6 +451,10 @@ class InputData(JSONSerializable):
         if self._json:
             addcomment("enable JSON output")
             addkeyword('JSON')
+
+        if self._fullxs:  
+            addcomment("enable full cross-section output")        
+            addkeyword('FULLXS')
                 
         if self._overwrite:
             addcomment("overwrite existing output files of same name")
@@ -331,17 +487,24 @@ class InputData(JSONSerializable):
         addcomment("the minimum cross section (barns) for inclusion in pathways analysis")
         addkeyword('XSTHRESHOLD', args=[self._xsthreshold])
         
-        if not self._ignorecollapse:
+        if self._ignorecollapse:
+            addcomment("collapse ignored, just read the existing file")
+            addkeyword('GETXS', args=[0])
+        else:
             if self._group != 0:
                 addcomment("perform collapse")
                 addkeyword('GETXS', args=[-1 if self._binaryxs and not self._useeaf else 1, self._group])
             else:
-                addcomment("don't do collapse, just read the existing file")
+                addcomment("no group specified, just read the existing file")
                 addkeyword('GETXS', args=[0])
 
-        if not self._ignorecondense:
+
+        if self._ignorecondense or not self._condense:
+            addkeyword('GETDECAY', args=[0])
+        else:
             addcomment("get decay data")
-            addkeyword('GETDECAY', args=[1 if self._condense else 0])
+            addkeyword('GETDECAY', args=[1])
+
     
         if self._loglevel != LOG_SEVERITY_WARNING:
             addcomment("enable logging at level {}".format(self._loglevel))
@@ -358,7 +521,32 @@ class InputData(JSONSerializable):
         if self._projectile != PROJECTILE_NEUTRON:
             addcomment("set projectile (n=1, d=2, p=3, a=4, g=5)")
             addkeyword('PROJ', args=[self._projectile])
+
+        if self._probtable:
+            addcomment("energy self-shielding default")
+            addkeyword('PROBTABLE', args=[0,1])
+
+        if self._SSFgeometry:
+            addcomment("geometry self-shielding (wire as default)")
+            addkeyword('SSFGEOMETRY', args=[self._geom_type, self._len1])
+            #addkeyword('SSFGEOMETRY', args=[1,0.0711]) # foil with thickness     
+            #addkeyword('SSFGEOMETRY', args=[1,0.0711/2]) # foil with thickness/2 
+            #addkeyword('SSFGEOMETRY', args=[1,0.0711*2]) # foil with thickness*2
+            #addkeyword('SSFGEOMETRY', args=[1,0.0711*100]) # foil with thickness*100
+            #addkeyword('SSFGEOMETRY', args=[2,0.0711/10]) # wire with thickness d/10 as radius
+            #addkeyword('SSFGEOMETRY', args=[2,0.0711/2]) # wire with 1/2*thickness d as radius
+            #addkeyword('SSFGEOMETRY', args=[2,0.0711]) # wire with thickness d as radius
+            
+
+        if self._SSFchoose:
+            addcomment("nuclides for energy self-shielding")
+            addkeyword('SSFCHOOSE', args=[len(self._SSFnuclides), 1])
+            addkeyword("\n".join([str(a) for a in self._SSFnuclides]))
         
+        if self._SSFfuel:
+            addcomment("ssf nuclides concentrations from previous run")
+            addkeyword(str(self._inventoryssffuel))
+
         # end control phase
         addcomment("end control")
         addkeyword('FISPACT')
@@ -367,6 +555,18 @@ class InputData(JSONSerializable):
         # initial phase
         addnewline()
         addcomment("INITIALIZATION PHASE")
+
+        if self._depletion_unc:
+            addkeyword('DEPLETION', args=[len(self._depletion_nucs)])
+            addkeyword("\n".join([str(a) for a in self._depletion_nucs]))
+
+        if self._sortdominant:
+            addkeyword('SORTDOMINANT', args=[self._topcount, self._topcount])
+        
+        if self._printlib4:
+            addcomment("print out the collapsed 1-g XS for the spectrum")
+            addkeyword('PRINTLIB', args=[4])
+        
         if self._outputhalflife:
             addcomment("output half life values")
             addkeyword('HALF')
@@ -396,7 +596,51 @@ class InputData(JSONSerializable):
         if self._atomsthreshold > 0.0:
             addcomment("set the threshold for atoms in the inventory")
             addkeyword('MIND', args=[self._atomsthreshold])
+
+        if self._usefission:
+            addcomment("use fission")
+            addkeyword('USEFISSION')
         
+        if self._fisyield:
+            addcomment("isotopes for fission yield")
+            addkeyword('FISYIELD', args=[self._FYactinidesoptions])
+            addkeyword("\n".join([str(a) for a in self._FYactinides]))
+            #addkeyword('FISYIELD', args=[self._FYactinidesoptions, "\n".join([str(a) for a in self._FYactinides])])
+
+        if self._tolerance:
+            addcomment("tolerance settings itol, atol , rtol")
+            addkeyword('TOLERANCE', args=[self._itol, self._atol, self._rtol])
+
+        if self._tolerance_pathway:
+            addcomment("tolerance pathway settings itol, atol , rtol")
+            addkeyword('TOLERANCE', args=[self._itol2, self._atol2, self._rtol2])
+
+        if self._tab1:
+            addcomment('natoms output for next run')
+            addkeyword('TAB1', args=[21])
+
+        if self._uncertainty:
+            addcomment('uncertainty and the info')
+            #addkeyword('UNCERTAINTY', args=[-1, 0.01, 0.01, 5, 2])
+            addkeyword('UNCERTAINTY', args=[-1, 0.01, 0.01, 10, 2]) # default by FP
+            #addkeyword('UNCERTAINTY', args=[-1, 0.0005, 0.001, 50, 2]) # my default setting
+
+        if self._unctype:
+            addcomment('3 --> xs and t12 uncertainties')
+            addkeyword('UNCTYPE', args=[3])
+
+        if self._lookahead:
+            addcomment("Adding late-time nucs to dominant")
+            addkeyword('LOOKAHEAD')         
+        
+        if self._nucgraph:
+            addcomment('No graphs, cutof for dom nuc 10%, inc. uncert., graph types')
+            addkeyword('NUCGRAPH', args=[7, 0.1, 1, 1, 2, 3, 4, 5, 6, 7])
+
+        if self._graph:
+            addcomment('No graphs, output type, include uncert, graph types')
+            addkeyword('GRAPH', args=[7, 2, 1, 1, 2, 3, 4, 5, 6, 7])
+                
         if self._initialinventory:
             addcomment("output the initial inventory")
             addkeyword('ATOMS')
@@ -404,16 +648,53 @@ class InputData(JSONSerializable):
         # inventory phase
         addnewline()
         addcomment("INVENTORY PHASE")
+        # flux plus cooling
         if len(self._irradschedule) > 0:
             addcomment("irradiation schedule")
-            for time, fluxamp in self._irradschedule:
+            for i, (time, fluxamp) in enumerate(self._irradschedule):
+                
+                #The first GETXS 0 is called in the control phase preceding to 'FISPACT' 
+                # if self._ignorecollapse and i > 0:
+                #     addkeyword('GETXS', args=[0])
+
                 addkeyword('FLUX', args=[f"{fluxamp:.{self._prec}E}"])
                 addkeyword('TIME', args=[f"{time:.{self._prec}E}", 'SECS'])
                 addkeyword('ATOMS')
+
             addcomment("end of irradiation")
 
-            addkeyword('FLUX', args=[0.0])
+            addkeyword('FLUX', args=[0.])
             addkeyword('ZERO')
+            for time in self._coolingschedule:
+                
+                # Note sure this is needed for cooling
+                # if self._ignorecollapse:
+                #     addkeyword('GETXS', args=[0])
+                    
+                addkeyword('TIME', args=[f"{time:.{self._prec}E}", 'SECS'])
+                addkeyword('ATOMS')
+            addcomment("end of cooling")
+       
+        # power plus cooling
+        if len(self._powerschedule) > 0:
+            addcomment("power schedule")
+            for time, poweramp in self._powerschedule:
+                addkeyword('POWER', args=[f"{poweramp:.{self._prec}E} 1 301"])
+                addkeyword('TIME', args=[f"{time:.{self._prec}E}", 'SECS'])
+                addkeyword('ATOMS')
+            addcomment("end of power")
+
+            addkeyword('FLUX', args=[0.])
+            addkeyword('ZERO')
+            for time in self._coolingschedule:
+                addkeyword('TIME', args=[f"{time:.{self._prec}E}", 'SECS'])
+                addkeyword('ATOMS')
+            addcomment("end of cooling")
+
+ 
+        # Cooling only run, if any of schedule not 0 they are caught above already
+        if (len(self._irradschedule) == 0 and len(self._powerschedule) == 0):
+            addcomment("cooling schedule only")
             for time in self._coolingschedule:
                 addkeyword('TIME', args=[f"{time:.{self._prec}E}", 'SECS'])
                 addkeyword('ATOMS')

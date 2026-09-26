@@ -9,7 +9,7 @@ import pypact as pp
 
 
 FILENAME = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                        '..', '..', 'reference', 'AlVC.json')
+                        '..', '..', 'reference', 'second_modif.json')
 
 PROPERTY = 'activity'
 MIN_VALUE = 1e1

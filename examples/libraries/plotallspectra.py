@@ -42,6 +42,5 @@ with pp.SpectrumLibJSONReader() as lib:
 
 plt.xlabel("Energy (eV)", fontsize=16)
 plt.ylabel("Normalised units", fontsize=16)
-# plt.legend()
-
+#plt.legend()
 plt.show()

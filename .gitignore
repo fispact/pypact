@@ -27,3 +27,17 @@ docs/_static
 docs/_templates
 
 venv/**
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+*.ipynb
+
+# Generated figures and media in examples
+examples/figures/*.png
+examples/figures/*.gif
+examples/figures/all_spectra
+
+# Reference output files
+reference/*.out

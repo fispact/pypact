@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                             '..', '..', 'reference', 'test31.out')
+                             '..', '..', 'reference', 'second_modif.out')
 
 with pp.Reader(filename) as output:
     count = len(output)
